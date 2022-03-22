@@ -1,0 +1,73 @@
+.Carousel {
+    height: 700px;
+    width: 100%;
+    display: flex;
+    position: relative;
+    user-select: none;
+}
+
+.Sliders {
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+    position: absolute;
+    transition: 0.4s;
+    background-position: center;
+}
+
+.slider__description {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.slider__description1,
+.slider__description3 {
+    left: 10%;
+}
+
+.slider__description2 {
+    right: 5%;
+}
+
+.slider__description--season {
+    font-weight: bolder;
+}
+
+.slider__description--title {
+    font-size: 4rem;
+    font-weight: bolder;
+}
+
+.slider__description--button {
+    padding: 10px 30px;
+    background: black;
+    color: white;
+    font-size: 1rem;
+    font-weight: bolder;
+    display: inline-block;
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+.slider__description--button:hover {
+    background: rgb(66, 65, 65);
+}
+
+.slider-dots {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+}
+
+.dot {
+    cursor: pointer;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgb(131, 129, 129);
+    transition: 0.4s;
+}

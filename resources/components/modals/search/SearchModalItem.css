@@ -1,0 +1,26 @@
+.SearchModalItem {
+    display: flex;
+    gap: 20px;
+}
+
+.SearchModalItem__image {
+    width: 80px;
+    height: 100px;
+    object-fit: cover;
+    object-position: center;
+}
+
+.SearchModalItem__title {
+    font-weight: bolder;
+    transition: color 0.2s;
+    cursor: pointer;
+}
+
+.SearchModalItem__price {
+    font-size: 0.8rem;
+    color: rgb(167, 161, 161);
+}
+
+.SearchModalItem__title:hover {
+    color: aqua;
+}

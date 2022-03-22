@@ -1,0 +1,118 @@
+.Product {
+    width: 100%;
+}
+
+.Product__image--holder {
+    position: relative;
+    overflow: hidden;
+    height: 350px;
+    transition: 0.5s;
+}
+
+.Product__image {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    transition: 0.9s;
+    cursor: pointer;
+    position: absolute;
+}
+
+.subImage {
+    visibility: hidden;
+    opacity: 0;
+}
+
+.Product__image--holder:hover .subImage {
+    visibility: visible;
+    opacity: 1;
+    transform: scale(1.2);
+    filter: brightness(0.7);
+}
+
+.Product__size--holder {
+    position: absolute;
+    left: 50%;
+    bottom: 5%;
+    transform: translateX(-50%);
+    color: white;
+    font-size: 0.8rem;
+    transition: 0.2s;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.Product__image--holder:hover .Product__size--holder {
+    visibility: visible;
+    opacity: 1;
+}
+
+.Product__title {
+    font-weight: bolder;
+}
+
+.Product__price {
+    font-size: 0.8rem;
+}
+
+.Product__colors--holder {
+    display: flex;
+    gap: 5px;
+}
+
+.Product__button--holder {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -100%);
+    visibility: hidden;
+    opacity: 0;
+    transition: 0.2s;
+}
+
+.Product__image--holder:hover .Product__button--holder {
+    transform: translate(-50%, -50%);
+    visibility: visible;
+    opacity: 1;
+}
+
+.Product__button {
+    width: 150px;
+    height: 40px;
+    background: white;
+    border-radius: 9999px;
+    margin-top: 10px;
+    font-size: 0.9rem;
+    position: relative;
+    overflow: hidden;
+    transition: 0.4s;
+    cursor: pointer;
+}
+
+.Product__button--content {
+    transition: 0.2s;
+    text-align: center;
+    transform: translateY(12%);
+}
+
+.Product__button:hover {
+    background-color: black;
+}
+
+.Product__button:hover .Product__button--content {
+    transform: translateY(-57%);
+    color: white;
+}
+
+.Product__button--icon {
+    margin-top: 30px;
+}
+
+/* .Product__color--outer {
+} */
+
+.Product__color {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+}

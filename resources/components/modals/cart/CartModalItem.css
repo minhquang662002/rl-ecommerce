@@ -1,0 +1,51 @@
+.CartModal__items {
+    display: flex;
+    gap: 20px;
+}
+
+.CartModal__item--images {
+    width: 120px;
+    height: 150px;
+    object-fit: cover;
+    object-position: center;
+}
+
+.CartModal__item--type {
+    font-size: 0.8rem;
+    color: rgb(143, 139, 139);
+}
+
+.CartModal__modifier {
+    margin-top: 10px;
+}
+
+.CartModal__quanity {
+    border-radius: 9999px;
+    border: 2px solid black;
+    text-align: center;
+    width: 120px;
+    padding: 5px;
+    margin-top: 10px;
+}
+
+.CartModal__quanity > input {
+    text-align: center;
+}
+
+.CartModal__quanity > span {
+    cursor: pointer;
+}
+
+.CartModal__footer {
+    flex-grow: 1;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input {
+    outline: none;
+}

@@ -1,0 +1,99 @@
+.SearchModal {
+    width: 23%;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    background: white;
+    z-index: 11;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s;
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1),
+        0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+.NavModal__header {
+    display: flex;
+    padding: 20px;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.1rem;
+    font-weight: bolder;
+    border-bottom: 1px solid rgb(163, 159, 159);
+}
+
+.NavModal__close--button {
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.NavModal__close--button:hover {
+    color: red;
+    transform: rotate(360deg);
+}
+
+.SearchModal__body--form {
+    padding: 20px;
+}
+
+.SearchModal__body--suggest {
+    font-weight: bolder;
+    padding: 10px;
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1),
+        0 4px 6px -4px rgb(0 0 0 / 0.1);
+    border-top: 1px rgb(211, 205, 205) solid;
+    border-bottom: 1px rgb(211, 205, 205) solid;
+}
+
+.SearchModal__input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 9999px;
+    border: 1px solid gray;
+    display: block;
+    margin-top: 20px;
+}
+
+.SearchModal__footer {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    gap: 20px;
+    overflow-y: scroll;
+}
+
+.SearchModal__footer--view {
+    padding: 10px 0 0;
+    border-top: 1px solid rgb(211, 205, 205);
+    margin-top: 10px;
+    font-weight: bolder;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.SearchModal__footer--view:hover {
+    color: aqua;
+}
+
+.SearchModal__footer::-webkit-scrollbar {
+    width: 2px;
+}
+
+/* Track */
+
+.SearchModal__footer::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+
+.SearchModal__footer::-webkit-scrollbar-thumb {
+    background: rgb(173, 172, 172);
+}
+
+/* Handle on hover */
+
+.SearchModal__footer::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}

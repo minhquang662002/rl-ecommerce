@@ -1,0 +1,52 @@
+.Navbar {
+    z-index: 10;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    top: 0;
+    background: white;
+    width: 100%;
+}
+
+.navbar__shopBrand {
+    font-size: 1.4rem;
+    font-weight: bolder;
+}
+
+.navbar__categories--container {
+    display: flex;
+    gap: 20px;
+}
+
+.navbar__categories {
+    cursor: pointer;
+    transition: color 0.4s;
+}
+
+.navbar__categories:hover {
+    color: aqua;
+}
+
+.navbar__choices {
+    display: flex;
+    gap: 10px;
+}
+
+.navbar__icons {
+    cursor: pointer;
+    transition: color 0.4s;
+}
+
+.navbar__icons:hover {
+    color: aqua;
+}
+
+@keyframes navIn {
+    from {
+        transform: translateY(-100%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
