@@ -6,6 +6,7 @@ import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { NavContext } from "../context/NavContext";
+import { Link } from "react-router-dom";
 function Navbar() {
     const navRef = useRef();
     let isSticky = useSticky(navRef);
@@ -22,7 +23,9 @@ function Navbar() {
                     : "",
             }}
         >
-            <p className="navbar__shopBrand">UNILIGHT</p>
+            <Link to="/">
+                <p className="navbar__shopBrand">UNILIGHT</p>
+            </Link>
             <div className="navbar__categories--container">
                 <p className="navbar__categories">Shop</p>
                 <p className="navbar__categories">Product</p>
@@ -45,9 +48,11 @@ function Navbar() {
                 >
                     <PersonOutlineOutlinedIcon />
                 </span>
-                <span className="navbar__icons">
-                    <FavoriteBorderOutlinedIcon />
-                </span>
+                <Link to="/favorite">
+                    <span className="navbar__icons">
+                        <FavoriteBorderOutlinedIcon />
+                    </span>
+                </Link>
                 <span
                     className="navbar__icons"
                     onClick={() =>

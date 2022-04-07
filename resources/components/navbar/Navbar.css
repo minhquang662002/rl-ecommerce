@@ -12,6 +12,12 @@
 .navbar__shopBrand {
     font-size: 1.4rem;
     font-weight: bolder;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.navbar__shopBrand:hover {
+    color: rgb(34, 220, 233);
 }
 
 .navbar__categories--container {

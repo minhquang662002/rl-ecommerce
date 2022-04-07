@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-function useCarousel(element, displayedIndex, setDisplay) {
+function useCarousel(element, displayedIndex, setDisplay, length) {
     const [grabbing, setGrabbing] = useState(false);
     let startPos = useRef(null);
     let endPos = useRef(null);
@@ -37,7 +37,7 @@ function useCarousel(element, displayedIndex, setDisplay) {
             mainCarousel.addEventListener("mouseleave", touchEnd);
             if (startPos.current !== null && endPos.current !== null) {
                 if (endPos.current - startPos.current < -100) {
-                    if (displayedIndex < 2) {
+                    if (displayedIndex < length - 1) {
                         setDisplay((state) => state + 1);
                     } else {
                         setDisplay(0);
@@ -47,7 +47,7 @@ function useCarousel(element, displayedIndex, setDisplay) {
                     if (displayedIndex > 0) {
                         setDisplay((state) => state - 1);
                     } else {
-                        setDisplay(2);
+                        setDisplay(length - 1);
                     }
                 }
             }

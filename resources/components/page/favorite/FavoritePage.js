@@ -1,7 +1,4 @@
-import Product from "./Product";
-import "./MainPageSection.css";
-import { useState } from "react";
-const MainPageSection = ({ section }) => {
+const FavoritePage = () => {
     const tempItems = [
         {
             title: "Blush Beanie",
@@ -355,27 +352,7 @@ const MainPageSection = ({ section }) => {
             ],
         },
     ];
-    const [max, setMax] = useState(8);
-    return (
-        <div className="MainPageSection">
-            <p className="MainPageSection__title">{section}</p>
-            <div className="MainPageSection__body">
-                {tempItems?.slice(0, max).map((item, index) => {
-                    return (
-                        <Product key={index} item={item} section={section} />
-                    );
-                })}
-            </div>
-            {max < 16 && (
-                <div
-                    className="MainPageSection__loadmore--button"
-                    onClick={() => setMax((state) => state + 8)}
-                >
-                    Load More
-                </div>
-            )}
-        </div>
-    );
+    return <div className="FavoritePage"></div>;
 };
 
-export default MainPageSection;
+export default FavoritePage;

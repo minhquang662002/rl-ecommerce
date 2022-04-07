@@ -1,0 +1,88 @@
+.CollectionPage__categories {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    background: blue;
+    padding: 10px;
+}
+
+.CollectionPage__banner {
+    height: 150px;
+    background: black;
+}
+
+.CollectionPage__mainContent {
+    max-width: 1150px;
+    margin: 30px auto;
+}
+
+.CollectionPage__mainContent--utils {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.CollectionPage__mainContent--products {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+}
+
+.CollectionPage__filter--trigger {
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+    color: rgb(183, 181, 181);
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.CollectionPage__filter--trigger:hover {
+    color: aqua;
+}
+
+.CollectionPage__filter--table {
+    width: 100%;
+    background: white;
+    transition: 0.4s;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    margin: 30px 0 50px;
+    border-radius: 8px;
+}
+
+.CollectionPage__sort {
+    padding: 10px 20px;
+    border-radius: 9999px;
+    border: 1px solid rgb(197, 194, 194);
+}
+
+.CollectionPage__sort select {
+    color: rgb(197, 194, 194);
+    outline: none;
+    transition: color 0.2s;
+    cursor: pointer;
+}
+
+.CollectionPage__sort:hover select {
+    color: aqua;
+}
+
+.CollectionPage__sort option {
+    color: black;
+}
+
+.COlelctionPage__sort:hover option {
+    color: aqua;
+    background: rgb(10, 202, 202);
+}
+
+.CollectionPage__mainContent--pagination {
+    margin-top: 30px;
+    border-top: 1px solid rgb(178, 175, 175);
+}
+
+.CollectionPage__mainContent--pagination > nav > ul {
+    justify-content: center;
+    margin-top: 20px;
+}

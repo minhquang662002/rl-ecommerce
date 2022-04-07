@@ -1,0 +1,46 @@
+.BannerSection {
+    display: flex;
+    justify-content: space-between;
+    height: 300px;
+    gap: 30px;
+    margin-top: 100px;
+}
+
+.banner__wrapper {
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.banner {
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: 100%;
+
+    text-align: center;
+    transition: transform 0.8s;
+    cursor: pointer;
+}
+
+.banner:hover {
+    transform: scale(1.1);
+}
+
+.banner__content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-weight: bolder;
+}
+
+.title1 {
+    font-size: 1.4rem;
+}
+
+.subtitle2 {
+    font-size: 2.6rem;
+}

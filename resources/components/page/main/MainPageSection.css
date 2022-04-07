@@ -1,6 +1,36 @@
 .MainPageSection {
+    margin-top: 80px;
+}
+
+.MainPageSection__title {
+    text-align: center;
+    font-size: 1.6rem;
+    font-weight: bolder;
+    text-transform: uppercase;
+}
+
+.MainPageSection__body {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 30px;
     margin-top: 50px;
+}
+
+.MainPageSection__loadmore--button {
+    border-radius: 9999px;
+    border: 2px solid black;
+    display: block;
+    margin: 50px auto;
+    font-weight: bolder;
+    width: 180px;
+    padding: 10px 20px;
+    text-align: center;
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+.MainPageSection__loadmore--button:hover {
+    background: aqua;
+    color: white;
+    border-color: aqua;
 }

@@ -1,0 +1,75 @@
+.QuickShopModal {
+    width: 23%;
+    height: 65%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-40%, -50%);
+    background: white;
+    z-index: 12;
+    position: fixed;
+    padding: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    animation: opIn 0.4s forwards;
+    overflow: hidden;
+}
+
+.QuickShopModal__header {
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+}
+
+.QuickShopModal__product {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.QuickShopModal__image {
+    width: 80px;
+    height: 140px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.QuickShopModal__mainInfo {
+    text-align: left;
+}
+
+.QuickShopModal__title {
+    font-size: 0.9rem;
+    font-weight: bolder;
+}
+
+.QuickShopModal__price {
+    color: rgb(182, 176, 176);
+}
+
+.QuickShopModal__color--section,
+.QuickShopModal__size--section {
+    margin-bottom: 20px;
+}
+
+.QuickShopModal__color--section > p,
+.QuickShopModal__size--section > p {
+    font-weight: bolder;
+    font-size: 0.9rem;
+    margin: 10px 0;
+    text-transform: uppercase;
+}
+
+.QuickShopModal__color--section .QuickViewModal__color--holder,
+.QuickShopModal__size--section .QuickViewModal__size--holder {
+    justify-content: center;
+}
+
+.QuickShopModal__footer {
+    margin-top: 20px;
+}
+
+.QuickShopModal__footer .CartModal__buttons {
+    margin: 10px 0;
+}

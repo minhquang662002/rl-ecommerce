@@ -1,0 +1,121 @@
+.QuickViewModal {
+    width: 65%;
+    height: 95%;
+    position: fixed;
+    background: white;
+    z-index: 12;
+    top: 50%;
+    left: 50%;
+    transform: translate(-40%, -50%);
+    display: flex;
+    animation: opIn 0.4s forwards;
+}
+
+.QuickViewModal__image--holder {
+    width: 60%;
+    height: 100%;
+    flex-shrink: 0;
+    position: relative;
+}
+
+.QuickViewModal__image {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    transition: 0.2s;
+}
+
+.QuickViewModal__info--holder {
+    padding: 10px 20px;
+}
+
+.QuickViewModal__title {
+    font-size: 1.2rem;
+}
+
+.QuickViewModal__price {
+    font-size: 1.3rem;
+    color: rgb(163, 159, 159);
+}
+
+.QuickViewModal__description {
+    margin: 20px 0;
+    color: rgb(146, 143, 143);
+}
+
+.QuickViewModal__color--container {
+    font-weight: bolder;
+    text-transform: uppercase;
+}
+
+.QuickViewModal__color--holder {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.QuickViewModal__color--outer {
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 50%;
+    padding: 2px;
+    cursor: pointer;
+}
+
+.QuickViewModal__color {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+}
+
+.QuickViewModal__size--container {
+    font-weight: bolder;
+    margin-top: 20px;
+}
+
+.QuickViewModal__size--container > p {
+    margin-bottom: 10px;
+}
+
+.QuickViewModal__size--holder {
+    display: flex;
+    gap: 10px;
+}
+
+.QuickViewModal__size--button {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1px solid rgb(161, 158, 158);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bolder;
+    font-size: 0.7rem;
+    cursor: pointer;
+}
+
+.QuickViewModal__dot--holder {
+    position: absolute;
+    display: flex;
+    bottom: 10px;
+    left: 50%;
+    gap: 5px;
+    transform: translateX(-50%);
+}
+
+.quickview__dot {
+    background: transparent;
+    border: 1px solid black;
+}
+
+@keyframes opIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+}

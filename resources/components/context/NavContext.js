@@ -8,10 +8,17 @@ const ContextProvider = ({ children }) => {
         login: false,
         register: false,
         cart: false,
+        quickViewData: false,
+        quickShopData: false,
     });
 
     return (
-        <NavContext.Provider value={{ navChoices, setNavChoices }}>
+        <NavContext.Provider
+            value={{
+                navChoices,
+                setNavChoices,
+            }}
+        >
             {children}
         </NavContext.Provider>
     );

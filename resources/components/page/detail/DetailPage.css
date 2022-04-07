@@ -1,0 +1,124 @@
+.DetailPage__location {
+    padding: 20px;
+    background-color: #f6f6f8;
+    font-size: 0.9rem;
+    margin-bottom: 50px;
+}
+
+.DetailPage__location > p {
+    max-width: 1150px;
+    margin: 0 auto;
+}
+
+.DetailPage__product {
+    display: flex;
+    max-width: 1150px;
+    margin: 0 auto;
+    height: 600px;
+    gap: 80px;
+}
+
+.DetailPage__product--showcase {
+    display: flex;
+    gap: 10px;
+}
+
+.DetailPage__imageGallery {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    gap: 10px;
+    overflow: hidden;
+    flex: 1 0 70px;
+    position: relative;
+}
+
+.DetailPage__inner {
+    transition: transform 1s;
+}
+
+.imageGallery__images {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+.imageGallery__images:hover {
+    opacity: 0.8;
+}
+
+.imageGallery__button--container {
+    position: absolute;
+    bottom: 5px;
+    display: flex;
+    gap: 2px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.imageGallery__button {
+    opacity: 0.6;
+    transition: opacity 0.4s;
+    width: 35px;
+    height: 40px;
+    background: rgb(230, 227, 227);
+    cursor: pointer;
+}
+
+.imageGallery__button:hover {
+    opacity: 1;
+}
+
+.DetailPage__image--displayed {
+    width: 100%;
+    object-fit: cover;
+}
+
+.DetailPage__product--info {
+}
+
+.DetailPage__product--title {
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+.DetailPage__product--price {
+    font-size: 1.6rem;
+    color: rgb(141, 137, 137);
+    margin: 10px 0;
+}
+
+.DetailPage__product--description {
+    color: rgb(167, 163, 163);
+}
+
+.modifier {
+    width: 400px;
+    gap: 5px;
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.modifier .CartModal__quanity {
+    flex-shrink: 0;
+}
+
+.DetailPage__favorite--button {
+    height: 40px;
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid black;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.DetailPage__location > p > span:hover {
+    cursor: pointer;
+    color: aqua;
+    transition: color 0.2s;
+}

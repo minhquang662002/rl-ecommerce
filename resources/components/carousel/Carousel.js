@@ -22,7 +22,7 @@ const Carousel = () => {
         },
     ];
 
-    let grabbing = useCarousel(carouselRef, activePage, setActivePage);
+    let grabbing = useCarousel(carouselRef, activePage, setActivePage, 3);
 
     return (
         <div

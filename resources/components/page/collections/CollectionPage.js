@@ -1,7 +1,26 @@
-import Product from "./Product";
-import "./MainPageSection.css";
-import { useState } from "react";
-const MainPageSection = ({ section }) => {
+import "./CollectionPage.css";
+import FilterAltIcon from "@mui/icons-material/FilterAlt";
+import Product from "../main/Product";
+import { useParams } from "react-router";
+import { Pagination } from "@mui/material";
+import { useState, useEffect } from "react";
+const CollectionPage = () => {
+    const [page, setPage] = useState(1);
+    const [displayTable, setDisplayTable] = useState(false);
+    const categories = [
+        "Accessories",
+        "Bottom",
+        "Denim",
+        "Dress",
+        "Jackets",
+        "Jewellry",
+        "Men",
+        "Shoes",
+        "T-Shirt",
+        "Tops",
+        "Women",
+    ];
+
     const tempItems = [
         {
             title: "Blush Beanie",
@@ -355,27 +374,79 @@ const MainPageSection = ({ section }) => {
             ],
         },
     ];
-    const [max, setMax] = useState(8);
+
+    const { section } = useParams();
+
+    const handleChange = (event, value) => {
+        setPage(value);
+    };
+
     return (
-        <div className="MainPageSection">
-            <p className="MainPageSection__title">{section}</p>
-            <div className="MainPageSection__body">
-                {tempItems?.slice(0, max).map((item, index) => {
+        <div className="CollectionPage">
+            <div className="CollectionPage__categories">
+                {categories?.map((item, index) => {
                     return (
-                        <Product key={index} item={item} section={section} />
+                        <span className="CollectionPage__category" key={index}>
+                            {item}
+                        </span>
                     );
                 })}
             </div>
-            {max < 16 && (
-                <div
-                    className="MainPageSection__loadmore--button"
-                    onClick={() => setMax((state) => state + 8)}
-                >
-                    Load More
+            <div className="CollectionPage__banner"></div>
+            <div className="CollectionPage__mainContent">
+                <div className="CollectionPage__mainContent--utils">
+                    <div className="CollectionPage__filter">
+                        <div
+                            className="CollectionPage__filter--trigger"
+                            onClick={() => setDisplayTable((state) => !state)}
+                        >
+                            <FilterAltIcon />
+                            Filter
+                        </div>
+                    </div>
+                    <form className="CollectionPage__sort">
+                        <select>
+                            <option value="">Featured</option>
+                            <option value="">Best selling</option>
+                            <option value="">Alphabetically, A-Z</option>
+                            <option value="">Alphabetically, Z-A</option>
+                            <option value="">Price, low to high</option>
+                            <option value="">Price, high to low</option>
+                            <option value="">Date, old to new</option>
+                            <option value="">Date, new to old</option>
+                        </select>
+                    </form>
                 </div>
-            )}
+                <div
+                    className="CollectionPage__filter--table"
+                    style={{
+                        height: displayTable ? 500 : 0,
+                        border: displayTable
+                            ? "1px solid rgb(222, 219, 219)"
+                            : "",
+                    }}
+                ></div>
+                <div className="CollectionPage__mainContent--products">
+                    {tempItems?.map((item, index) => {
+                        return (
+                            <Product
+                                item={item}
+                                key={index}
+                                section={section}
+                            />
+                        );
+                    })}
+                </div>
+                <div className="CollectionPage__mainContent--pagination">
+                    <Pagination
+                        count={10}
+                        page={page}
+                        onChange={handleChange}
+                    />
+                </div>
+            </div>
         </div>
     );
 };
 
-export default MainPageSection;
+export default CollectionPage;

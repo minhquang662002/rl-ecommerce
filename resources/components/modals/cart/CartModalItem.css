@@ -24,12 +24,20 @@
     border: 2px solid black;
     text-align: center;
     width: 120px;
-    padding: 5px;
+    padding: 8px 20px;
     margin-top: 10px;
+    display: flex;
+    align-items: center;
+    font-weight: bolder;
+}
+
+.CartModal__quanity--decrease {
+    font-size: 0.8rem;
 }
 
 .CartModal__quanity > input {
     text-align: center;
+    width: 100%;
 }
 
 .CartModal__quanity > span {

@@ -9,15 +9,19 @@ const Layout = ({ children }) => {
                 className="Layout"
                 style={{
                     visibility: Object.values(navChoices).some(
-                        (el) => el === true
+                        (el) => el !== false
                     )
                         ? "visible"
                         : "hidden",
-                    opacity: Object.values(navChoices).some((el) => el === true)
+                    opacity: Object.values(navChoices).some(
+                        (el) => el !== false
+                    )
                         ? "1"
                         : "0",
                 }}
-                onClick={() => setNavChoices((state) => !state)}
+                onClick={() => {
+                    setNavChoices((state) => !state);
+                }}
             ></div>
             {children}
         </div>
