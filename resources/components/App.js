@@ -14,6 +14,8 @@ import CollectionPage from "./page/collections/CollectionPage";
 import { useContext } from "react";
 import { NavContext } from "./context/NavContext";
 import useScrollToTop from "../utils/useScrollToTop";
+import VerifyAccountViaEmail from "./Verify/VerifyAccountViaEmail";
+import Loading from "./loading/Loading";
 
 function App() {
     const {
@@ -35,6 +37,8 @@ function App() {
                     element={<CollectionPage />}
                 />
                 <Route path="/account" element={<AcountPage />} />
+                <Route path="/verify/user" element={<VerifyAccountViaEmail />}></Route>
+                <Route path="/loading" element={<Loading />}></Route>
             </Routes>
             <Layout>
                 <SearchModal />

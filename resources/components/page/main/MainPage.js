@@ -3,16 +3,28 @@ import Carousel from "../../carousel/Carousel";
 import MainCategories from "./MainCategories";
 import MainPageSection from "./MainPageSection";
 import BannerSection from "./banners/BannerSection";
-
+import axios from "axios"
+import { useState, useEffect } from "react";
 const MainPage = () => {
+    const [data, setData]= useState(()=> [])
+    const [data2, setData2]= useState(()=> [])
+    useEffect(()=> {
+        (async ()=> {
+            const res1= axios.get("http://localhost:8000/products/")
+            const res2= axios.get("http://localhost:8000/products/bestsellers/")
+            const result= await Promise.all([res1, res2])
+            setData(result[0].data)
+            setData2(result[1].data)
+        })()
+    }, [])
     return (
         <div className="MainPage">
             <Carousel />
             <div className="MainPage__body">
                 <MainCategories />
-                <MainPageSection section={"trending"} />
+                <MainPageSection section={"trending"} data={data} />
                 <BannerSection />
-                <MainPageSection section={"best seller"} />
+                <MainPageSection section={"best seller"} data={data2} />
             </div>
         </div>
     );

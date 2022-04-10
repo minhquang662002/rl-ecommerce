@@ -1,118 +1,105 @@
-import "./DetailPage.css";
-import { useEffect, useContext, useState } from "react";
-import { useParams } from "react-router";
-import { NavContext } from "../../context/NavContext";
-import _ from "lodash";
-import DetailPageRight from "./DetailPageRight";
-import DetaiPageLeft from "./DetaiPageLeft";
-import findCurrentColor from "../../../utils/repeatFuction";
-import { Link } from "react-router-dom";
-
+import "./DetailPage.css"
+import { useEffect, useContext, useState } from "react"
+import { useLocation, useParams } from "react-router"
+import { NavContext } from "../../context/NavContext"
+import _ from "lodash"
+import DetailPageRight from "./DetailPageRight"
+import DetaiPageLeft from "./DetaiPageLeft"
+import findCurrentColor from "../../../utils/repeatFuction"
+import { Link } from "react-router-dom"
+import axios from "axios"
+import CircularProgress from '@mui/material/CircularProgress'
+const fakeSleep = ms => new Promise(r => setTimeout(r, ms)) 
 const DetailPage = () => {
-    const { setNavChoices } = useContext(NavContext);
+    useEffect(()=> {
+        (async()=> {
+            await fakeSleep(1000)
+            const res= await axios.get("http://localhost:8000/item", { params: {id_product: id_product } })
+            const data= await  res.data
+            setTempItem(data[0])
+        })()
+    },[])
+    const [tempItem, setTempItem]= useState(()=> [])
+    const { setNavChoices } = useContext(NavContext)
+    const { id_product, title, price, color, size,decription, categories }= useLocation().state
 
-    const tempItem = {
-        title: "Blush Beanie",
-        price: 15,
-        color: [
-            {
-                type: "gray",
-                images: [
-                    "https://res.cloudinary.com/dt7azkk7b/image/upload/v1632559052/e-commerce/products/p3/acndb3127517966_q3_2-0_900x_wmsger.webp",
-                    "https://res.cloudinary.com/dt7azkk7b/image/upload/v1632559052/e-commerce/products/p3/acndb3127517966_q1_2-0_900x_hkyv6z.webp",
-                ],
-            },
-            {
-                type: "black",
-                images: [
-                    "https://res.cloudinary.com/dt7azkk7b/image/upload/v1632559052/e-commerce/products/p3/ragbo452081071c_q2_2-0_900x_k6ivfb.webp",
-                    "https://res.cloudinary.com/dt7azkk7b/image/upload/v1632559052/e-commerce/products/p3/ragbo452081071c_q1_2-0_900x_irqzhz.webp",
-                ],
-            },
-            {
-                type: "pink",
-                images: [
-                    "https://res.cloudinary.com/dt7azkk7b/image/upload/v1632559052/e-commerce/products/p3/pr1-pink_15a53f8c-d765-48c4-8376-0383ff737716_900x_pfgzw4.webp",
-                    "https://res.cloudinary.com/dt7azkk7b/image/upload/v1632559053/e-commerce/products/p3/pr1-pink-3_900x_tu73b2.webp",
-                    "https://res.cloudinary.com/dt7azkk7b/image/upload/v1632559053/e-commerce/products/p3/pr1-pink-2_900x_ly2kkr.webp",
-                ],
-            },
-        ],
-        description:
-            "Design inspiration lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi commodo, ipsum sed pharetra gravida, orci magna rhoncus neque, id pulvinar odio lorem non turpis. Nullam sit amet enim. Suspendisse...",
-        size: ["S", "M", "L"],
-        categories: [
-            "All",
-            "Best seller",
-            "Bottom",
-            "Dress",
-            "New Arrival",
-            "Women",
-        ],
-    };
+    
 
-    const { section, product } = useParams();
+    const { section, product } = useParams()
 
-    const imageList = tempItem?.color?.map((item) => item.images).flat();
-    const [displayedImage, setDisplayedImage] = useState(0);
-    const [transAmount, setTransAmount] = useState(0);
-    const [currentColor, setCurrentColor] = useState();
+    const imageList = tempItem?.full_images?.split(",").map((item) => item).flat()
+    const [displayedImage, setDisplayedImage] = useState(0)
+    const [transAmount, setTransAmount] = useState(0)
+    const [currentColor, setCurrentColor] = useState()
 
     useEffect(() => {
-        setNavChoices((state) => !state);
-        setCurrentColor(findCurrentColor(displayedImage, tempItem, imageList));
-    }, [displayedImage]);
+        setNavChoices((state) => !state)
+        setCurrentColor(findCurrentColor(displayedImage, tempItem, imageList))
+    }, [displayedImage])
+    if(tempItem.length <1) {
+        return (
 
-    return (
-        <div className="DetailPage">
-            <div className="DetailPage__location">
-                <p>
-                    <Link to="/">
-                        <span>Home</span>
-                    </Link>{" "}
-                    {section && (
-                        <>
-                            &gt;
-                            <Link to={`/collections/${section}`}>
+            <div style={{top: '50%', left: '50%', transform: 'translate(-50%, -50%)', position: 'absolute'}}> <CircularProgress /></div>
+        )
+    }
+    else {
+
+        return (
+            <div className="DetailPage">
+                <div className="DetailPage__location">
+                    <p>
+                        <Link to="/">
+                            <span>Home</span>
+                        </Link>{" "}
+                        {section && (
+                            <>
+                                &gt
+                                <Link to={`/collections/${section}`}>
+                                    <span>
+                                        {" "}
+                                        {_.startCase(
+                                            _.toLower(section.replaceAll("-", " "))
+                                        )}{" "}
+                                    </span>
+                                </Link>
+                            </>
+                        )}
+                        {product && (
+                            <>
+                                &gt
                                 <span>
                                     {" "}
                                     {_.startCase(
-                                        _.toLower(section.replace("-", " "))
+                                        _.toLower(product.replaceAll("-", " "))
                                     )}{" "}
                                 </span>
-                            </Link>
-                        </>
-                    )}
-                    {product && (
-                        <>
-                            &gt;
-                            <span>
-                                {" "}
-                                {_.startCase(
-                                    _.toLower(product.replace("-", " "))
-                                )}{" "}
-                            </span>
-                        </>
-                    )}
-                </p>
+                            </>
+                        )}
+                    </p>
+                </div>
+                <div className="DetailPage__product" style={{position: "relative"}}>
+                    <DetaiPageLeft
+                        imageList={imageList}
+                        transAmount={transAmount}
+                        setTransAmount={setTransAmount}
+                        displayedImage={displayedImage}
+                        setDisplayedImage={setDisplayedImage}
+                    />
+                    <DetailPageRight
+                        title={title}
+                        price={price}
+                        color={color}
+                        decription={decription}
+                        size={size} 
+                        categories={categories}
+                        currentColor={currentColor}
+                        imageList={imageList}
+                        setDisplayedImage={setDisplayedImage}
+                    />
+                </div>
             </div>
-            <div className="DetailPage__product">
-                <DetaiPageLeft
-                    imageList={imageList}
-                    transAmount={transAmount}
-                    setTransAmount={setTransAmount}
-                    displayedImage={displayedImage}
-                    setDisplayedImage={setDisplayedImage}
-                />
-                <DetailPageRight
-                    tempItem={tempItem}
-                    currentColor={currentColor}
-                    imageList={imageList}
-                    setDisplayedImage={setDisplayedImage}
-                />
-            </div>
-        </div>
-    );
-};
+        )
+    }
+}
 
-export default DetailPage;
+export default DetailPage

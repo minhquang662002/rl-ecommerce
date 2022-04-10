@@ -76,8 +76,8 @@
     object-fit: cover;
 }
 
-.DetailPage__product--info {
-}
+/* .DetailPage__product--info {
+} */
 
 .DetailPage__product--title {
     margin: 0;
@@ -121,4 +121,7 @@
     cursor: pointer;
     color: aqua;
     transition: color 0.2s;
+}
+.categories:hover {
+    color: aqua;
 }
