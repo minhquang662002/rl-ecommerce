@@ -1,7 +1,7 @@
-import CloseIcon from "@mui/icons-material/Close";
-import { useState } from "react";
-import { signup } from "../../../action/signup";
-import ValidateError from "./ValidateError";
+import CloseIcon from "@mui/icons-material/Close"
+import { useState } from "react"
+import { signup } from "../../../action/signup"
+import ValidateError from "./ValidateError"
 import  { useNavigate } from "react-router-dom"
 const RegisterModal = ({ navChoices, setNavChoices }) => {
     const navigate= useNavigate()
@@ -37,43 +37,43 @@ const RegisterModal = ({ navChoices, setNavChoices }) => {
                     <label htmlFor="firstname">First name: </label>
                     <input type="text" name="firstname" onChange={(e)=> setInfo(prev=> ({...prev, firstname: e.target.value}))} value={info.firstname} />
                     {
-                        err.includes(2) && <ValidateError err="Firstname can't empty. Try again" />
+                        err?.includes(2) && <ValidateError err="Firstname can't empty. Try again" />
                     }
                     {
-                        err.includes(1) && <ValidateError err="Firstname is invalid. Try again" />
+                        err?.includes(1) && <ValidateError err="Firstname is invalid. Try again" />
                     }
                     <label htmlFor="lastname">Last name: </label>
                     <input type="text" name="lastname"  onChange={(e)=> setInfo(prev=> ({...prev, lastname: e.target.value}))} value={info.lastname} />
                     {
-                        err.includes(4) && <ValidateError err="Lastname can't empty. Try again" />
+                        err?.includes(4) && <ValidateError err="Lastname can't empty. Try again" />
                     }
                     {
-                        err.includes(3) && <ValidateError err="Lastname is invalid. Try again" />
+                        err?.includes(3) && <ValidateError err="Lastname is invalid. Try again" />
                     }
                     <label htmlFor="email">Email: </label>
                     <input type="email" name="email" required  onChange={(e)=> setInfo(prev=> ({...prev, email: e.target.value}))} value={info.email} />
                     {
-                        err.includes(6) && <ValidateError err="Lastname can't empty. Try again" />
+                        err?.includes(6) && <ValidateError err="Lastname can't empty. Try again" />
                     }
                     {
-                        err.includes(5) && <ValidateError err="Lastname is invalid. Try again" />
+                        err?.includes(5) && <ValidateError err="Lastname is invalid. Try again" />
                     }
                     <label htmlFor="password">Password: </label>
                     <input type="password" name="password" required onChange={(e)=> setInfo(prev=> ({...prev, password: e.target.value}))} value={info.password} />
                     {
-                        err.includes(7) && <ValidateError err="Password is invalid. Try again" />
+                        err?.includes(7) && <ValidateError err="Password is invalid. Try again" />
                     }
                     <label htmlFor="confirm__password">
                         Confirm password:{" "}
                     </label>
                     <input type="password" name="confirm__password" required onChange={(e)=> setInfo(prev=> ({...prev, confirmpassword: e.target.value}))} value={info.confirmpassword} />
                     {
-                        err.includes(8) && <ValidateError err="Confirm password has error. Try again" />
+                        err?.includes(8) && <ValidateError err="Confirm password has error. Try again" />
                     }
                     <button
                         className="RegisterModal__form--button"
                         type="submit"
-                        onClick={()=> signup(info, setErr, navigate)}
+                        onClick={()=> signup(info, setErr, navigate, setNavChoices)}
                     >
                         REGISTER
                     </button>
@@ -97,8 +97,8 @@ const RegisterModal = ({ navChoices, setNavChoices }) => {
                 </div>
             </div>
         </div>
-    );
-};
+    )
+}
 
-export default RegisterModal;
+export default RegisterModal
 

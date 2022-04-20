@@ -1,18 +1,26 @@
 import "./Product.css";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import { NavContext } from "../../context/NavContext";
 import { Link } from "react-router-dom";
 import Item from "antd/lib/list/Item";
+import { getallimage } from "../../../action/get_all_image";
+import { MyContext } from "../../../ContextApp/ContextContainer"
+import { useNavigate } from "react-router-dom"
 
 const Product = ({ item, section }) => {
     const { title, price, color, size, imageHover, imageindex, id_product, decription, categories} = item;
     const [displayedType, setdisplayedType] = useState(0);
     const [loading, setLoading] = useState(true);
     const { setNavChoices } = useContext(NavContext);
-
+    const { setListImage, setIdProduct } = useContext(MyContext)
+    const [id_product_up, setIdProductUp]= useState(()=> "")
+    const navigate= useNavigate()
+    useEffect(()=> {
+        setIdProductUp(()=> id_product)
+    },[id_product])
     return (
         <div className="Product">
             <Link
@@ -47,7 +55,7 @@ const Product = ({ item, section }) => {
                                 <div
                                     className="Product__button"
                                     onClick={() =>
-                                        setNavChoices((state) => ({
+                                        {setNavChoices((state) => ({
                                             ...state,
                                             quickViewData: {
                                                 ...item,
@@ -55,7 +63,7 @@ const Product = ({ item, section }) => {
                                                     imageindex,
                                                 type: displayedType,
                                             },
-                                        }))
+                                        }));getallimage(id_product_up, setListImage, setIdProduct)}
                                     }
                                 >
                                     <div className="Product__button--content">
@@ -90,7 +98,7 @@ const Product = ({ item, section }) => {
                             <div className="Product__size--holder">
                                 {size.split(",")}
                             </div>
-                            <div className="Product__favorite--holder">
+                            <div className="Product__favorite--holder" style={{zIndex: 999999}} onClick={()=> navigate("/favorite")}> 
                                 <div className="Product__favorite--button">
                                     <FavoriteBorderOutlinedIcon />
                                 </div>
@@ -124,7 +132,6 @@ const Product = ({ item, section }) => {
                                 onClick={() => {
                                     if (displayedType !== index) {
                                         setdisplayedType(index);
-                                        setLoading(true);
                                     }
                                 }}
                             >

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { verifyAccount } from '../../action/verify_account'
 import { createverifycode } from '../../action/create_verify_code'
+import "./VerifyAccountViaEmail.sass"
+
 const VerifyAccountViaEmail = () => {
   const [verifyCode, setVerifyCode]= useState(()=> "")
   const [state, setState]= useState(()=> NaN)
@@ -24,13 +26,13 @@ const VerifyAccountViaEmail = () => {
               <div style={{color: "red"}}>Verify code is incorrect. Please try again</div>
           }
           <div>
-              <button onClick={()=> verifyAccount(verifyCode, navigate, setState)} style={{borderRadius: 80, padding: '12px 30px'}}>Submit</button>
+              <button className="btn" onClick={()=> verifyAccount(verifyCode, navigate, setState)} style={{borderRadius: 80, padding: '12px 30px', cursor: "pointer"}}>Submit</button>
           </div>
           <div>
             You've not received verify code ?
           </div>
           <div>
-            <button onClick={()=> navigate("/")} style={{borderRadius: 80, padding: '12px 30px', cursor: 'pointer'}}>Send again</button>
+            <button className="btn" onClick={()=> createverifycode()}style={{borderRadius: 80, padding: '12px 30px', cursor: 'pointer'}}>Send again</button>
           </div>
       </div>
     )
@@ -41,7 +43,7 @@ const VerifyAccountViaEmail = () => {
       <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center',top: '50%', left: '50%', transform: 'translate(-50%, -50%)', position: 'absolute', gap: 10}}>
         <div>Page has expired</div>
         <div>
-          <button onClick={()=> createverifycode()} style={{borderRadius: 80, padding: '12px 30px', cursor: 'pointer'}}>Home</button>
+          <button onClick={()=> navigate("/")}  style={{borderRadius: 80, padding: '12px 30px', cursor: 'pointer'}}>Home</button>
         </div>
         
       </div>

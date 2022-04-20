@@ -10,17 +10,26 @@ use Illuminate\Queue\SerializesModels;
 class VerifyUser extends Mailable
 {
     use Queueable, SerializesModels;
-
+    public $name;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($name)
     {
         //
+        $this->name= $name;
     }
-
+    /**
+     * Verify code
+     *
+     * @return void
+     */
+    private function VerifyCode() {
+        $verify= rand(100000, 1000000);
+        return $verify;
+    }    
     /**
      * Build the message.
      *
@@ -28,6 +37,6 @@ class VerifyUser extends Mailable
      */
     public function build()
     {
-        return $this->from('datistpham@gmail.com', 'Example')->view('emails');
+        return $this->view('mail');
     }
 }

@@ -1,6 +1,22 @@
-import CloseIcon from "@mui/icons-material/Close";
+import CloseIcon from "@mui/icons-material/Close"
+import { useContext, useState } from "react"
+import { login } from "../../../action/login"
+import { NavContext } from "../../context/NavContext"
+import { useNavigate } from "react-router-dom"
+import CircularProgress from '@mui/material/CircularProgress'
+
 
 const LoginModal = ({ navChoices, setNavChoices }) => {
+    const [user, setUser]= useState(()=> ({
+        email: "",
+        password: "",
+    }))
+    const navigate= useNavigate()
+    const { setNavChoices2 }= useContext(NavContext)
+    const [log, setLog]= useState(()=> false)
+    const [logged, setLogged]= useState(()=> false)
+    const [loading, setLoading]= useState(()=> false)
+    const [checkUser, setCheckUser]= useState(()=> undefined)
     return (
         <div
             className="LoginModal"
@@ -20,15 +36,20 @@ const LoginModal = ({ navChoices, setNavChoices }) => {
                 </span>
             </div>
             <div className="LoginModal__body">
-                <form className="LoginModal__form">
-                    <label htmlFor="email">Email:</label>
-                    <input type="email" required name="email" />
-                    <label htmlFor="password">Password: </label>
-                    <input type="password" required name="password" />
-                    <button className="LoginModal__form--button" type="submit">
-                        SIGN IN
+                <div className="LoginModal__form">
+                    <span htmlFor="email">Email:</span>
+                    <input type="email" required={true} onChange={(e)=> setUser(prev=> ({...prev, email: e.target.value}))} value={user.email} autoComplete="off" />
+                    <span htmlFor="password">Password: </span>
+                    <input type="password" required={true} onChange={(e)=> setUser(prev=> ({...prev, password: e.target.value}))} value={user.password} autoComplete="off" />
+                    <button className="LoginModal__form--button" type="submit" onClick={()=> login(user, setLog, setNavChoices2, navigate, setLogged, setLoading, setCheckUser)}>
+                        {
+                            loading=== false ? "SIGN IN" : <CircularProgress style={{width: 12, height: 12}} color="secondary" />
+                        }
                     </button>
-                </form>
+                    {
+                        checkUser=== false && <div style={{color: "red", paddingTop: 10}}>Email or password are incorrect.</div>
+                    }
+                </div>
                 <div className="LoginModal__other">
                     <p>
                         New customer?{" "}
@@ -54,7 +75,7 @@ const LoginModal = ({ navChoices, setNavChoices }) => {
                 </div>
             </div>
         </div>
-    );
-};
+    )
+}
 
-export default LoginModal;
+export default LoginModal

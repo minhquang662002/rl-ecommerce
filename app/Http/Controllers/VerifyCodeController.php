@@ -2,29 +2,35 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\VerifyUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\View;
+use Symfony\Component\Console\Input\Input;
 
 class VerifyCodeController extends Controller
 {
     //
-    
+    private function REmail(Request $request) {
+        return $request-> email;
+    }
     private function VerifyCode() {
         $verify= rand(100000, 1000000);
         return $verify;
     }    
     public function SendMail(Request $request) {
-        session()->forget('verifycode');
-        session()->flush(); 
+        // session()->forget('verifycode');
+        // $emailTo= $request->email;
         $verifyCode= $this->VerifyCode();
-        Mail::send('mail', array('name'=> $verifyCode), function($message) {
-            $message->to('giang10a1dz@gmail.com', 'Visitor')->subject('Visitor Feedback');
-            $message->from("datistpham@gmail.com", "Unilight");
-        });
-        Session::flash('flash_message', 'Send message successfully');
-        $request->session()->put('verifycode', $verifyCode);
+        // Mail::send('mail', array('name'=> $verifyCode), function($emailTo= "giang10a1dz@gmail.com", $message) {
+        //     $message->to($emailTo, 'Visitor')->subject('Visitor Feedback');
+        //     $message->from("datistpham@gmail.com", "Unilight");
+        // });
+        // Session::flash('flash_message', 'Send message successfully');
+        // $request->session()->put('verifycode', $verifyCode);
+        $email= $request-> email;   
+        Mail::to("giang10a1dz@gmail.com")->send(new VerifyUser($verifyCode));
         return view("welcome");
     }
     public function AuthenticationEmail(Request $request) {

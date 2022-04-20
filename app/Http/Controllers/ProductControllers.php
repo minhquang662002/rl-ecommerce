@@ -60,6 +60,7 @@ class ProductControllers extends Controller
     public function edit($id)
     {
         //
+        return Products::where("classify", $id)->get();
     }
 
     /**

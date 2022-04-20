@@ -65,5 +65,8 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'signupmiddleware' => \App\Http\Middleware\SignupMiddelware::class,
         'loginmiddleware' => \App\Http\Middleware\LoginMiddleware::class,
+        'checkexistuser' => \App\Http\Middleware\CheckExistUser::class,
+        "checkrequestquery"=> \App\Http\Middleware\CheckRequestQuery::class,
+        "filtermaliciousfile"=> \App\Http\Middleware\FilterFileUpload::class,
     ];
 }

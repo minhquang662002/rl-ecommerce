@@ -13,14 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('user_shops', function (Blueprint $table) {
-            $table->id();
-            $table->uuid('id_user');
-            $table->string("firstname");
-            $table->string("lastname");
-            $table->string("email");
-            $table->string("password");
-            $table->string("secret_key");
+        Schema::create('notifications', function (Blueprint $table) {
+            $table->uuid('id')->primary();
+            $table->string('type');
+            $table->morphs('notifiable');
+            $table->text('data');
+            $table->timestamp('read_at')->nullable();
             $table->timestamps();
         });
     }
@@ -32,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_shops');
+        Schema::dropIfExists('notifications');
     }
 };

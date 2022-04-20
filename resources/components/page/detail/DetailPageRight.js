@@ -3,9 +3,10 @@ import { useState } from "react";
 import { Link } from "react-router-dom"
 
 const DetailPageRight = (props) => {
-    const [size, setSize]= useState(()=> props.size?.[0])
+    const [size, setSize]= useState(()=> props.size?.split(",")[0])
+    const [color, setColor]= useState(()=> props.color?.split(",")[0])
     return (
-        <div className="DetailPage__product--info">
+        <div className={`DetailPage__product--info ${props.className}`}>
             <h2 className="DetailPage__product--title">{props.title}</h2>
             <p className="DetailPage__product--price">
                 ${props.price}
@@ -14,19 +15,20 @@ const DetailPageRight = (props) => {
                 {props.decription}
             </p>
             <div className="QuickViewModal__color--container">
-                <p>COLOR: {props.color[props.currentColor]}</p>
-                <div className="QuickViewModal__color--holder">
+                <p>COLOR: {color || props.color?.split(",")[0]}</p>
+                 <div className={`QuickViewModal__color--holder ${props.className1}`}>
                     {props.color?.split(",").map((item, index) => {
                         return (
                             <div
                                 className="QuickViewModal__color--outer"
                                 key={index}
+                                onClick={()=> setColor(()=> item)}
                                 style={{
                                     borderColor:
-                                        props.currentColor === index
+                                        (color || props.color?.split(",")[0]) === item
                                             ? "black"
                                             : "rgb(196, 189, 189)",
-                                            backgroundColor: item
+                                            backgroundColor: item,
                                 }}
                             >
                                 <div
@@ -39,16 +41,16 @@ const DetailPageRight = (props) => {
                         );
                     })}
                 </div>
-                <div className="QuickViewModal__size--container">
-                    <p>SIZE: {size}</p>
-                    <div className="QuickViewModal__size--holder">
-                        {props.size.split(",").map((item, index) => {
+                <div className={`QuickViewModal__size--container`}>
+                    <p>SIZE: {size || props.size?.split(",")[0]}</p>
+                    <div className={`QuickViewModal__size--holder ${props.className2}`}>
+                        {props.size?.split(",").map((item, index) => {
                             return (
                                 <div
                                     className="QuickViewModal__size--button"
                                     key={index}
                                     onClick={()=> setSize(()=> item)}
-                                    style={{color: item=== size ? "white" : "black", backgroundColor: item=== size ? "black": "white"}}
+                                    style={{color: item=== (size || props.size?.split(",")[0]) ? "white" : "black", backgroundColor: item=== (size || props.size?.split(",")[0])  ? "black": "white"}}
                                 >
                                     {item}
                                 </div>
@@ -82,8 +84,11 @@ const DetailPageRight = (props) => {
                         <FavoriteBorderOutlined />
                     </div>
                 </div>
-                <div style={{display: 'inline-flex'}}>
-                    Categories:	&nbsp; {
+                <div style={{display: 'inline-flex', height: 40, alignItems: 'center'}}>
+                    <div style={{display: 'inherit', alignItems: 'center',justifyContent: 'center'}}>
+                       <span style={{height: 18}}> Categories:	&nbsp;   </span> 
+                    </div>
+                     {
                     props.categories?.split(",").map((item, key)=> (
                         <Link to={`/collection/${item.toLowerCase().trim().replaceAll(" ", '-')}`} key={key} >
                             <div className="categories" style={{fontSize: 16, fontWeight: 400, textTransform: 'lowercase'}}>{item},</div>

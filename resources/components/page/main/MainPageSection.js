@@ -1,16 +1,13 @@
 import Product from "./Product";
 import "./MainPageSection.css";
 import { useState } from "react";
+import LoadingSuspense from "../../loading/LoadingSuspense";
 const MainPageSection = (props) => {
     const [max, setMax] = useState(8);
     if(props.data === undefined || props.data=== []) {
         return (
-            <div>
-                
-            </div>
-            
+            <LoadingSuspense />
         );
-
     }
     else {
         return (

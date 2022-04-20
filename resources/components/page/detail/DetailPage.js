@@ -9,16 +9,39 @@ import findCurrentColor from "../../../utils/repeatFuction"
 import { Link } from "react-router-dom"
 import axios from "axios"
 import CircularProgress from '@mui/material/CircularProgress'
-const fakeSleep = ms => new Promise(r => setTimeout(r, ms)) 
+export const fakeSleep = ms => new Promise(r => setTimeout(r, ms)) 
 const DetailPage = () => {
     useEffect(()=> {
         (async()=> {
             await fakeSleep(1000)
-            const res= await axios.get("http://localhost:8000/item", { params: {id_product: id_product } })
-            const data= await  res.data
+            const res= await axios.get("http://localhost:8000/item", { params: {id_product: id_product  } })
+            const data= await res.data
             setTempItem(data[0])
         })()
+        return setItem2(()=> [])
     },[])
+    useEffect(()=> {
+        (async()=> {
+            const res= await axios({
+                url: 'http://localhost:8000/brief',
+                method: 'POST',
+                timeout: 10000,
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute("content")
+                },
+                xsrfCookieName: 'qwerty',
+                xsrfHeaderName: 'token',
+                withCredentials: false,
+                data: {
+                    id_product: id_product
+                }
+            })
+            const data= await res.data
+            setItem2(data[0])
+        })()
+        return ()=> setItem2(()=> [])
+    }, [])
+    const [item2, setItem2]= useState(()=> [])
     const [tempItem, setTempItem]= useState(()=> [])
     const { setNavChoices } = useContext(NavContext)
     const { id_product, title, price, color, size,decription, categories }= useLocation().state
@@ -36,9 +59,8 @@ const DetailPage = () => {
         setNavChoices((state) => !state)
         setCurrentColor(findCurrentColor(displayedImage, tempItem, imageList))
     }, [displayedImage])
-    if(tempItem.length <1) {
+    if(tempItem?.length <1) {
         return (
-
             <div style={{top: '50%', left: '50%', transform: 'translate(-50%, -50%)', position: 'absolute'}}> <CircularProgress /></div>
         )
     }
@@ -86,14 +108,15 @@ const DetailPage = () => {
                         setDisplayedImage={setDisplayedImage}
                     />
                     <DetailPageRight
-                        title={title}
-                        price={price}
-                        color={color}
-                        decription={decription}
-                        size={size} 
-                        categories={categories}
-                        currentColor={currentColor}
-                        imageList={imageList}
+                        className1="thu"
+                        className2="thu2"
+                        title={title || item2?.title}
+                        price={price || item2?.price}
+                        color={color || item2?.color}
+                        decription={decription || item2?.decription}
+                        size={size || item2?.size} 
+                        categories={categories || item2?.categories}
+                        currentColor={0}
                         setDisplayedImage={setDisplayedImage}
                     />
                 </div>

@@ -34,6 +34,8 @@ const DetaiPageLeft = ({
         zoomRef.current.style.backgroundSize= `${imgRef.current.width * zoomRef.current?.offsetWidth / lensRef.current?.offsetWidth}px ${imgRef.current.height *  zoomRef.current?.offsetHeight / lensRef.current.offsetHeight}px`
     }
     useEffect(()=> {
+        lensRef.current.style.visibility= "hidden"
+        zoomRef.current.style.visibility= "hidden"
         document.addEventListener("mouseover", imageZoom)
         return ()=> document.removeEventListener("mouseover", imageZoom)
     },[])
@@ -87,7 +89,6 @@ const DetaiPageLeft = ({
     }
     const getCursorPos= (e)=> {
         const a= imgRef.current.getBoundingClientRect()
-        console.log(e.pageX, a.left, e.pageY, a.top)
         setC(prev=> ({...prev,px: e.pageX - a.left, py: e.pageY - a.top}))
     }   
     return (
@@ -164,7 +165,7 @@ const DetaiPageLeft = ({
                         />
                     </div>
                     
-                    <div ref={zoomRef} id="my_result" className="img-zoom-result" style={{backgroundImage: `url(${imageList[displayedImage]})`, width: 600, height: 600, position: 'absolute', left: '40%', top: '-100px', backgroundRepeat: "no-repeat"}}></div>
+                    <div ref={zoomRef} id="my_result" className="img-zoom-result" style={{backgroundImage: `url(${imageList[displayedImage]})`, width: 600, height: 600, position: 'absolute', left: '45%', top: '-100px', backgroundRepeat: "no-repeat"}}></div>
                 </div> 
             </div>
             

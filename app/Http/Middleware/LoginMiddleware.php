@@ -16,6 +16,10 @@ class LoginMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
+        if(strlen($request-> email)< 1 && strlen($request-> password)< 1) {
+            return response()->json(["unauthenticate"]);      
+        }
+        
         return $next($request);
     }
 }
