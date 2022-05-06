@@ -12,13 +12,30 @@ use Symfony\Component\Console\Input\Input;
 class VerifyCodeController extends Controller
 {
     //
+    /**
+     * Undocumented function
+     *
+     * @param Request $request
+     * @return void
+     */
     private function REmail(Request $request) {
         return $request-> email;
     }
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
     private function VerifyCode() {
         $verify= rand(100000, 1000000);
         return $verify;
     }    
+    /**
+     * Undocumented function
+     *
+     * @param Request $request
+     * @return void
+     */
     public function SendMail(Request $request) {
         // session()->forget('verifycode');
         // $emailTo= $request->email;
@@ -33,6 +50,12 @@ class VerifyCodeController extends Controller
         Mail::to("giang10a1dz@gmail.com")->send(new VerifyUser($verifyCode));
         return view("welcome");
     }
+    /**
+     * Undocumented function
+     *
+     * @param Request $request
+     * @return void
+     */
     public function AuthenticationEmail(Request $request) {
         if($request->verifyCode == $request->session()->get('verifycode')) {
             return response()->json(['state'=> 1]);

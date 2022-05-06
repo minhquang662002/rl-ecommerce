@@ -1,24 +1,43 @@
 <?php
 
+use App\Http\Controllers\AddFavoriteUser;
+use App\Http\Controllers\AddItemToCartController;
+use App\Http\Controllers\AddressController;
 use App\Http\Controllers\BriefProductController;
 use App\Http\Controllers\CartShoppingController;
+use App\Http\Controllers\ChatsController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\FavoriteItemController;
 use App\Http\Controllers\FilterByCategory;
 use App\Http\Controllers\ImageController;
+use App\Http\Controllers\InfoNotification;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\ListAddressController;
+use App\Http\Controllers\ListMessage;
+use App\Http\Controllers\LoadMoreComment;
+use App\Http\Controllers\LogoutController;
+use App\Http\Controllers\MainController;
+use App\Http\Controllers\MessageConversation;
+use App\Http\Controllers\MessageImageController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\NotificationsController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductControllers;
 use App\Http\Controllers\QuickviewController;
 use App\Http\Controllers\SearchProductController;
 use App\Http\Controllers\SearchResultController;
 use App\Http\Controllers\SearchSuggestController;
+use App\Http\Controllers\SettingController;
+use App\Http\Controllers\TestController;
 use App\Http\Controllers\UploadAvatarController;
 use App\Http\Controllers\UserLogin;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\UserTypingController;
 use App\Http\Controllers\VerifyCodeController;
 use App\Models\Favorite;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Support\Facades\Route;
+use Symfony\Component\Mime\MessageConverter;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,29 +49,48 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
  */
-Route::resource("products", ProductControllers::class);
-Route::get("/item",[ItemController::class, "getItem"]);
-Route::get("/category/products", [FilterByCategory::class, "boot"]);
-Route::post("/favorite/items", [FavoriteItemController::class, "getFavoriteItem"]);
-Route::post("/carts/shopping/item", [CartShoppingController::class, "getItemShopping"]);
-Route::post("/brief", [BriefProductController::class, "getBrief"]);
-Route::post("/signup", [UsersController::class, "signup"])->middleware("checkexistuser")->middleware("signupmiddleware");
-Route::post("/login", [UsersController::class, "login"])->middleware("loginmiddleware");
-Route::post("/verify/user/auth", [VerifyCodeController::class, "SendMail"]);
+/**
+ * 
+ */
 Route::post("/authentication/user/auth", [VerifyCodeController::class, "AuthenticationEmail"]);
-Route::post("/quickview", [QuickviewController::class, "getAllImages"]);
-Route::get("/search/option", [SearchProductController::class, "searchByOption"]);
-Route::get("/search", [SearchSuggestController:: class, "searchSuggest"])->middleware("checkrequestquery");
-Route::get("/search/results", [SearchResultController::class, "searchResult"])->middleware("checkrequestquery");
+Route::get("/address/user", [AddressController::class, "boot"]);
+Route::post("/add/item/favorite", [AddFavoriteUser::class, "boot"]);
+Route::post("/add/item/cart", [AddItemToCartController::class, "boot"]);
+Route::post("/brief", [BriefProductController::class, "getBrief"]);
+Route::post("/comment/send/m", [CommentController::class, "sendComment"]);
+Route::get('/comment/usertyping/t/x', [UserTypingController::class, 'boot']);
+Route::get("/comment/more/x/g/t", [LoadMoreComment::class, "boot"]);
+Route::get("/category/products", [FilterByCategory::class, "boot"]);
+Route::get("/carts/shopping/item/user",[CartShoppingController::class, "getItemShoppingUser"]);
+Route::get("/carts/shopping/item", [CartShoppingController::class, "getItemShopping"])->middleware("cartshoppingnologin");
+Route::post("/chat/message", [ChatsController::class, "sendMessage"]);
+Route::post("/get/path/image/message", [MessageImageController::class, "returnPath"])->middleware("filterimagemessage");
+Route::get("/favorite/items", [FavoriteItemController::class, "getFavoriteItem"])->middleware("favoriteshoppingnologin");
+Route::get("/favorite/items/exist", [FavoriteItemController::class, "GetItemUserLogin"]);
+Route::get("/favorite/items/exist/login", [FavoriteItemController::class], "getFavoriteItemLogin");
+Route::get("/item",[ItemController::class, "getItem"]);
 Route::get("/inspiration/products", [SearchProductController::class, "inspirationProduct"]);
-Route::post("/l",[UserLogin::class, "checkLogin"]);
+Route::post("/login", [UsersController::class, "login"])->middleware("loginmiddleware");
+Route::post("/l",[UserLogin::class, "checkLogin"])->middleware("verifycookie");
+Route::get("/list/address", [ListAddressController::class, "boot"]);
+Route::post("/logout", [LogoutController::class, "boot"]);
+Route::get("/message/conversation", [ListMessage::class, "index"])-> name("list-message");
+Route::get("/message/chat/conversation", [MessageConversation::class, "index"]);
+Route::resource("products", ProductControllers::class);
+Route::get("/p/u/x", [InfoNotification:: class, "boot"]);
+Route::post("/quickview", [QuickviewController::class, "getAllImages"]);
+Route::get("/represent/message/conversation", [MessageConversation::class, "rm"]);
+Route::post("/signup", [UsersController::class, "signup"])->middleware("checkexistuser")->middleware("signupmiddleware");
+Route::get("/search/results", [SearchResultController::class, "searchResult"])->middleware("checkrequestquery");
+Route::get("/search", [SearchSuggestController:: class, "searchSuggest"])->middleware("checkrequestquery");
+Route::get("/send-notification", [NotificationController::class, "sendOfferNotification"]);
+Route::post("/set/address/user", [ListAddressController::class, "setNewAddress"]);
+Route::get("/setting", [SettingController::class, "getSetting"]);
+Route::post("/setting", [SettingController::class, "setSetting"]);
+Route::get("/search/option", [SearchProductController::class, "searchByOption"]);
+Route::get("/test", [TestController:: class, "Test"]);
+Route::post("/checkout", [PaymentController::class, "makePayment"])-> name("make-payment");
 Route::post("/upload/avatar", [ImageController::class, "storeImage"])->middleware("filtermaliciousfile");
-Route::post("/favorite/items/exist", [FavoriteItemController::class, "GetItemUserLogin"]);
-Route::get('/send-notification', [NotificationController::class, "sendOfferNotification"]);
-Route::get("/", function () {
-    return view("welcome");
-});
-
-Route::fallback(function () {
-    return view("welcome");
-});
+Route::post("/verify/user/auth", [VerifyCodeController::class, "SendMail"]);
+Route::get("/", [MainController::class, "index"]);
+Route::fallback([MainController::class, "index"]);

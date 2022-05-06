@@ -3,7 +3,7 @@ import nProgress from "nprogress"
 // import { fakesleep } from "./login"
 
 const upload_avt= async (photo, setOpenPopup, setShowPopup, setAvt_user_s, setMessage)=> {
-    let formData= new FormData()
+    const formData= new FormData()
     formData.append("avatar",photo[0])
     setOpenPopup(prev=> false)
     nProgress.configure({

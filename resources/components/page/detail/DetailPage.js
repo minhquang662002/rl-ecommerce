@@ -9,17 +9,24 @@ import findCurrentColor from "../../../utils/repeatFuction"
 import { Link } from "react-router-dom"
 import axios from "axios"
 import CircularProgress from '@mui/material/CircularProgress'
+import ShopOwn from "./ShopOwn"
+import Comment from "./Comment"
+import Review from "./Review"
+import Recommend from "./Recommend"
+import "./a.sass"
+
 export const fakeSleep = ms => new Promise(r => setTimeout(r, ms)) 
-const DetailPage = () => {
+const DetailPage = (props) => {
+    const location= useLocation()
     useEffect(()=> {
         (async()=> {
-            await fakeSleep(1000)
+            await fakeSleep(750)
             const res= await axios.get("http://localhost:8000/item", { params: {id_product: id_product  } })
             const data= await res.data
             setTempItem(data[0])
         })()
         return setItem2(()=> [])
-    },[])
+    },[location.pathname.split("/")[location.pathname.split("/").length -1 ]])
     useEffect(()=> {
         (async()=> {
             const res= await axios({
@@ -40,32 +47,27 @@ const DetailPage = () => {
             setItem2(data[0])
         })()
         return ()=> setItem2(()=> [])
-    }, [])
+    }, [location.pathname.split("/")[location.pathname.split("/").length -1 ]])
     const [item2, setItem2]= useState(()=> [])
     const [tempItem, setTempItem]= useState(()=> [])
     const { setNavChoices } = useContext(NavContext)
     const { id_product, title, price, color, size,decription, categories }= useLocation().state
-
-    
-
     const { section, product } = useParams()
-
     const imageList = tempItem?.full_images?.split(",").map((item) => item).flat()
     const [displayedImage, setDisplayedImage] = useState(0)
     const [transAmount, setTransAmount] = useState(0)
     const [currentColor, setCurrentColor] = useState()
-
     useEffect(() => {
         setNavChoices((state) => !state)
         setCurrentColor(findCurrentColor(displayedImage, tempItem, imageList))
     }, [displayedImage])
+    
     if(tempItem?.length <1) {
         return (
-            <div style={{top: '50%', left: '50%', transform: 'translate(-50%, -50%)', position: 'absolute'}}> <CircularProgress /></div>
+            <div className="lfg3" style={{top: '50%', left: '50%', transform: 'translate(-50%, -50%)', position: 'absolute'}}> <CircularProgress /></div>
         )
     }
     else {
-
         return (
             <div className="DetailPage">
                 <div className="DetailPage__location">
@@ -118,7 +120,23 @@ const DetailPage = () => {
                         categories={categories || item2?.categories}
                         currentColor={0}
                         setDisplayedImage={setDisplayedImage}
+                        author_shop={item2?.author_shop}
+                        id_product={tempItem?.id_product}
+                        image={imageList?.shift()}
+                        buyer={props.buyer}
                     />
+                </div>
+                <ShopOwn id_shop={item2?.id_shop} author_shop={item2?.author_shop} />
+                <div className="pe2" style={{display: 'flex', width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center', flexDirection: "row"}}>
+                    <div className="sn1" style={{display: 'flex', boxSizing: 'border-box', marginTop: 15, width: 1150, alignItems: "center", justifyContent: 'space-between',  borderRadius: 8, boxShadow: "0 0 3px 0 #dee2e6"}}>
+                        <div className="gf3" style={{display: "flex", justifyContent: "center", alignItems: "center", width: "calc(100% - 200px)"}}>
+                            <Comment {...props} {...tempItem} />       
+                        </div>
+                        <div className="or4" style={{display: "flex", flexDirection: "column", width: 350}}>
+                            <Review {...props} />
+                            <Recommend />
+                        </div>        
+                    </div>
                 </div>
             </div>
         )

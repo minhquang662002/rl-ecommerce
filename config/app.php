@@ -177,7 +177,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         CloudinaryLabs\CloudinaryLaravel\CloudinaryServiceProvider::class,
-
+        Kreait\Laravel\Firebase\ServiceProvider::class,
     ],
 
     /*
@@ -194,6 +194,7 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         // ...
         'Cloudinary' => \CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary::class,
+        'Pusher'=> \Pusher\Pusher::class,
     ])->toArray(),
 
 ];

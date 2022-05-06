@@ -1,17 +1,20 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import axios from "axios"
 import CircularProgress from '@mui/material/CircularProgress'
 import Product from "../../components/page/main/Product"
 import "./Favoutie.sass"
+import { MyContext } from '../../ContextApp/ContextContainer'
 
-const Favourite = () => {
+const Favourite = (props) => {
   const [listFavoriteNoLogin, setListFavoriteNoLogin]= useState(()=> localStorage.getItem("item_favorite"))
+  const { setLengthFavorite }= useContext(MyContext)
   const [data, setData]= useState(()=> [])
+  console.log(props.id_user)
   useEffect(()=> {
     (async ()=> {
       const res= await axios({
         url: 'http://localhost:8000/favorite/items',
-        method: 'POST',
+        method: 'get',
         timeout: 5000,
         timeoutErrorMessage: "Error",
         headers: {
@@ -20,8 +23,9 @@ const Favourite = () => {
         xsrfCookieName: 'qwerty',
         xsrfHeaderName: 'token',
         withCredentials: false,
-        data: {
-          list: listFavoriteNoLogin?.split(","),
+        params: {
+          list: listFavoriteNoLogin?.split(",") || [],
+
         }
       })
       try {
@@ -30,7 +34,7 @@ const Favourite = () => {
           try {
             const res= await axios({
               url: 'http://localhost:8000/favorite/items/exist',
-              method: 'POST',
+              method: 'get',
               timeout: 5000,
               timeoutErrorMessage: "Error",
               headers: {
@@ -39,18 +43,18 @@ const Favourite = () => {
               xsrfCookieName: 'qwerty',
               xsrfHeaderName: 'token',
               withCredentials: false,
-              data: {
-                list: result[0],
+              params: {
+                id_user: props.id_user
               }
             })
             const result2= await res.data
             setData(result2)
+            setLengthFavorite(result2?.length)
           } catch (error) {
             console.log(error)
             setData(error)
           }
           
-
         }
         else {
           return setData(result)
@@ -62,7 +66,7 @@ const Favourite = () => {
       }
       return ()=> setData(()=> [])
     })()
-  },[])
+  },[props.id_user])
   useEffect(()=> {
     setListFavoriteNoLogin(()=> localStorage.getItem("item_favorite"))
   }, [])

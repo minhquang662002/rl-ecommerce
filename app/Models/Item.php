@@ -8,6 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Item extends Model
 {
     use HasFactory;
-
+    /**
+     * Undocumented variable
+     *
+     * @var array
+     */
     protected $hidden= ["id", "created_at", "updated_at"];
 }

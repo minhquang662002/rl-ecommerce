@@ -10,6 +10,7 @@ const ContextProvider = ({ children }) => {
         cart: false,
         quickViewData: false,
         quickShopData: false,
+        setting: false,
     })
     const setNavChoices2= ()=> {
         setNavChoices(prev=> ({...!prev}))

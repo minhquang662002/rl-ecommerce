@@ -7,6 +7,12 @@ use Illuminate\Support\Facades\DB;
 
 class QuickViewController extends Controller
 {
+    /**
+     * Undocumented function
+     *
+     * @param Request $request
+     * @return void
+     */
     public function getAllImages(Request $request) {
         $allImages= DB::table("products")
         ->join("items", "products.id_product", "=", "items.id_product")

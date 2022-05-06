@@ -5,113 +5,26 @@ import LocalOfferIcon from "@mui/icons-material/LocalOffer"
 import { Suspense, useContext, useState, lazy } from "react"
 import { NavContext } from "../../context/NavContext"
 import { useInView } from "react-intersection-observer"
-import Loading from "../../loading/Loading"
+// import Loading from "../../loading/Loading"
 import { MyContext } from "../../../ContextApp/ContextContainer"
-import LoadingSuspense from "../../loading/LoadingSuspense"
+import LoadingSuspense, { LoadingSuspense2 } from "../../loading/LoadingSuspense"
+import { height } from "@mui/system"
 const CartModalContainer = lazy(() => {
 return new Promise(resolve => {
-    setTimeout(() => resolve(import("./CartModalContainer")), 1250);
-});
+        setTimeout(() => resolve(import("./CartModalContainer")), 1250);
+    });
 });
 
 const CartModal = () => {
     const { ref, inView }= useInView({
         threshold: 0,
     })
-    const [data, setData]= useState(()=> [])
     const { dataShoppingCart }= useContext(MyContext)
-
-    const tempItems = [
-        {
-            title: "Blush Beanie",
-            price: 15,
-            color: [
-                {
-                    type: "gray",
-                    images: [
-                        "https://res.cloudinary.com/dt7azkk7b/image/upload/v1632559052/e-commerce/products/p3/acndb3127517966_q3_2-0_900x_wmsger.webp",
-                        "https://res.cloudinary.com/dt7azkk7b/image/upload/v1632559052/e-commerce/products/p3/acndb3127517966_q1_2-0_900x_hkyv6z.webp",
-                    ],
-                },
-                {
-                    type: "black",
-                    images: [
-                        "https://res.cloudinary.com/dt7azkk7b/image/upload/v1632559052/e-commerce/products/p3/ragbo452081071c_q2_2-0_900x_k6ivfb.webp",
-                        "https://res.cloudinary.com/dt7azkk7b/image/upload/v1632559052/e-commerce/products/p3/ragbo452081071c_q1_2-0_900x_irqzhz.webp",
-                    ],
-                },
-                {
-                    type: "pink",
-                    images: [
-                        "https://res.cloudinary.com/dt7azkk7b/image/upload/v1632559052/e-commerce/products/p3/pr1-pink_15a53f8c-d765-48c4-8376-0383ff737716_900x_pfgzw4.webp",
-                        "https://res.cloudinary.com/dt7azkk7b/image/upload/v1632559053/e-commerce/products/p3/pr1-pink-3_900x_tu73b2.webp",
-                        "https://res.cloudinary.com/dt7azkk7b/image/upload/v1632559053/e-commerce/products/p3/pr1-pink-2_900x_ly2kkr.webp",
-                    ],
-                },
-            ],
-            size: ["S", "M", "L"],
-        },
-        {
-            title: "Blush Beanie",
-            price: 15,
-            color: [
-                {
-                    type: "gray",
-                    images: [
-                        "https://res.cloudinary.com/dt7azkk7b/image/upload/v1632559052/e-commerce/products/p3/acndb3127517966_q3_2-0_900x_wmsger.webp",
-                        "https://res.cloudinary.com/dt7azkk7b/image/upload/v1632559052/e-commerce/products/p3/acndb3127517966_q1_2-0_900x_hkyv6z.webp",
-                    ],
-                },
-                {
-                    type: "black",
-                    images: [
-                        "https://res.cloudinary.com/dt7azkk7b/image/upload/v1632559052/e-commerce/products/p3/ragbo452081071c_q2_2-0_900x_k6ivfb.webp",
-                        "https://res.cloudinary.com/dt7azkk7b/image/upload/v1632559052/e-commerce/products/p3/ragbo452081071c_q1_2-0_900x_irqzhz.webp",
-                    ],
-                },
-                {
-                    type: "pink",
-                    images: [
-                        "https://res.cloudinary.com/dt7azkk7b/image/upload/v1632559052/e-commerce/products/p3/pr1-pink_15a53f8c-d765-48c4-8376-0383ff737716_900x_pfgzw4.webp",
-                        "https://res.cloudinary.com/dt7azkk7b/image/upload/v1632559053/e-commerce/products/p3/pr1-pink-3_900x_tu73b2.webp",
-                        "https://res.cloudinary.com/dt7azkk7b/image/upload/v1632559053/e-commerce/products/p3/pr1-pink-2_900x_ly2kkr.webp",
-                    ],
-                },
-            ],
-            size: ["S", "M", "L"],
-        },
-        {
-            title: "Blush Beanie",
-            price: 15,
-            color: [
-                {
-                    type: "gray",
-                    images: [
-                        "https://res.cloudinary.com/dt7azkk7b/image/upload/v1632559052/e-commerce/products/p3/acndb3127517966_q3_2-0_900x_wmsger.webp",
-                        "https://res.cloudinary.com/dt7azkk7b/image/upload/v1632559052/e-commerce/products/p3/acndb3127517966_q1_2-0_900x_hkyv6z.webp",
-                    ],
-                },
-                {
-                    type: "black",
-                    images: [
-                        "https://res.cloudinary.com/dt7azkk7b/image/upload/v1632559052/e-commerce/products/p3/ragbo452081071c_q2_2-0_900x_k6ivfb.webp",
-                        "https://res.cloudinary.com/dt7azkk7b/image/upload/v1632559052/e-commerce/products/p3/ragbo452081071c_q1_2-0_900x_irqzhz.webp",
-                    ],
-                },
-                {
-                    type: "pink",
-                    images: [
-                        "https://res.cloudinary.com/dt7azkk7b/image/upload/v1632559052/e-commerce/products/p3/pr1-pink_15a53f8c-d765-48c4-8376-0383ff737716_900x_pfgzw4.webp",
-                        "https://res.cloudinary.com/dt7azkk7b/image/upload/v1632559053/e-commerce/products/p3/pr1-pink-3_900x_tu73b2.webp",
-                        "https://res.cloudinary.com/dt7azkk7b/image/upload/v1632559053/e-commerce/products/p3/pr1-pink-2_900x_ly2kkr.webp",
-                    ],
-                },
-            ],
-            size: ["S", "M", "L"],
-        },
-    ]
     const { setNavChoices, navChoices } = useContext(NavContext)
-
+    const [loading, setLoading]= useState(()=> ({
+        loading1: false,
+        loading2: false
+    }))
     return (
         <div
             className="CartModal"
@@ -135,10 +48,13 @@ const CartModal = () => {
                             <CloseIcon />
                         </span>
                     </div>
-                    <div className="CartModal__body">
-                        {dataShoppingCart?.map((item, key) => {
+                    <div className="CartModal__body" style={{height: dataShoppingCart?.length=== 0 ? 200 : "auto"}}>
+                        {dataShoppingCart.length> 0 && dataShoppingCart?.map((item, key) => {
                             return <CartModalItem item={item} key={key} />
                         })}
+                        {
+                            dataShoppingCart.length===0 && <LoadingSuspense2 />
+                        }
                     </div>
                     <div className="CartModal__footer">
                         <div className="CartModal__footer--sale">

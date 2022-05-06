@@ -165,7 +165,7 @@ const DetaiPageLeft = ({
                         />
                     </div>
                     
-                    <div ref={zoomRef} id="my_result" className="img-zoom-result" style={{backgroundImage: `url(${imageList[displayedImage]})`, width: 600, height: 600, position: 'absolute', left: '45%', top: '-100px', backgroundRepeat: "no-repeat"}}></div>
+                    <div ref={zoomRef} id="my_result" className="img-zoom-result" style={{backgroundImage: `url(${imageList[displayedImage]})`, width: 600, height: 600, position: 'absolute', left: '45%', top: '-100px', backgroundRepeat: "no-repeat", zIndex: 99}}></div>
                 </div> 
             </div>
             

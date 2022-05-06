@@ -27,6 +27,11 @@ class NotificationController extends Controller
     public function index() {
         return view("welcome");
     }
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
     public function sendOfferNotification() {
         $user_schema= UserShop::find(1);
         Log::emergency($user_schema[0]);

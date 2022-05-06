@@ -18,4 +18,5 @@ class Products extends Model
     protected $table= 'products';
     protected $primaryKey= 'id';
     protected $hidden= ["created_at", "updated_at", "id"];
+    public $timestamp= false;
 }

@@ -41,7 +41,8 @@ const login= async (user, setLog, setNavChoices2, navigate, setLogged, setLoadin
             setLoading(()=> false)
             setNavChoices2()
             setCheckUser(()=> true)
-            location.href("/")
+            location.reload()
+            return      
         }
         else {
             setLogged(()=> false)
@@ -49,6 +50,7 @@ const login= async (user, setLog, setNavChoices2, navigate, setLogged, setLoadin
             await fakesleep(1000)
             setLoading(()=> false)
             setCheckUser(()=> false)
+            return
         }
     })
     .catch(err=> {

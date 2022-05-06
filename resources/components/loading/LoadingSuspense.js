@@ -7,4 +7,11 @@ const LoadingSuspense = () => {
   )
 }
 
+const LoadingSuspense2= () => {
+  return (
+    <div style={{top: '50%', left: '50%', transform: 'translate(-50%, -50%)', position: 'relative', display: 'flex', justifyContent: 'center',alignItems: 'center', height: 150}}> <CircularProgress /></div>
+  )
+}
+
 export default LoadingSuspense
+export { LoadingSuspense2 }

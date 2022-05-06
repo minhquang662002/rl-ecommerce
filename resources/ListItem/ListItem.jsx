@@ -24,6 +24,7 @@ const ListItem = () => {
   }
   useEffect(()=> {
       setPage(parseInt(query.get("current_page")) || 1)
+      return ()=> setPage("")
   }, [query])
   useEffect(()=> {
       (async()=> {
@@ -66,15 +67,25 @@ const ListItem = () => {
         setData(result?.list)
         setTotal(result?.total)
       })()
-  }, [query.get("current_page"), page])
+      return ()=> {
+        setData(()=> [])
+        setTotal(()=> "")
+      }
+  }, [query.get("current_page"), page, location.key])
   if(data?.length < 1 && outofData=== false) {
       return (
-          <LoadingSuspense />
+        <div className="loading-pagination" style={{width: '100%', height: '100%', display: "flex", justifyContent: 'center',alignItems: 'center', alignContent: "center"}}>
+            <div className="mp-53" style={{ display: "grid", flexDirection: "row", flexWrap: "wrap" ,justifyContent: "center", alignItems: "center", gridTemplateColumns: "repeat(4, 1fr)", gap: 30, marginTop: 50, width: 1150}}>
+            {
+                Array.from(Array(8).keys()).map((item, key)=> <SkeletonLoading key={key} />)
+            }
+            </div>  
+        </div>
       )
   }
   else if(outofData=== true) {
     return (
-        <NotFound404 />
+        <NotFound404 message="Data is not exist or this link may be broken. " />
     )
 }
   else if(loading=== true) {
@@ -101,7 +112,7 @@ const ListItem = () => {
                 </div>
             </div>
             <div style={{width: '100%', height: '100%', display: 'flex', justifyContent: 'center',alignItems: 'center', padding: "30px 0 30px 0", margin: "20px 0 20px 0"}}>
-                <Pagination count={Math.ceil(total / 8)} color="primary" page={page} onChange={handleChange} />
+                <Pagination className="dai1" count={Math.ceil(total / 8)} color="primary" page={page} onChange={handleChange} />
             </div>
         </Fragment>
       )

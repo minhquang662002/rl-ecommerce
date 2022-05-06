@@ -1,4 +1,5 @@
 import "./BannerSection.css";
+import { Link } from "react-router-dom"
 
 const BannerSection = () => {
     const temp = [
@@ -13,22 +14,26 @@ const BannerSection = () => {
             subtitle: "UP TO 70%",
         },
     ];
-
     return (
         <div className="BannerSection">
             {temp.map((item, index) => (
                 <div className="banner__wrapper" key={index}>
-                    <div
-                        className="banner"
-                        key={index}
-                        style={{ backgroundImage: `url(${item?.image})` }}
-                    ></div>
-                    <div className="banner__content">
-                        <p className={`title${index + 1}`}>{item.title}</p>
-                        <p className={`subtitle${index + 1}`}>
-                            {item?.subtitle}
-                        </p>
-                    </div>
+                    <Link to={{pathname: `/category/products/${"trending"}`, search: `current_page=${1}`}}>
+                        <div
+                            className="banner"
+                            key={index}
+                            style={{ backgroundImage: `url(${item?.image})` }}
+                        >
+                        </div>
+                    </Link>
+                    <Link to={{pathname: `/category/products/${"trending"}`, search: `current_page=${1}`}}>
+                        <div className="banner__content">
+                            <p className={`title${index + 1}`}>{item.title}</p>
+                            <p className={`subtitle${index + 1}`}>
+                                {item?.subtitle}
+                            </p>
+                        </div>
+                    </Link>
                 </div>
             ))}
         </div>
