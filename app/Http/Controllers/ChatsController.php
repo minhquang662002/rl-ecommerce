@@ -33,4 +33,25 @@ class ChatsController extends Controller
         ]);
         return ['status'=> 'Message Sent!'];
     }
+    public function cM(Request $request) {
+        Message::insert([
+        [
+            "id_conversation"=> $request-> id_conversation,
+            "user_id"=> $request-> i_s,
+            "message"=> "Get started",
+            "type_message"=> "start",
+            "timeup"=> $request-> timeup,
+            "timedl"=> $request-> timedl
+        ],
+        [
+            "id_conversation" => $request-> id_conversation,
+            "user_id"=> $request-> i_r,
+            "message"=> "Get started",
+            "type_message"=> "start",
+            "timeup" => $request-> timeup,
+            "timedl"=> $request-> timedl   
+        ]
+    ]);
+    return response($request-> id_conversation);        
+    }
 }

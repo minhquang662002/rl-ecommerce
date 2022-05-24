@@ -6,3 +6,8 @@ export default function useQuery() {
 
     return useMemo(()=> new URLSearchParams(search), [search])
 }
+export function useq2() {
+    const { search }= useLocation()
+
+    return useMemo(()=> new URLSearchParams(search), [search])
+}

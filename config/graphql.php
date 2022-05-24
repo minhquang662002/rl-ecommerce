@@ -77,7 +77,7 @@ return [
                 App\GraphQL\Queries\UsersQuery::class,
                 App\GraphQL\Queries\ShopOfUserQuery::class,
                 App\GraphQL\Queries\CommentQuery::class,
-                App\GraphQL\Queries\CommentQuery::class
+                App\GraphQL\Queries\ReviewproductQuery::class
             ],
             'mutation' => [
                 // ExampleMutation::class,

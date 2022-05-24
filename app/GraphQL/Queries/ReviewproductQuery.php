@@ -46,6 +46,6 @@ class ReviewproductQuery extends Query
         $select = $fields->getSelect();
         $with = $fields->getRelations();
 
-        return ReviewProduct::where("id_product", $args['id_product'])-> limit(5)-> offSet(($args['page'] - 1)* 5 )-> get();
+        return ReviewProduct::where("id_product", $args['id_product'])->orderBy("timem", "DESC")-> limit(1)-> offSet(($args['page'] - 1)* 1 )-> get();
     }
 }

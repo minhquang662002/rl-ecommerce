@@ -37,7 +37,6 @@ export const loadmoremessage= async(id_conversation, offset, setOffset, setDatam
     })
     const result= await res.data
     setOffset((prev)=> parseInt(prev) +1 )
-    setDatamore(_.orderBy(result, ['timeup'], ['asc']))
     const al= _.orderBy(result, ['timeup'], ['asc'])
     if(al?.length <=0) {
         setOutofdata(()=> true)

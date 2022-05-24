@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ShopOfUser;
 use App\Models\UserShop;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class UserLogin extends Controller
@@ -24,9 +26,8 @@ class UserLogin extends Controller
             return response()->json(["login"=> "false"]);
         }
         // Log::emergency($token_key[0]["token_key"]);
-        Log::emergency($u_id);
         if(substr(substr(explode(":",$token_key)[1], 0, -2), 1, -1) == $u_id) {
-            return response()->json(["login"=> "true", UserShop::where("id_user", $s_id)->select("avt_user", "firstname", "lastname", "email", "id_user")->get()]);
+            return response()->json(["login"=> "true", UserShop::where("id_user", $s_id)->select("avt_user", "firstname", "lastname", "email", "id_user")->get(), DB::table("shop_of_users")-> where("id_user", $s_id)-> select("id_shop")-> get()]);
         }           
         else {
             return response()-> json(["login"=> "false"]);

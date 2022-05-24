@@ -75,13 +75,21 @@ class ReviewproductType extends GraphQLType
                     return strtolower($root-> user_name);
                 }
             ],
-            'timem'=> [
-                'type'=> Type::nonNull(Type::string()),
-                'description'=> 'id of review',
+            'rating'=> [
+                'type'=> Type::nonNull(Type::float()),
+                'description'=> 'rating product',
                 'resolve'=> function($root, array $args) {
-                    return strtolower($root-> timem);
+                    return $root-> rating;
+                }
+            ],
+            'star'=> [
+                'type'=> Type::nonNull(Type::int()),
+                'description'=> 'star product',
+                'resolve'=> function($root, array $args) {
+                    return $root-> star;
                 }
             ]
+            
         ];
     }
 }

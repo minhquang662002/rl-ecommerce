@@ -1,12 +1,12 @@
 import React, { Fragment, useEffect, useState } from "react"
 import axios from "axios"
 import { useLocation , useNavigate } from "react-router-dom"
-import LoadingSuspense from "../components/loading/LoadingSuspense"
 import Product from "../components/page/main/Product"
 import useQuery from "./HookQuerySearch"
 import Pagination from '@mui/material/Pagination'
 import SkeletonLoading from "./Skeleton"
 import NotFound404 from "../NotFound/NotFound404"
+import { Helmet } from 'react-helmet-async';
 
 export const fakesleep= (ms)=> new Promise(res=> setTimeout(res, ms))
 const ListItem = () => {
@@ -75,6 +75,9 @@ const ListItem = () => {
   if(data?.length < 1 && outofData=== false) {
       return (
         <div className="loading-pagination" style={{width: '100%', height: '100%', display: "flex", justifyContent: 'center',alignItems: 'center', alignContent: "center"}}>
+            <Helmet>
+                <title>Loading...</title>
+            </Helmet>
             <div className="mp-53" style={{ display: "grid", flexDirection: "row", flexWrap: "wrap" ,justifyContent: "center", alignItems: "center", gridTemplateColumns: "repeat(4, 1fr)", gap: 30, marginTop: 50, width: 1150}}>
             {
                 Array.from(Array(8).keys()).map((item, key)=> <SkeletonLoading key={key} />)
@@ -85,12 +88,17 @@ const ListItem = () => {
   }
   else if(outofData=== true) {
     return (
-        <NotFound404 message="Data is not exist or this link may be broken. " />
+        <>
+            <NotFound404 message="Data is not exist or this link may be broken. " />
+        </>
     )
 }
   else if(loading=== true) {
       return (
           <div className="loading-pagination" style={{width: '100%', height: '100%', display: "flex", justifyContent: 'center',alignItems: 'center', alignContent: "center"}}>
+              <Helmet>
+                  <title>Loading...</title>
+              </Helmet>
               <div className="mp-53" style={{ display: "grid", flexDirection: "row", flexWrap: "wrap" ,justifyContent: "center", alignItems: "center", gridTemplateColumns: "repeat(4, 1fr)", gap: 30, marginTop: 50, width: 1150}}>
                 {
                     Array.from(Array(8).keys()).map((item, key)=> <SkeletonLoading key={key} />)
@@ -103,6 +111,9 @@ const ListItem = () => {
   else {
       return (
         <Fragment>
+            <Helmet>
+                <title>{`${location.pathname.split("/")[location.pathname.split("/").length - 1].replace(/\b\w/g , function(m){ return m.toUpperCase(); } )}`} ( Page {`${page}`} ) - Unilight</title>
+            </Helmet>
             <div className="container-list-item" style={{width: '100%', height: '100%', display: "flex", justifyContent: 'center',alignItems: 'center', alignContent: "center"}}>
                 <div className="list-item" style={{ display: "grid", flexDirection: "row", flexWrap: "wrap" ,justifyContent: "center", alignItems: "center", gridTemplateColumns: "repeat(4, 1fr)", gap: 30, marginTop: 50, width: 1150}}>
                     {/* <button onClick={()=> console.log(location.search.current_page)}>Click</button> */}

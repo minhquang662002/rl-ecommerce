@@ -13,6 +13,8 @@ import ShopOwn from "./ShopOwn"
 import Comment from "./Comment"
 import Review from "./Review"
 import Recommend from "./Recommend"
+import { Helmet } from 'react-helmet-async';
+
 import "./a.sass"
 
 export const fakeSleep = ms => new Promise(r => setTimeout(r, ms)) 
@@ -48,6 +50,7 @@ const DetailPage = (props) => {
         })()
         return ()=> setItem2(()=> [])
     }, [location.pathname.split("/")[location.pathname.split("/").length -1 ]])
+    
     const [item2, setItem2]= useState(()=> [])
     const [tempItem, setTempItem]= useState(()=> [])
     const { setNavChoices } = useContext(NavContext)
@@ -70,6 +73,9 @@ const DetailPage = (props) => {
     else {
         return (
             <div className="DetailPage">
+                <Helmet prioritizeSeoTags>
+                    <title>{location.pathname.split("/")[location.pathname.split("/").length -1].replaceAll("-", " ").replace(/\b\w/g , function(m){ return m.toUpperCase();})} - Unilight</title>
+                </Helmet>
                 <div className="DetailPage__location">
                     <p>
                         <Link to="/">
@@ -77,7 +83,7 @@ const DetailPage = (props) => {
                         </Link>{" "}
                         {section && (
                             <>
-                                &gt
+                                /
                                 <Link to={`/collections/${section}`}>
                                     <span>
                                         {" "}
@@ -90,7 +96,7 @@ const DetailPage = (props) => {
                         )}
                         {product && (
                             <>
-                                &gt
+                                /
                                 <span>
                                     {" "}
                                     {_.startCase(
@@ -126,14 +132,14 @@ const DetailPage = (props) => {
                         buyer={props.buyer}
                     />
                 </div>
-                <ShopOwn id_shop={item2?.id_shop} author_shop={item2?.author_shop} />
+                <ShopOwn id_shop={item2?.id_shop} author_shop={item2?.author_shop} {...props?.user_} />
                 <div className="pe2" style={{display: 'flex', width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center', flexDirection: "row"}}>
-                    <div className="sn1" style={{display: 'flex', boxSizing: 'border-box', marginTop: 15, width: 1150, alignItems: "center", justifyContent: 'space-between',  borderRadius: 8, boxShadow: "0 0 3px 0 #dee2e6"}}>
+                    <div className="sn1" style={{display: 'flex', boxSizing: 'border-box', marginTop: 15, width: 1150, justifyContent: 'space-between',  borderRadius: 8, boxShadow: "0 0 3px 0 #dee2e6"}}>
                         <div className="gf3" style={{display: "flex", justifyContent: "center", alignItems: "center", width: "calc(100% - 200px)"}}>
                             <Comment {...props} {...tempItem} />       
                         </div>
-                        <div className="or4" style={{display: "flex", flexDirection: "column", width: 350}}>
-                            <Review {...props} />
+                        <div className="or4" style={{display: "flex", flexDirection: "column", width: 350, justifyContent: 'flex-start'}}>
+                            <Review {...props} {...tempItem} />
                             <Recommend />
                         </div>        
                     </div>

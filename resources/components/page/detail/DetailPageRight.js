@@ -72,7 +72,10 @@ const DetailPageRight = (props) => {
                             })}
                         </div>
                     </div>
-                    <div className="modifier">
+                    {
+                        props.author_shop != props.buyer &&
+                        <>
+                        <div className="modifier">
                         <div
                             className="CartModal__quanity"
                             style={{ margin: "0 auto" }}
@@ -100,22 +103,23 @@ const DetailPageRight = (props) => {
                         <div className="DetailPage__favorite--button" style={{cursor: "pointer"}} onClick={()=> addfavorite(props.buyer, props.id_product, setCheck)}>
                             <FavoriteBorderOutlined />
                         </div>
-                        
-                    </div>
-                    <br />
-                    <SimpleDialogDemo {...infoItem} image={props.image} {...props} />
-                    <div className="ppp" style={{display: 'inline-flex', height: 40, alignItems: 'center'}}>
-                        <div className="pa2" style={{display: 'inherit', alignItems: 'center',justifyContent: 'center'}}>
-                        <span style={{height: 18}}> Categories:	&nbsp;   </span> 
                         </div>
-                        {
-                        props.categories?.split(",").map((item, key)=> (
-                            <Link to={`/collection/${item.toLowerCase().trim().replaceAll(" ", '-')}`} key={key} >
-                                <div className="categories" style={{fontSize: 16, fontWeight: 400, textTransform: 'lowercase'}}>{item},</div>
-                            </Link>
-                        ))
-                        }
-                    </div>
+                        <br />
+                        <SimpleDialogDemo {...infoItem} image={props.image} {...props} />
+                        <div className="ppp" style={{display: 'inline-flex', height: 40, alignItems: 'center'}}>
+                            <div className="pa2" style={{display: 'inherit', alignItems: 'center',justifyContent: 'center'}}>
+                            <span style={{height: 18}}> Categories:	&nbsp;   </span> 
+                            </div>
+                            {
+                                props.categories?.split(",").map((item, key)=> (
+                                    <Link to={`/collection/${item.toLowerCase().trim().replaceAll(" ", '-')}`} key={key} >
+                                    <div className="categories" style={{fontSize: 16, fontWeight: 400, textTransform: 'lowercase'}}>{item},</div>
+                                </Link>
+                            ))
+                            }
+                        </div>
+                    </>
+                    }
                 </div>
             </div>
             {

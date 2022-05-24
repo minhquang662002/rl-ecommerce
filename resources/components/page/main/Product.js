@@ -78,12 +78,6 @@ const Product = ({ item, section }) => {
                                     onClick={() =>
                                         setNavChoices((state) => ({
                                             ...state,
-                                            // quickShopData: {
-                                            //     ...item,
-                                            //     currentImg:
-                                            //         color[displayedType]
-                                            //             .images[0],
-                                            // },
                                         }))
                                     }
                                 >

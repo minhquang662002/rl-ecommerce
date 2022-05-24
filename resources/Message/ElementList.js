@@ -4,7 +4,7 @@ import Skeleton from '@mui/material/Skeleton'
 import "./Element.sass"
 import _ from "lodash"
 
-const ElementList = (props) => {
+export const ElementList = (props) => {
   const ref= useRef()
   const [re, setRe]= useState(()=> [])
   useEffect(()=> {
@@ -88,14 +88,14 @@ const ElementList = (props) => {
     </div>
   )
 }
-const I= (props)=> {
+export const I= (props)=> {
   return (
     <div className="ig2" style={{display: "flex", width: 70, height: 70, borderRadius: "50%", overflow: "hidden", }}> 
       <img className="ow3" src={props.avt_user} alt="open" style={{width: "100%", height: "100%", objectFit: "cover"}} />
     </div>
   )
 }
-const X= (props)=> {
+export const X= (props)=> {
   return (
     <div className="kw3" style={{display: "flex", flexDirection: "column", justifyContent: "center", gap: 5}} >
       <div className="k324">{props.lastname}</div>

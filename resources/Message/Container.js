@@ -4,12 +4,12 @@ import ElementList from './ElementList'
 import ScrollToBottom from 'react-scroll-to-bottom'
 import C2 from './C2'
 
-const Container = (props) => {
+export const Container = (props) => {
   return (
     <>
       {props.toggle=== false && props.listm?.length > 0 && props?.listm.map((item, key)=> <ElementList setIdConversation={props.setIdConversation} offset={props.offset} setOffset={props.setOffset} id_user={props.id_user} setToggle={props.setToggle} key={key} {...item} setConversation={props.setConversation} />)}
       <ScrollToBottom className="gh3" mode="bottom">
-        {props.toggle=== true && props.conversation?.length > 0 && <C2 setText={props.setText} setConversation={props.setConversation} idConversation={props.idconversation} offset={props.offset} setOffset={props.setOffset} previewImg={props.previewImg} conversation={props.conversation} id_user={props.id_user} />}
+        {props.toggle=== true && props.conversation?.length > 0 && <C2 setConversation={props.setConversation} idConversation={props.idconversation} offset={props.offset} setOffset={props.setOffset} previewImg={props.previewImg} conversation={props.conversation} id_user={props.id_user} />}
       </ScrollToBottom>
       {(props.conversation?.length<= 0 && props.toggle=== true) && Array.from(Array(7).keys()).map((item, key)=> <LoadingMessgae key={key} item={item} />)}
     </>

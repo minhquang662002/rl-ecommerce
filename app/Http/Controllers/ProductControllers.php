@@ -37,6 +37,8 @@ class ProductControllers extends Controller
     public function store(Request $request)
     {
         //
+        return $request-> size;
+        
     }
 
     /**

@@ -6,10 +6,13 @@ import Tooltip from '@mui/material/Tooltip'
 import { handletime } from './handletime'
 
 
-const ListMessage = (props) => {
+export const ListMessage = (props) => {
   return (
     <div className="lm3" style={{display: "flex", flexDirection: "row", gap: 5, padding: "10px 0",alignItems: "flex-end", direction: props.id_user === props.user_id ? "ltr" : "rtl"}}>
         <A user_id={props.user_id} avt_user={props.avt_user} />
+        {
+            props.type_message=== "start" && <div style={{width: "100%" }}>{props.message}</div>
+        }
         {
             props.type_message=== "text" && <MTT message={props.message} id_user={props.id_user} user_id={props.user_id} timeup={props.timeup} /> 
         }

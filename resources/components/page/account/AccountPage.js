@@ -17,6 +17,7 @@ import Options from "./Options"
 import PhoneEmail from "./PhoneEmail"
 import { SIDEINFO } from "../../../graphql/query/accoutinfo"
 import { useQuery } from "@apollo/client"
+import { Helmet } from 'react-helmet-async';
 
 export const AContext= createContext()
 const AccountPage = (props) => {
@@ -92,6 +93,9 @@ const AccountPage = (props) => {
     if(login=== true ) {
         return (
             <Fragment>
+                <Helmet>
+                    <title>{`${user?.firstname} ${user?.lastname}`}</title>
+                </Helmet>
                 <AContext.Provider value={{ avt_user: user?.avt_user, firstname: user?.firstname, lastname: user?.lastname, email: user?.email }}>
                     <div className="AcountPage">
                         <div className="AcountPage__banner" style={{backgroundColor: '#767676', color: '#fff', textTransform: 'uppercase',fontSize: 20,textAlign: 'center', verticalAlign: 'middle', lineHeight: 7.5}}>my account</div>

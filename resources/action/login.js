@@ -41,6 +41,10 @@ const login= async (user, setLog, setNavChoices2, navigate, setLogged, setLoadin
             setLoading(()=> false)
             setNavChoices2()
             setCheckUser(()=> true)
+            if(navigate== 1) {
+                location.href = "http://localhost:8000/"
+                return
+            }
             location.reload()
             return      
         }

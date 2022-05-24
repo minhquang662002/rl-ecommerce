@@ -30,7 +30,7 @@ class PaymentController extends Controller
             "line_items" => [[
                 'price_data' => [
                     'currency' => 'usd',
-                    'unit_amount' => 500000,
+                    'unit_amount' => $request-> price * 100,
                     'product_data' => [
                         'name' => $request-> title,
                         'images' => [$request-> image],

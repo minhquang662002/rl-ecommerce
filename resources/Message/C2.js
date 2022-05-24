@@ -10,7 +10,6 @@ const C2 = (props) => {
     })
     const channel= pusher.subscribe((props?.idConversation)?.toString())
     channel.bind("my-event", (data)=> {
-      props.setText(prev=> ({...prev, type_message: data.type_message, timeup: data.timeup, timedl: data.timedl, id_user: data.id_user, message: CryptoJS.AES.decrypt(data.message, "secret key giang12345").toString(CryptoJS.enc.Utf8) }))
       props.setConversation(prev=> ([...prev, { type_message: data.type_message, timeup: data.timeup, timedl: data.timedl, user_id: data.id_user, message: data.message, avt_user: data.avt_user, lastname: data.lastname, id_conversation: data.id_conversation}]))
     })
     return ()=> channel.disconnect()
@@ -27,12 +26,12 @@ const C2 = (props) => {
         ref?.current?.scrollIntoView({behavior: "smooth"})
         document.querySelector(".Navbar").classList.remove("ps3")
       }
-  }, [ref])
-  useEffect(()=> {
-    if(props.conversation?.length < 15) {
-      scrollToBottom()
-    }
-  },[props.conversation?.length, props.previewImg])
+  }, [props.conversation])
+  // useEffect(()=> {
+  //   if(props.conversation?.length < 15) {
+  //     scrollToBottom()
+  //   }
+  // },[props.conversation?.length, props.previewImg])
   return (
     <>
       {

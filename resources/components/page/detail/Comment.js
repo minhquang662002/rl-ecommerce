@@ -13,7 +13,6 @@ const Comment = (props) => {
   const [typing, setTyping]= useState(()=> false)
   const [t, setT]= useState(()=> 0)
   useEffect(()=> {
-    Pusher.logToConsole= true
     const pusher= new Pusher("95583842a488fce99dee", {
         cluster: "ap1",
     })
@@ -34,29 +33,6 @@ const Comment = (props) => {
   const [text, setText]= useState(()=> "")
   const [filter, setFilter]= useState(()=> 0)
   const sendcomment= ()=> {
-    // axios({
-    //     url: "http://localhost:8000/comment/send/m",
-    //     method: "post",
-    //     timeout: 10000,
-    //     headers: {
-    //     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute("content")
-    //     },
-    //     xsrfCookieName: 'qwerty',
-    //     xsrfHeaderName: 'token',
-    //     withCredentials: false,
-    //     responseType: "json",
-    //     data: {
-    //         id_comment: props?.id_product,
-    //         id_user: props.buyer,
-    //         content: text || "",
-    //         type_comment: "text",
-    //         timedl: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().slice(0, -1),
-    //         timeup: parseInt(new Date().getTime()) + 7* 72000,
-    //         avt_user: props.user_.avt_user,
-    //         user_name: props.user_.firstname+  " "+props.user_.lastname,
-    //         timem: parseInt(new Date().getTime())
-    //     }   
-    // })
     const p1= axios({
         url: "http://localhost:8000/comment/send/m",
         method: "post",
@@ -75,7 +51,7 @@ const Comment = (props) => {
             type_comment: "text",
             timedl: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().slice(0, -1),
             timeup: parseInt(new Date().getTime()) + 7* 72000,
-            avt_user: props.user_.avt_user,
+            avt_user: props.user_?.avt_user,
             user_name: props.user_.firstname+  " "+props.user_.lastname,
             timem: parseInt(new Date().getTime())
         }   
@@ -159,7 +135,7 @@ const Comment = (props) => {
                 type_comment: "text",
                 timedl: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().slice(0, -1),
                 timeup: parseInt(new Date().getTime()) + 7* 72000,
-                avt_user: props.user_.avt_user,
+                avt_user: props.user_?.avt_user,
                 user_name: props.user_.firstname+  " "+props.user_.lastname,
                 timem: parseInt(new Date().getTime())
             }   
@@ -227,7 +203,10 @@ const Comment = (props) => {
   return (
     <div className="sd3" style={{width: "100%", padding: "10px 20px 10px 10px"}}>
         <div className="ew5" style={{width: "100%", fontSize: 24, fontWeight: 600, color: "#242526"}}>Comment</div>
-        <CommentType sendcomment={sendcomment} {...props} text={text} setText={setText} usertyping={usertyping} />
+        {
+            props?.user_?.avt_user &&
+            <CommentType sendcomment={sendcomment} {...props} text={text} setText={setText} usertyping={usertyping} />
+        }
         <FilterM {...props} filter={filter} setFilter={setFilter} />
         <div className="ds5">
             <C1 id_comment={props?.id_product}>
@@ -241,7 +220,7 @@ const CommentType= React.memo((props)=> {
     return (
         <div className="el4" style={{display: "flex", width: "100%", height: 80, justifyContent: "space-between", alignItems: "center", gap: 10}}>
             <div className="d32" style={{}}>
-                <img src={props.user_.avt_user} alt="open" style={{width: 48, height: 48, objectFit: "cover", borderRadius: "50%"}} />
+                <img src={props.user_?.avt_user} alt="open" style={{width: 48, height: 48, objectFit: "cover", borderRadius: "50%"}} />
             </div>
             <div className="ds4" style={{width: "calc(100% - 50px)", height: "100%", display: "flex", justifyContent: 'center',alignItems: 'center',}}>
                 <input onKeyUp={(e)=> props.usertyping(e)} type="text" className="reik5" onChange={(e)=> props.setText(e.target.value)} value={props.text} style={{width: "100%", height: 48, padding: "0 10px", borderRadius: 80, border: "1px solid #e1d6d6", fontSize: 16  }} placeholder="Enter your comment" />

@@ -15,6 +15,8 @@ const SideInfo2 = (props) => {
 
         Go to account page
     </div>
+    <br />  
+    <div style={{display: 'flex', justifyContent: 'center',alignContent: "center", alignItems: "center", width: "100%", padding: "10px", backgroundColor: "#343536", borderRadius: 8, color: "#fff", cursor: "pointer"}} onClick={()=> {navigate(`/shop?id=${props.idshopuser[0]?.id_shop}`); setNavChoices(prev=> !prev)}}>Go to my shop</div>
     <br />
     <Logout />
     </Fragment>

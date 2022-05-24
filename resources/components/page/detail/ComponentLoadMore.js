@@ -23,50 +23,51 @@ const ComponentLoadMore = (props) => {
         }
     }
     const lm= async ()=> {
-        setLoading(()=> true)
-        await fakesleep(1000)
-        try {
-            
-            const res= await axios({
-                url: "http://localhost:8000/comment/more/x/g/t",
-                method: 'get',
-                timeout: 10000,
-                headers: {
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute("content")
-                },
-                xsrfCookieName: 'qwerty',
-                xsrfHeaderName: 'token',
-                withCredentials: false,
-                responseType: "json",
-                params: {
-                    id_comment: props.id_comment,
-                    page: page
+        if(outofData=== false) {
+            setLoading(()=> true)
+            await fakesleep(1000)
+            try {  
+                const res= await axios({
+                    url: "http://localhost:8000/comment/more/x/g/t",
+                    method: 'get',
+                    timeout: 10000,
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute("content")
+                    },
+                    xsrfCookieName: 'qwerty',
+                    xsrfHeaderName: 'token',
+                    withCredentials: false,
+                    responseType: "json",
+                    params: {
+                        id_comment: props.id_comment,
+                        page: page
+                    }
+                })
+                const result= await res.data
+                if(result?.length > 0) {
+                    setLoading(()=> false)
+                    setOutOfData(()=> false)
+                    setPage(prev=> (prev+ 1))
+                    return setData(()=> data.concat(result))
                 }
-            })
-            const result= await res.data
-            if(result?.length > 0) {
-                setLoading(()=> false)
-                setOutOfData(()=> false)
-                setPage(prev=> (prev+ 1))
-                return setData(data.concat(result))
+                else {
+                    return setOutOfData(()=> true)
+                }
+            } catch (error) {
+                console.log(error)
             }
-            else {
-                return setOutOfData(()=> true)
-            }
-        } catch (error) {
-            console.log(error)
         }
     }
     return (
         <>
             {
+                data?.length>0 && data?.map((item, key)=> <ContainerComment key={key} {...item} x={props.x} />)
+            }
+            {
                outofData===false && loading=== true && <div style={{width: "100%", height: 60, display: 'flex', justifyContent: 'center',alignItems: "center"}}><CircularProgress /></div>
             }
             {
                 outofData=== true && <div style={{textAlign: "center"}}>No any comment in this product.</div>
-            }
-            {
-                data?.length>0 && data?.map((item, key)=> <ContainerComment key={key} {...item} x={props.x} />)
             }
         </>
     )

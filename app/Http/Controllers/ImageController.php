@@ -24,4 +24,7 @@ class ImageController extends Controller
         UserShop::where("id_user", $id_user)->update(['avt_user'=> $result]);
         return response()->json($result);    
     }
+    public function batchImage(Request $request) {
+        return "hihi";
+    }
 }   

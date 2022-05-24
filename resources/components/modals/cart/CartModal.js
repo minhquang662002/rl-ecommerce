@@ -8,7 +8,6 @@ import { useInView } from "react-intersection-observer"
 // import Loading from "../../loading/Loading"
 import { MyContext } from "../../../ContextApp/ContextContainer"
 import LoadingSuspense, { LoadingSuspense2 } from "../../loading/LoadingSuspense"
-import { height } from "@mui/system"
 const CartModalContainer = lazy(() => {
 return new Promise(resolve => {
         setTimeout(() => resolve(import("./CartModalContainer")), 1250);
@@ -49,7 +48,13 @@ const CartModal = () => {
                         </span>
                     </div>
                     <div className="CartModal__body" style={{height: dataShoppingCart?.length=== 0 ? 200 : "auto"}}>
-                        {dataShoppingCart.length> 0 && dataShoppingCart?.map((item, key) => {
+                        {
+                            (dataShoppingCart== undefined || dataShoppingCart == null) && "You don't order any product ."
+                        }
+                        {
+                           ((typeof dataShoppingCart)=="string" && dataShoppingCart== "hihi" )&& "You don't order any product ."
+                        }
+                        {((typeof dataShoppingCart)=="object" && dataShoppingCart.length> 0) && dataShoppingCart?.map((item, key) => {
                             return <CartModalItem item={item} key={key} />
                         })}
                         {

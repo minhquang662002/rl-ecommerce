@@ -1,10 +1,12 @@
-import "./MainPage.css";
-import Carousel from "../../carousel/Carousel";
-import MainCategories from "./MainCategories";
-import MainPageSection from "./MainPageSection";
-import BannerSection from "./banners/BannerSection";
+import "./MainPage.css"
+import Carousel from "../../carousel/Carousel"
+import MainCategories from "./MainCategories"
+import MainPageSection from "./MainPageSection"
+import BannerSection from "./banners/BannerSection"
 import axios from "axios"
-import { useState, useEffect } from "react";
+import { useState, useEffect } from "react"
+import { Helmet } from 'react-helmet-async';
+
 const MainPage = () => {
     const [data, setData]= useState(()=> [])
     const [data2, setData2]= useState(()=> [])
@@ -19,6 +21,9 @@ const MainPage = () => {
     }, [])
     return (
         <div className="MainPage">
+            <Helmet>
+                <title>Home - Unilight</title>
+            </Helmet>
             <Carousel />
             <div className="MainPage__body">
                 <MainCategories />
@@ -27,7 +32,7 @@ const MainPage = () => {
                 <MainPageSection section={"best seller"} data={data2} />
             </div>
         </div>
-    );
-};
+    )
+}
 
-export default MainPage;
+export default MainPage

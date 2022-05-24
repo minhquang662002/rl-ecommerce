@@ -10,6 +10,7 @@ const ContextContainer = ({children}) => {
       inspirationProduct: [],
       lengthFavorite: "_",
       lengthShopping: "_",
+      odsc: false
   })
   const setListImage= (list)=> {
     setState(prev=> ({...prev, allImages: list}))

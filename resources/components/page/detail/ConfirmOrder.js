@@ -30,7 +30,15 @@ function SimpleDialog(props) {
             <div style={{textTransform: "capitalize", fontSize: 16, fontWeight: 600, whiteSpace: "nowrap"}}>product classification</div>
             <br />
             <div>
-                {props.size_ && (`Size: ${props.size_}`)} {props.color_}
+              {props.size_ && (`Size: ${props.size_}`)} 
+            </div>
+            <br />
+            <div>
+              {props.color_ && (`Color: ${props.color_}`)} 
+            </div>
+            <br />
+            <div>
+              <strong>{props.quantity && (`Quantity: ${props.quantity}`)} </strong>
             </div>
         </div>
       </div>

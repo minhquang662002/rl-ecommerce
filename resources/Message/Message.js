@@ -1,5 +1,5 @@
 import axios from "axios"
-import { useLayoutEffect, useRef, useState } from "react"
+import { useRef, useState } from "react"
 import { useEffect } from "react"
 import Container from "./Container"
 import TypeMessage from "./TypeMessage"
@@ -7,19 +7,20 @@ import CryptoJS from "crypto-js"
 import { useInView } from "react-intersection-observer"
 import { loadmoremessage } from "./loadmoremessage"
 import CircularProgress from "@mui/material/CircularProgress"
-import { useDispatch } from "react-redux"
+import NProgress from "nprogress"
+// import { useDispatch } from "react-redux"
 // import { echo } from "./setup"
 
 const Messenger= (props)=> {
-    const dispatch= useDispatch()
-    const et= ["rko4", "nft1", "nf1", "mt6", "eow4", "oq3", "mg5", "jb4", "pw2", "lm3"]
-    const [text, setText]= useState(()=> ({
-        message: "",
-        type_message: "", 
-        timeup: "",
-        id_user: "",
-        timedl: ""
-    }))
+    // const dispatch= useDispatch()
+    // const et= ["rko4", "nft1", "nf1", "mt6", "eow4", "oq3", "mg5", "jb4", "pw2", "lm3"]
+    // const [text, setText]= useState(()=> ({
+    //     message: "",
+    //     type_message: "", 
+    //     timeup: "",
+    //     id_user: "",
+    //     timedl: ""
+    // }))
     const aref= useRef()
     const [listm, setListm]= useState(()=> [])
     const [conversation, setConversation]= useState(()=> [])
@@ -45,7 +46,16 @@ const Messenger= (props)=> {
             return props.setOpenMessage(prev=> false)
         }
     }
+    
     const addMessage= (message, id_conversation, id_user, type_message, timeup, timedl, avt_user, lastname) => {
+        axios.interceptors.request.use(request=> {
+            NProgress.remove()
+            return request
+        })
+        axios.interceptors.response.use(response=> {
+            NProgress.remove()
+            return response
+        })
         axios.post("/chat/message", {
             message: CryptoJS.AES.encrypt(message, 'secret key giang12345').toString(),
             id_conversation,
@@ -86,7 +96,7 @@ const Messenger= (props)=> {
             const result= await res.data
             setListm(result)
         })()
-    }, [props.id_user, dispatch,])
+    }, [props.id_user])
     
     const testScroll= async ()=> {
         if(outofdata=== false) {
@@ -96,32 +106,6 @@ const Messenger= (props)=> {
             }
         }
     }
-    // const X= async ()=> {
-    //     const res= await axios({
-    //         url: "http://localhost:8000/message/conversation",
-    //         method: "get",
-    //         timeout: 10000,
-    //         timeoutErrorMessage: "Time out login",
-    //         headers: {
-    //             "X-CSRF-TOKEN": document.querySelector("meta[name='csrf-token']").getAttribute("content")
-    //         },
-    //         xsrfCookieName: document.querySelector("meta[name='csrf-token']").getAttribute("content"),
-    //         xsrfHeaderName: "X-CSRF-TOKEN",
-    //         withCredentials: false,
-    //         validateStatus: (status)=> {
-    //             return status >= 200 && status < 300
-    //         },
-    //         maxRedirects: 10,
-    //         responseType: "json",
-    //         params: {
-    //             id_user: props.id_user
-    //         }
-    //     })
-    //     const result= await res.data
-    //     dispatch({type: "get_id_conversation", payload: result})
-    //     setListm(result)
-    //     return result
-    // }
     
     return (
         <div ref={aref} onClick={()=> props.setOpenMessage(prev=> true)} className="nf1" style={{display: "flex", flexDirection: "column", width: 500, height: 600, backgroundColor: "#f2f0f5", position: "absolute", top: 30, right: 0, zIndex: 999, boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px"}}>
@@ -136,7 +120,7 @@ const Messenger= (props)=> {
                 }
                 {/* <input type="text" name="message" onChange={(e)=> setText(e.target.value)} value={text} />
                 <button onClick={()=> addMessage(text)}>Click</button> */}
-                <Container setIdConversation={setIdConversation} idconversation={idconversation} setText={setText} setConversation={setConversation} offset={offset} setOffset={setOffset} previewImg={previewImg} conversation={conversation} toggle={toggle} setToggle={setToggle} id_user={props.id_user} listm={listm} /> 
+                <Container setIdConversation={setIdConversation} idconversation={idconversation} setConversation={setConversation} offset={offset} setOffset={setOffset} previewImg={previewImg} conversation={conversation} toggle={toggle} setToggle={setToggle} id_user={props.id_user} listm={listm} /> 
                 {/* {
                     toggle=== true &&
                     <S />
@@ -149,23 +133,23 @@ const Messenger= (props)=> {
         </div>
     )
 }   
-const S= (props)=> {
-    const refscroll= useRef()
-    const scrollToBottom= ()=> {
-        const scrollHeight= refscroll.current.scrollHeight
-        const height= refscroll.current.clientHeight
-        const maxScroll= scrollHeight - height
-        refscroll.current.scrollTop= maxScroll > 0 ? maxScroll : 0
-    }
-    useEffect(()=> {
-        scrollToBottom()
-        return ()=> scrollToBottom()
-    }, [])
-    return (
-        <div ref={refscroll}>
+// const S= (props)=> {
+//     const refscroll= useRef()
+//     const scrollToBottom= ()=> {
+//         const scrollHeight= refscroll.current.scrollHeight
+//         const height= refscroll.current.clientHeight
+//         const maxScroll= scrollHeight - height
+//         refscroll.current.scrollTop= maxScroll > 0 ? maxScroll : 0
+//     }
+//     useEffect(()=> {
+//         scrollToBottom()
+//         return ()=> scrollToBottom()
+//     }, [])
+//     return (
+//         <div ref={refscroll}>
             
-        </div>
-    )
-}
+//         </div>
+//     )
+// }
 
 export default Messenger
