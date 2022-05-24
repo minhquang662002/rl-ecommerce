@@ -1,0 +1,50 @@
+.reik5
+    &:focus
+        outline: 2px solid #2e89ff
+.wew3, .dsdskew
+    &:hover
+        &:active
+            opacity: 0.7
+.ds4
+    transition: width 0.5s linear
+.tr-but-enter
+    width: 0
+.tr-but-enter-active
+    width: 100%
+    transition: width 200ms
+.dj3
+    &:hover
+        &:active
+            background-color: rgba(0, 0, 0, 0.75)
+.balls
+    width: 2.5em
+    display: flex
+    flex-flow: row nowrap
+    align-items: center
+    justify-content: space-evenly
+
+
+    & div
+        width: 0.5em
+        height: 0.5em
+        border-radius: 50%
+        background-color: #aaaaaa
+        transform: translateY(-100%)
+        animation: wave 0.8s ease-in-out alternate infinite
+
+
+    & div:nth-of-type(1)
+        animation-delay: -0.4s
+
+
+    & div:nth-of-type(2)
+        animation-delay: -0.2s
+
+@keyframes wave
+    from 
+        transform: translateY(-100%)
+
+    to 
+        transform: translateY(100%)
+.cartmodel_controller
+    overflow: auto

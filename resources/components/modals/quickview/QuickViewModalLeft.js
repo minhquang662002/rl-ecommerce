@@ -2,7 +2,7 @@ import useCarousel from "../../../utils/useCarousel";
 import { useRef } from "react";
 
 const QuickViewModalLeft = ({
-    quickViewData,
+    allImages,
     displayedImage,
     setDisplayedImage,
     imageList,
@@ -12,7 +12,7 @@ const QuickViewModalLeft = ({
         quickViewRef,
         displayedImage,
         setDisplayedImage,
-        imageList.length
+        imageList?.length
     );
     let current = -1;
     return (
@@ -28,24 +28,22 @@ const QuickViewModalLeft = ({
                 }}
             />
             <div className="QuickViewModal__dot--holder">
-                {quickViewData?.color?.map((color) => {
-                    return color?.images?.map((item, index) => {
-                        current++;
-                        let pos = current;
-                        return (
-                            <div
-                                className="dot quickview__dot"
-                                key={index}
-                                style={{
-                                    background:
-                                        pos === displayedImage ? "black" : "",
-                                }}
-                                onClick={() => {
-                                    setDisplayedImage(pos);
-                                }}
-                            />
-                        );
-                    });
+                {allImages?.map((item, index) => {
+                    current++;
+                    let pos = current;
+                    return (
+                        <div
+                            className="dot quickview__dot"
+                            key={index}
+                            style={{
+                                background:
+                                    pos === displayedImage ? "black" : "",
+                            }}
+                            onClick={() => {
+                                setDisplayedImage(pos);
+                            }}
+                        />
+                    );
                 })}
             </div>
         </div>

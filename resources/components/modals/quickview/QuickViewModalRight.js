@@ -4,7 +4,7 @@ import findCurrentColor from "../../../utils/repeatFuction";
 
 const QuickViewModalRight = ({
     setNavChoices,
-    quickViewData,
+    allImages,
     imageList,
     displayedSize,
     setDiplayedSize,
@@ -16,7 +16,7 @@ const QuickViewModalRight = ({
     useEffect(() => {
         if (displayedImage !== undefined) {
             setCurrentColor(
-                findCurrentColor(displayedImage, quickViewData, imageList)
+                findCurrentColor(displayedImage, allImages, imageList)
             );
         }
     }, [displayedImage]);
@@ -29,19 +29,19 @@ const QuickViewModalRight = ({
                     onClick={() => setNavChoices((state) => ({ ...!state }))}
                 />
             </div>
-            <h1 className="QuickViewModal__title">{quickViewData?.title}</h1>
+            <h1 className="QuickViewModal__title">{allImages?.title}</h1>
             <div className="QuickViewModal__priceRating">
                 <p className="QuickViewModal__price">
-                    ${quickViewData?.price?.toFixed(2)}
+                    ${allImages?.price?.toFixed(2)}
                 </p>
             </div>
             <p className="QuickViewModal__description">
-                {quickViewData?.description}
+                {allImages?.description}
             </p>
             <div className="QuickViewModal__color--container">
-                <p>COLOR: {quickViewData?.color?.[currentColor]?.type}</p>
+                <p>COLOR: {allImages?.color?.[currentColor]?.type}</p>
                 <div className="QuickViewModal__color--holder">
-                    {quickViewData?.color?.map((item, index) => {
+                    {allImages?.color?.map((item, index) => {
                         return (
                             <div
                                 className="QuickViewModal__color--outer"
@@ -70,9 +70,9 @@ const QuickViewModalRight = ({
                 </div>
             </div>
             <div className="QuickViewModal__size--container">
-                <p>SIZE: {quickViewData?.size?.[displayedSize]}</p>
+                <p>SIZE: {allImages?.size?.[displayedSize]}</p>
                 <div className="QuickViewModal__size--holder">
-                    {quickViewData?.size?.map((item, index) => {
+                    {allImages?.size?.map((item, index) => {
                         return (
                             <div
                                 className="QuickViewModal__size--button"

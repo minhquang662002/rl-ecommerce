@@ -2,23 +2,23 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>Laravel</title>
-
-    <!-- Fonts -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
-    <!-- Styles -->
+    <link rel="icon" type="image/x-icon" href="http://assets.stickpng.com/thumbs/5847f9cbcef1014c0b5e48c8.png">
     <style>
-        /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
-        html {
+        pre {
+        white-space: pre-wrap;
+        }
+        html {  
             line-height: 1.15;
             -webkit-text-size-adjust: 100%;
             font-family: system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
-            height: 100vh;
+            height: auto;
         }
 
         body {
@@ -72,12 +72,11 @@
 
 <body>
     <div id="root">
-        <script src="{{mix('js/app.js')}}">
-
-        </script>
 
     </div>
+    <script src="{{mix('js/app.js')}}">
 
+    </script>
 </body>
 
 </html>

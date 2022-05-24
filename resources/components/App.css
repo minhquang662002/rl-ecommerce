@@ -1,0 +1,14 @@
+#nprogress .bar {
+    height:4px;
+    background: #2e89ff;
+
+  }
+#nprogress {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+body {
+  overflow-x: hidden !important;
+}

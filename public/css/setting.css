@@ -1,0 +1,200 @@
+:root {
+    --bg: #242526;
+    --c: #e4e6eb;
+    --w: #fff;
+    --b: #000;
+}  
+body {
+    background-color: #242526 !important;
+}
+
+.Navbar {
+    background-color: var(--bg) !important;
+}
+.navbar__icons>svg {
+    fill: var(--w)!important;
+}
+.navbar__icons>div {
+    background-color: var(--w) !important;
+}
+.navbar__icons>div>span {
+    color: var(--b) !important;
+}
+.MainPage__body {
+    background-color: var(--bg) !important;
+}
+.MainPageSection__title {
+    color: var(--c) !important;
+}
+.Product {
+    color: var(--c) !important;
+}
+.Product__title {
+    color: var(--c) !important;
+}
+.Product__price {
+    color: var(--c) !important;
+}
+.MainPageSection__loadmore--button {
+    color: var(--c) !important;
+    border: 2px solid var(--c) !important;
+}
+.MainPage {
+    background-color: var(--bg) !important;
+}
+.cp1 {
+    background-color: var(--bg) !important;
+}
+.f-name>div {
+    color: var(--c) !important;
+}
+.pk1 {
+    color: var(--c) !important;
+}
+.pl1 {
+    color: var(--c) !important;
+    background-color: #343536 !important;
+}
+.pl1>svg {
+    fill: var(--c) !important;
+}
+#root>div {
+    background-color: var(--bg) !important;
+}
+.SearchModal__header>p, .SearchModal__body--suggest {
+    color: var(--c) !important;
+}
+.SearchModal {
+    background-color: var(--bg) !important;
+}
+.NavModal__close--button>svg {
+    fill: var(--c) !important;
+}
+.SearchModal__body--categories>option {
+    color: var(--b) !important;
+    border-color: var(--b) !important;
+}
+.SearchModal__body--search::placeholder {
+    color: var(--c) !important;
+    border-color: var(--c) !important;
+}
+.navbar__shopBrand {
+    color: var(--c) !important;
+}
+.qwe {
+    background-color: var(--bg) !important;
+}
+.DetailPage__product--title, .DetailPage__product--price,.DetailPage__product--description,.QuickViewModal__color--container > p,.QuickViewModal__size--container>p {
+    color: var(--c) !important;
+}
+.CartModal__quanity {
+    border-color: var(--c) !important;
+}
+.CartModal__quanity div, .CartModal__quanity input {
+    color: var(--c) !important;
+}
+.ppp * {
+    color: var(--c) !important;
+}
+.DetailPage__favorite--button,.DetailPage__favorite--button>svg {
+    border-color: var(--c) !important;
+    
+}
+
+.DetailPage__location {
+    background-color: var(--bg) !important;
+}
+.DetailPage__location p {
+    color: var(--c) !important;
+}
+.cartmodel_controller {
+    background-color: var(--bg) !important;
+}
+.CartModal__header> p {
+    color: var(--c) !important;
+}
+.CartModal__header> svg {
+    fill: var(--c) !important;
+}
+.CartModal__header {
+    border-color: var(--c) !important;
+}
+.CartModal__item--info {
+    border-color: var(--c) !important;
+}
+.CartModal__quanity {
+    border-color: var(--c) !important;
+}
+.CartModal__quanity--decrease >svg{
+    fill: var(--c) !important;
+}
+.CartModal__quanity>input, .CartModal__quanity--increase  {
+    color: var(--c) !important;
+    background-color: var(--bg) !important;
+}
+.CartModal__modifier>svg {
+    fill: var(--c) !important;
+}
+.CartModal__footer--calculation {
+    color: var(--c) !important;
+}
+.CartModal__footer {
+    border-color: var(--c) !important;
+}
+.cp1 > div {
+    color: var(--c) !important;
+}
+#demo-simple-select {
+    background-color: var(--bg) !important;
+}
+
+#demo-simple-select-label {
+    color: var(--c) !important;
+}
+.wq1 {
+    background-color: var(--bg) !important;
+    color: var(--c) !important;
+}
+#demo-simple-select {
+    color: var(--c) !important;
+}
+.MuiPaper-root {
+    background-color: var(--bg) !important;
+}
+#demo-simple-select-label {
+    color: var(--c) !important;
+}
+.CartModal__item--title, .CartModal__item--price {
+    color: var(--c) !important;
+}
+.dai1 > ui >li {
+    color: var(--c) !important;
+}
+.CartModal__quanity > input {
+    background-color: var(--bg) !important;
+}
+.DetailPage__favorite--button>svg {
+    fill: var(--bg) !important ;
+}
+#demo-simple-select {
+    border-color: var(--c) !important;
+}
+.lfg3 {
+    background-color: var(--bg) !important;
+}
+.ls1 {
+    background-color: #343536 !important;
+}
+.AccountPage__content--right> p, .AccountPage__content--right> p>span, .AccountPage__content--right * {
+    color: var(--c) !important;
+}
+.AccountPage__options {
+    color: var(--c) !important;
+    background-color: #343536 !important;
+}
+.p1a * {
+    color: var(--c) !important;
+}
+.DetailPage__favorite--button>svg {
+    fill: var(--c) !important;
+}

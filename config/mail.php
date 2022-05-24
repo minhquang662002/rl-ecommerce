@@ -54,6 +54,7 @@ return [
 
         'postmark' => [
             'transport' => 'postmark',
+            'message_stream_id'=> env('POSTMARK_MESSAGE_STREAM_ID')
         ],
 
         'sendmail' => [
@@ -91,7 +92,7 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
+        'address' => env('MAIL_FROM_ADDRESS', 'datistpham@gmail.com'),
         'name' => env('MAIL_FROM_NAME', 'Example'),
     ],
 

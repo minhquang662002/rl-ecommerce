@@ -97,3 +97,11 @@
 .SearchModal__footer::-webkit-scrollbar-thumb:hover {
     background: #555;
 }
+
+.gioda:hover {
+    background-color: #f2f0f5;
+}
+
+.gioda:hover:active {
+    background-color: #686868;
+}

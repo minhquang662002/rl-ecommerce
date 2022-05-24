@@ -23,12 +23,6 @@
     margin-bottom: 20px;
 }
 
-.CollectionPage__mainContent--products {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 30px;
-}
-
 .CollectionPage__filter--trigger {
     display: flex;
     align-items: center;
@@ -85,4 +79,9 @@
 .CollectionPage__mainContent--pagination > nav > ul {
     justify-content: center;
     margin-top: 20px;
+}
+.CollectionPage__mainContent--products > div {
+    width: 100% !important;
+    position: relative;
+    padding-bottom: 30px;
 }

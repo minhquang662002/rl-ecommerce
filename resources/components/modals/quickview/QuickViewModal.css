@@ -119,3 +119,9 @@
         transform: translate(-50%, -50%);
     }
 }
+.qwe {
+    min-width: 450px ;
+    box-sizing: border-box;
+    padding: 12px 0 12px 10px;
+    background-color: #fff;
+}
