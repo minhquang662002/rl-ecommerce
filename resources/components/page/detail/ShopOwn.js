@@ -7,6 +7,7 @@ import OnlineComponet from './OnlineComponet'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { v4 } from 'uuid'
+import { goToMessage } from '../../../action/goToMessage'
 
 const ShopOwn = (props) => {
   const { data, error }= useQuery(SHOPINFO, {
@@ -41,62 +42,7 @@ const AvatarShop= memo((props)=> {
 })
 const NameShop= memo((props)=> {
     const navigate= useNavigate()
-    const goToMessage= async ()=> {
-        const res= await axios({
-            url: "http://localhost:8000/c/m/t",
-            method: "get",
-            timeout: 10000,
-            headers: {
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute("content")
-            },
-            xsrfCookieName: 'qwerty',
-            xsrfHeaderName: 'token',
-            withCredentials: false,
-            responseType: "json",
-            params: {
-                i_s: props.id_user,
-                i_r: props.author_shop
-            }
-        })
-        const result= await res.data
-        let a= []
-        let h= 0
-        Object.values(result.a2)?.map(item=> a.push(item.id_conversation))
-        result.a1?.map(item=> {
-            if(a.includes(item.id_conversation)=== true) {
-                h= 1234
-                navigate(`/message/t/${item.id_conversation}`, {replace: false, state: {a: 'nav'}})
-                return
-            }
-            return 
-        })
-        if(h== 0) {
-            return createMessage()
-        }
-    }
-    const createMessage= async ()=> {
-        const res= await axios({
-            url: "http://localhost:8000/c/m/n",
-            method: 'get',
-            timeout: 10000,
-            headers: {
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute("content")
-            },
-            xsrfCookieName: 'qwerty',
-            xsrfHeaderName: 'token',
-            withCredentials: false,
-            responseType: "json",
-            params: {
-                i_s: props.id_user,
-                i_r: props.author_shop,
-                id_conversation: v4(),
-                timeup: parseInt(new Date().getTime()) + 7* 72000,
-                timedl: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().slice(0, -1)
-            }
-        })
-        const result= await res.data
-        navigate(`/message/t/${result}`, {replace: false, state: { a: "nav"}})
-    }
+    
     return (
         <>
             <div className="ns2" style={{height: '100%'}}>
@@ -120,7 +66,7 @@ const NameShop= memo((props)=> {
                     <div className='itr1' style={{display: "flex", gap: 10}}>
                         {
                             props?.id_user!= props?.author_shop &&
-                            <Button variant="contained" onClick={()=> goToMessage()}>Message</Button>
+                            <Button variant="contained" onClick={()=> goToMessage(props.id_user, props.author_shop, navigate)}>Message</Button>
                         }
                         <Button variant="outlined" onClick={()=> navigate(`/shop?id=${props.id_shop}`)}>Visit {props?.id_user == props?.author_shop && "your"} shop</Button>
                     </div>

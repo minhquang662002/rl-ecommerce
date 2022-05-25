@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 return [
     'route' => [
@@ -77,7 +77,9 @@ return [
                 App\GraphQL\Queries\UsersQuery::class,
                 App\GraphQL\Queries\ShopOfUserQuery::class,
                 App\GraphQL\Queries\CommentQuery::class,
-                App\GraphQL\Queries\ReviewproductQuery::class
+                App\GraphQL\Queries\ReviewproductQuery::class,
+                App\GraphQL\Queries\StaticsticQuery::class,
+                App\GraphQL\Queries\PurchaseQuery::class
             ],
             'mutation' => [
                 // ExampleMutation::class,
@@ -98,7 +100,7 @@ return [
             'execution_middleware' => null,
         ],
     ],
-    
+
     // The global types available to all schemas.
     // You can then access it from the facade like this: GraphQL::type('user')
     //
@@ -116,6 +118,8 @@ return [
         App\GraphQL\Types\NotificationType::class,
         App\GraphQL\Types\CommentType::class,
         App\GraphQL\Types\ReviewproductType::class,
+        App\GraphQL\Types\StaticsticType::class,
+        App\GraphQl\Types\PurchaseType::class
     ],
 
     // The types will be loaded on demand. Default is to load all types on each request

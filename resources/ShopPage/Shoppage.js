@@ -12,7 +12,7 @@ import ForAdmin from './ForAdmin'
 import UploadProduct from './UploadProduct'
 import { Helmet } from 'react-helmet-async';
 import NotFound404 from '../NotFound/NotFound404'
-import Overview from './Overview'
+import ContainerStaticstic from './Staticstic/ContainerStaticstic'
 
 const Shoppage = (props) => {
     const location= useLocation()
@@ -22,6 +22,14 @@ const Shoppage = (props) => {
     const [chunkData, setChunkData]= useState(()=> [])
     const [offset, setOffset]= useState(()=> 1)
     const [author_shop, setAuthorShop]= useState(()=> "")
+    const [dataset1, setdataset1]= useState(()=> ({
+        color: "rgb(46, 137, 255)",
+        title: "Revenue"
+    }))
+    const [dataset2, setdataset2]= useState(()=> ({
+        color: "rgb(255, 165, 0)",
+        title: "Access times",  
+    }))
     const nextData= ()=> {
         if(chunkData?.length == data?.length && data?.length >= 1) {
             setOffset(()=> 1)
@@ -124,7 +132,8 @@ const Shoppage = (props) => {
                     <ForAdmin />
                 }
                 <br />
-                <Overview />
+                {/* <button onClick={()=> console.log(moment("26-04-2022", "DD-MM-YYYY").valueOf())}>click</button> */}
+                <ContainerStaticstic id_user={props.id_user} id_shop={query.get("id")} dataset1={dataset1} dataset2={dataset2} setdataset1={setdataset1} setdataset2={setdataset2} />
                 <UploadProduct {...props} id_shop={query.get("id")} a_s={author_shop} />
                 <br />
                 <Classify setsl={setsl} />

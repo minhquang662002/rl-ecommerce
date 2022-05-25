@@ -27,7 +27,7 @@ class UserLogin extends Controller
         }
         // Log::emergency($token_key[0]["token_key"]);
         if(substr(substr(explode(":",$token_key)[1], 0, -2), 1, -1) == $u_id) {
-            return response()->json(["login"=> "true", UserShop::where("id_user", $s_id)->select("avt_user", "firstname", "lastname", "email", "id_user")->get(), DB::table("shop_of_users")-> where("id_user", $s_id)-> select("id_shop")-> get()]);
+            return response()->json(["login"=> "true", UserShop::where("id_user", $s_id)->select("avt_user", "firstname", "lastname", "email", "id_user", "id_shop")->get(), DB::table("shop_of_users")-> where("id_user", $s_id)-> select("id_shop")-> get()]);
         }           
         else {
             return response()-> json(["login"=> "false"]);

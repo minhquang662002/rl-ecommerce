@@ -43,7 +43,7 @@ function SimpleDialog(props) {
         </div>
       </div>
       <div className="ji3" style={{display: "flex", width: "100%", flexDirection: "row-reverse", alignItems: "center", gap: 10, padding: 10}}>
-        <Button disabled={loading=== true ? true : false} onClick={()=> payment(props.author_shop, props.quantity,parseInt(props.price), props.image, props.title, setLoading, dispatch, props.buyer)} variant="contained">{loading=== true ? <CircularProgress style={{width: 24, height: 24}} /> : "Checkout"}</Button>
+        <Button disabled={loading=== true ? true : false} onClick={()=> payment(props.author_shop, props.quantity,parseInt(props.price), props.image, props.title, setLoading, dispatch, props.buyer, props.id_product, props.color_)} variant="contained">{loading=== true ? <CircularProgress style={{width: 24, height: 24}} /> : "Checkout"}</Button>
         <Button onClick={()=> handleClose()} variant="outlined">Cancel</Button>
       </div>
     </Dialog>

@@ -8,56 +8,88 @@ import { SketchPicker } from 'react-color'
 import CloseIcon from '@mui/icons-material/Close'
 import Button from '@mui/material/Button'
 import Previewproduct from './Previewproduct';
-import axios from 'axios'
+import axios from "axios"
+import { v4 } from 'uuid';
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
-const UploadProduct = () => {
-  const formdata= new FormData()
-  const formdata2= new FormData()
+const UploadProduct = (props) => {
+  let formdata= new FormData()
+  let formdata2= new FormData()
   const ls= useMemo(()=> ["xs", "s", "m", "l", "xl", "xxl", "3xl", "4xl", "5xl", "6xl"], [])
   const tf= useMemo(()=> ["clothes", "shirt","short","jacket", "trousers", "jewels", "hat", "mask", "ring"], [])
+  const [listimage1, setlistimage1]= useState(()=> [])
+  const [listimage2, setlistimage2]= useState(()=> [])
   const [ap, setap]= useState(()=> ({
+      id_product: v4(),
       title: "",
       decription: "",
       size: [],
-      cateogries: "", 
+      cateogries: "All,Best seller,Bottom,Dress,New Arrival,Women", 
       color: "",
-      full_images: "",
-      imageIndex: "",
-      imageHover: "",
-      classify: "",
+      classify: "lastest",
       type: "",
       timeup: new Date().getTime(),
-      fullImage: ""
+      
   }))
   const [pim, setpim]= useState(()=> [])
   const [lim, setlim]= useState(()=> [])
   const pi= (e)=> {
     if(e.target.files.length > 0) {
         Object.values(e.target.files).map((item, key)=> {
-            formdata.append(key, item)
-            setpim((prev)=> ([...prev, URL.createObjectURL(item)]))
+            formdata.append("img-"+key, item)
+            setlistimage1(prev=> ([...prev, item]))
+            setpim((prev)=> ([...prev, {i: URL.createObjectURL(item), d: item.lastModified, k: key}]))
+            return
         })
-        
     }   
   }
   const li= (e)=> {
     if(e.target.files.length > 0) {
         Object.values(e.target.files).map((item, key)=> {
-            formdata2.append(key, item)
-            setlim((prev)=> ([...prev, URL.createObjectURL(item)]))
+            formdata2.append("img-"+key, item)
+            setlistimage2(prev=> ([...prev, item]))
+            setlim((prev)=> ([...prev, {i: URL.createObjectURL(item), d: item.lastModified, k: key}]))
+            return
         })
     }
   }
   const dl= (k, i)=> {
-    setpim(pim.filter(item=> item.toString() !== i.toString()))
-    formdata.delete(parseInt(k))
+    setpim(pim.filter(item=> item.i.toString() !== i.toString()))
+    formdata.delete(parseInt("img-"+k))
   }
   const dli= (k, i)=> {
-    setlim(lim.filter(item=> item.toString() !== i.toString()))
-    formdata2.delete(parseInt(k))
+    setlim(lim.filter(item=> item.i.toString() !== i.toString()))
+    formdata2.delete(parseInt("img-"+k))
   }
   const [pd, setpd]= useState(()=> false)
+  const uploadImageIndex= async ()=> {
+      listimage1?.map((item, key)=> formdata.append("img-"+key, item))
+      const res= await axios({
+          url: "http://localhost:8000/api/v1/image/index",
+          method: "post",
+          data: formdata,
+          headers: {
+            "Content-Type": "multipart/form-data"
+          }
+      })
+      const result= await res.data
+      return result
+  }
+  const uploadfullimage= async()=> {
+    listimage2?.map((item, key)=> formdata2.append("img-"+key, item))
+    const res= await axios({
+        url: "http://localhost:8000/api/v1/image/full",
+        method: "post",
+        data: formdata,
+        headers: {
+          "Content-Type": "multipart/form-data"
+        }
+    })
+    const result= await res.data
+    return result
+  }
+  const [listimageindex, setlistimageindex]= useState(()=> [])
+  const [listfullimage, setlistfullimage]= useState(()=> [])
   
   return (
     <div style={{width: "100%", display: 'flex', gap: 10, padding: 20, backgroundColor: "#e4e6eb", flexDirection: "column"}}>
@@ -101,7 +133,15 @@ const UploadProduct = () => {
                 pim?.length> 0 &&
                 <div style={{width: "100%", height: "auto", display: "flex", flexDirection: "row", gap: 15, flexWrap: "wrap", alignItems: 'center',}}>
                     {
-                        pim.length>0 && pim.map((item, key)=> <div style={{width: 100, height: 100, borderRadius: 10, overflow: "hidden",position: "relative"}} key={key}><img style={{width: "100%", height: "100%", objectFit: "cover"}} src={item} alt="can't display" /><div onClick={()=> dl(key, item)} style={{position: "absolute", top: 0, right: 0, transform: "translate(-10%, 10%)", width: 30, height: 30, borderRadius: "50%", display: "flex", justifyContent: 'center',alignItems: "center", cursor: "pointer", background: "#e4e6eb"}}><CloseIcon /></div></div>)
+                        pim.length>0 && pim.map((item, key)=> <div style={{width: 100, height: 100, borderRadius: 10, overflow: "hidden",position: "relative"}} key={key}><img style={{width: "100%", height: "100%", objectFit: "cover"}} src={item.i} alt="can't display" />
+                            <div onClick={()=> {
+                                setlistimage1(listimage1?.filter((item2)=> item2.lastModified != item.d))
+                                setpim(pim.filter((v, i)=> i !=( key )))
+                            }} style={{position: "absolute", top: 0, right: 0, transform: "translate(-10%, 10%)", width: 30, height: 30, borderRadius: "50%", display: "flex", justifyContent: 'center',alignItems: "center", cursor: "pointer", background: "#e4e6eb"}}>
+                                <CloseIcon />
+                            </div>
+                        </div>
+                        )
                     }                
                 </div>
             }
@@ -123,21 +163,29 @@ const UploadProduct = () => {
             <br />
             <Button variant="contained" style={{position: "relative"}}>
                 <div style={{cursor: "pointer"}}>Select image</div>
-                <label style={{width: "100%", height: "100%", opacity: 0, position: "absolute", left: 0, top: 0, cursor: "pointer"}}>
+                <label style={{width: "100%", height: "100%", opacity: 0, position: "absolute", left: 0, top: 0, cursor: "pointer", marginBottom: 20}}>
                     <input type="file" accept="image/*" multiple tabIndex={-1} style={{cursor: "pointer"}} onChange={(e)=> li(e)} title="" />
                 </label>
             </Button>
+            <br />
             <br />
             {
                 lim?.length> 0 &&
                 <div style={{width: "100%", height: "auto", display: "flex", flexDirection: "row", gap: 15, flexWrap: "wrap", alignItems: 'center',}}>
                     {
-                        lim.length>0 && lim.map((item, key)=> <div style={{width: 100, height: 100, borderRadius: 10, overflow: "hidden",position: "relative"}} key={key}><img style={{width: "100%", height: "100%", objectFit: "cover"}} src={item} alt="can't display" /><div onClick={()=> dli(key, item)} style={{position: "absolute", top: 0, right: 0, transform: "translate(-10%, 10%)", width: 30, height: 30, borderRadius: "50%", display: "flex", justifyContent: 'center',alignItems: "center", cursor: "pointer", background: "#e4e6eb"}}><CloseIcon /></div></div>)
+                        lim.length>0 && lim.map((item, key)=> <div style={{width: 100, height: 100, borderRadius: 10, overflow: "hidden",position: "relative"}} key={key}><img style={{width: "100%", height: "100%", objectFit: "cover"}} src={item.i} alt="can't display" />
+                        <div onClick={()=> {
+                            setlistimage2(listimage2?.filter((item2)=> item2.lastModified != item.d))
+                            setlim(lim.filter((v, i)=> i !=( key )))
+                        }} style={{position: "absolute", top: 0, right: 0, transform: "translate(-10%, 10%)", width: 30, height: 30, borderRadius: "50%", display: "flex", justifyContent: 'center',alignItems: "center", cursor: "pointer", background: "#e4e6eb"}}>
+                            <CloseIcon />
+                            </div>
+                        </div>)
                     }                
                 </div>
             }
             <br />
-            <div>
+            <div style={{marginBottom: 20}}>
             Price: 
             </div>
             <div>
@@ -147,11 +195,15 @@ const UploadProduct = () => {
             <Button onClick={()=> setpd(()=> true)} variant="contained" style={{position: "relative"}}>
                 Preview
             </Button>
+            
         </div>
         
         {
             pd===true &&
-            <Previewproduct {...ap} lim={lim} pim={pim} setpd={setpd} formdata={formdata} /> 
+            <Previewproduct {...ap} lim={lim} pim={pim} setpd={setpd} formdata={formdata} formdata2={formdata2}
+                uploadImageIndex={uploadImageIndex} uploadfullimage={uploadfullimage} listimageindex={listimageindex}
+                listfullimage={listfullimage} id_shop={props.id_shop} id_user={props.id_user}
+            /> 
         }
     </div>
   )

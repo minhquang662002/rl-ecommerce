@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
-class MessageImageController extends Controller
+class MessageImageController extends Controller 
 {
     //
     public function returnPath(Request $request) {

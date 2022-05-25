@@ -20,6 +20,7 @@ export const fetchquantitynotifications= (id_user, setUnWatch)=> {
         const watched= []
         Object.values(data).map(item=> Object.values(item).map(item2=> watched.push(item2.see.state)))
         const countwatch= watched.filter(item=> item !== true)
+        console.log(countwatch)
         return setUnWatch(countwatch.length || 0)
     })
 }

@@ -13,7 +13,7 @@ class UserShop extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable= ["firstname", "lastname", "email", "password", "id_user", "secret_key", "api_token", "token", "token_key", "avt_user"];
+    protected $fillable= ["firstname", "lastname", "email", "password", "id_user", "secret_key", "api_token", "token", "token_key", "avt_user", "id_shop"];
     /**
      * Hidden serialazations
      *

@@ -103,7 +103,7 @@ function Navbar(props) {
                             </span>
                             {
                                 unwatch > 0 &&
-                            <div style={{position: "absolute", top: -5, right: -5, padding: 5, color: "#fff", backgroundColor: "#cc0000", display: "flex", justifyContent: 'center',alignItems: 'center', borderRadius: "50%", width: 16, height: 16, zIndex: 999999, fontSize: 12}}>{unwatch}</div>
+                            <div style={{position: "absolute", top: -5, right: -5, padding: 5, color: "#fff", backgroundColor: "#cc0000", display: "flex", justifyContent: 'center',alignItems: 'center', borderRadius: "50%", width: 16, height: 16, zIndex: 997, fontSize: 12, cursor: "pointer"}}>{unwatch}</div>
                             }
                             {
                                 openPopup=== true &&

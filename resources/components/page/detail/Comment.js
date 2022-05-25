@@ -7,6 +7,7 @@ import axios from 'axios'
 import ListComment from './ListComment'
 import _ from "lodash"
 import C1 from './C1'
+import { p_notifications } from '../../../firebase/online/push_notifacation'
 
 const Comment = (props) => {
   const [uda, setUda]= useState(()=> [])
@@ -33,6 +34,7 @@ const Comment = (props) => {
   const [text, setText]= useState(()=> "")
   const [filter, setFilter]= useState(()=> 0)
   const sendcomment= ()=> {
+    p_notifications(props.author_shop, `${props.user_.firstname || props.user_.lastname}`, props.user_.avt_user, "just commented your product",props.id_product, )
     const p1= axios({
         url: "http://localhost:8000/comment/send/m",
         method: "post",
@@ -117,6 +119,7 @@ const Comment = (props) => {
   }
   const usertyping= (e)=> {
     if((e.key== "enter" || e.key== "Enter") && e.target.value.length > 0) {
+        p_notifications(props.author_shop, `${props.user_.firstname || props.user_.lastname}`, props.user_.avt_user, "just commented your product",props.id_product, )
         const p1= axios({
             url: "http://localhost:8000/comment/send/m",
             method: "post",

@@ -1,40 +1,38 @@
-import React, { useEffect, useMemo } from 'react'
+import React, { useEffect, useState } from 'react'
 import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext } from 'pure-react-carousel'
 import 'pure-react-carousel/dist/react-carousel.es.css'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import { Button } from '@mui/material'
 import axios from 'axios'
+import { LoadingSuspense3 } from '../components/loading/LoadingSuspense'
 
 const Previewproduct = (props) => {
-  const settings= useMemo(()=> ({
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1
-  }), [])
+  const [loading, setloading]= useState(()=> false)
   useEffect(()=> {
     document.body.style.overflow= "hidden"
     return ()=> document.body.style.overflow= "auto"
   }, [])
   const pd= async ()=> {
-    const res2= axios({
-      url: "http://localhost:8000/p/m/n/b",
-        method: "post",
-        headers: {
-            "Content-Type": "multipart/form-data",
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute("content")
-        },
-        timeout: 10000,
-        xsrfCookieName: 'qwerty',
-        xsrfHeaderName: 'token',
-        withCredentials: false,
-        responseType: "json",
-        data: props.formdata
-    })
-    const res= axios({
-      url: "http://localhost:8000/products",
+    setloading(()=> true)
+    const r1= await props.uploadImageIndex()
+    const r2= await props.uploadfullimage()
+    // const res2= axios({
+    //   url: "http://localhost:8000/p/m/n/b",
+    //     method: "post",
+    //     headers: {
+    //         "Content-Type": "multipart/form-data",
+    //         'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute("content")
+    //     },
+    //     timeout: 10000,
+    //     xsrfCookieName: 'qwerty',
+    //     xsrfHeaderName: 'token',
+    //     withCredentials: false,
+    //     responseType: "json",
+    //     data: props.formdata
+    // })
+    const res= await axios({
+      url: "http://localhost:8000/api/v2/upload/product",
       method: "post",
       timeout: 10000,
       headers: {
@@ -45,11 +43,18 @@ const Previewproduct = (props) => {
       withCredentials: false,
       responseType: "json",
       data: {
-        ...props, size: [...props.size]?.toString()
+        ...props, size: [...props.size]?.toString(),
+        imageIndex: r1[0],
+        imageHover: r1[1],
+        full_images:r2.toString(),
+        id_shop: props.id_shop,
+        id_user: props.id_user
       }
     })
-    const [result1, result2] =await  Promise.all([res, res2])
-    console.log(result1, result2)
+    const result= await res.data 
+    setloading(()=> true) 
+    props.setpd(()=> false)
+    console.log(result)
   }
   return (
     <div style={{display: "flex", position: "fixed", top: 0, left: 0, width: "100%", height: "100%", zIndex: 99999999, background: "#fff", justifyContent: "center", alignItems: 'center', gap: 100, flexDirection: "column"}}>
@@ -65,7 +70,7 @@ const Previewproduct = (props) => {
               <Slider className="dskewteowr" style={{width: 400}}>
               {
                 props.lim.length>0 && props.lim.map((item, key)=> <Slide key={key} index={key} >
-                    <img src={item} alt="can't open" style={{width: "100%", height: "100%", objectFit: "cover"}} />
+                    <img src={item.i} alt="can't open" style={{width: "100%", height: "100%", objectFit: "cover"}} />
                 </Slide>)
               }
               </Slider>   
@@ -107,6 +112,9 @@ const Previewproduct = (props) => {
           Cancel
         </Button>
       </div>
+      {
+        loading=== true && <LoadingSuspense3 />
+      }
     </div>
   )
 }

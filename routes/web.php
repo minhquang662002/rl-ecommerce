@@ -33,6 +33,7 @@ use App\Http\Controllers\SettingController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\UploadAvatarController;
+use App\Http\Controllers\UploadProductController;
 use App\Http\Controllers\UserLogin;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\UserTypingController;
@@ -55,11 +56,15 @@ use Symfony\Component\Mime\MessageConverter;
 /**
  * 
  */
+Route::post("/api/v1/image/full", [MessageImageController::class, "returnPath"]);
+Route::post("/api/v1/image/index", [MessageImageController::class, "returnPath"]);
+Route::post("/api/v2/upload/product", [UploadProductController::class, "upload"]);
 Route::post("/authentication/user/auth", [VerifyCodeController::class, "AuthenticationEmail"]);
 Route::get("/address/user", [AddressController::class, "boot"]);
 Route::post("/add/item/favorite", [AddFavoriteUser::class, "boot"]);
 Route::post("/add/item/cart", [AddItemToCartController::class, "boot"]);
 Route::post("/brief", [BriefProductController::class, "getBrief"]);
+Route::post("/checkout", [PaymentController::class, "makePayment"])-> name("make-payment");
 Route::post("/comment/send/m", [CommentController::class, "sendComment"]);
 Route::get("/comment/usertyping/t/x", [UserTypingController::class, "boot"]);
 Route::get("/comment/more/x/g/t", [LoadMoreComment::class, "boot"]);
@@ -97,7 +102,6 @@ Route::get("/s/a/i",[ShopController::class, "boot"]);
 Route::get("/search/option", [SearchProductController::class, "searchByOption"]);
 Route::get("/test", [TestController:: class, "Test"]);
 Route::get("/t/c/r", [ReviewProductController::class, "boot"]);
-Route::post("/checkout", [PaymentController::class, "makePayment"])-> name("make-payment");
 Route::post("/upload/avatar", [ImageController::class, "storeImage"])->middleware("filtermaliciousfile");
 Route::post("/verify/user/auth", [VerifyCodeController::class, "SendMail"]);
 Route::post("/p/m/n/b", [ImageController::class, "batchImage"]);

@@ -136,7 +136,7 @@ const DetailPage = (props) => {
                 <div className="pe2" style={{display: 'flex', width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center', flexDirection: "row"}}>
                     <div className="sn1" style={{display: 'flex', boxSizing: 'border-box', marginTop: 15, width: 1150, justifyContent: 'space-between',  borderRadius: 8, boxShadow: "0 0 3px 0 #dee2e6"}}>
                         <div className="gf3" style={{display: "flex", justifyContent: "center", alignItems: "center", width: "calc(100% - 200px)"}}>
-                            <Comment {...props} {...tempItem} />       
+                            <Comment {...props} {...tempItem} id_shop={item2?.id_shop} author_shop={item2?.author_shop} />       
                         </div>
                         <div className="or4" style={{display: "flex", flexDirection: "column", width: 350, justifyContent: 'flex-start'}}>
                             <Review {...props} {...tempItem} />

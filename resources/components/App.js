@@ -37,6 +37,7 @@ import Setting from "../Setting/Setting"
 import PaymentSuccess from "../Payment/PaymentSuccess"
 import MessagePage from "../MessagePage/MessagePage"
 import Shoppage from "../ShopPage/Shoppage"
+import OrderComponent from "../OrderComponent/OrderComponent"
 
 
 const QuickViewModal = lazy(() => {
@@ -51,7 +52,6 @@ function App() {
     } = useContext(NavContext)
     const [userLogin, setUserLogin]= useState(()=> false)
     const [in4User, setIn4User]= useState(()=> [])
-    const [idshopuser, setidshopuser]= useState(()=> "")
     useScrollToTop()
     useEffect(()=> {
         (async()=> {
@@ -97,7 +97,6 @@ function App() {
                 setUserLogin(result.login)
                 if(result.login=== "true") {
                     setIn4User(()=> result[0])
-                    setidshopuser(()=> result[1])
                     localStorage.setItem("u_ol", result[0][0]?.id_user)
                 }
             } catch (error) {
@@ -133,10 +132,9 @@ function App() {
                     <Route path="*" element={<NotFound404 message="The link may be broken, or the page may have been removed. Check to see if the link you're trying to open is correct." />}></Route>
                     <Route path="/check/payment/success.html" element={<PaymentSuccess id_user={in4User[0]?.id_user} /> } />
                     <Route path="/shop" element={<Shoppage {...in4User[0]}/>}></Route>
-                    {
-                    <Route path="/message/t/:id" element={<MessagePage {...in4User[0]} />} ></Route>
-                    }
-                    
+                    <Route path="/order/*" element={<OrderComponent {...in4User[0]} />}></Route>
+                    <Route path="/order/?type=1" element={<OrderComponent {...in4User[0]} />}></Route>
+                    <Route path="/message/t/:id" element={<MessagePage {...in4User[0]} />} ></Route>                    
                 </Routes>
                 <Layout>
                     {/* <ButtonRipple>Hello World</ButtonRipple> */}
@@ -147,7 +145,7 @@ function App() {
                         <AuthModal />
                     }
                     {
-                        userLogin=== "true" && <UserPage in4={in4User} idshopuser={idshopuser} />
+                        userLogin=== "true" && <UserPage in4={in4User} />
                     }
                     <Setting in4={in4User} />
                     {quickViewData && <Suspense fallback={<div style={{top: '50%', left: '50%', transform: 'translate(-50%, -50%)', position: 'fixed', zIndex: 99999}}> <CircularProgress /></div>}><QuickViewModal /></Suspense>}

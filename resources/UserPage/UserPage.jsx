@@ -49,7 +49,7 @@ const UserPage = (props) => {
                 <NameUser />
                 <SideInfo in4={props.in4} />
                 <br />
-                <SideInfo2 in4={props.in4} idshopuser={props.idshopuser} />
+                <SideInfo2 in4={props.in4} />
             </div>
       </ContextForUser.Provider>
     </Beforeunload>

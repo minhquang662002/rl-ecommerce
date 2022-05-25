@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Session as FacadesSession;
@@ -48,7 +49,16 @@ class PaymentController extends Controller
         $x= $request-> id_user;
         Redis::set("seque", $secret_token.','.$x, "EX", 180);
         FacadesSession::flash("success", "Payment successfully made.");
-        Log::emergency($checkout_url);
+        DB::table("order_product")-> insert([
+            'id_product'=> $request-> id_product,
+            'quantity'=> $request-> quantity,
+            'cost'=> $request-> price,
+            'color'=> $request-> color, 
+            'id_buyer'=> $request-> buyer,
+            'state'=> 1,
+            'id_seller'=> $request-> id_user,
+            'timeu'=> $request-> timeu,
+        ]);
         return response()-> json([$checkout_url->url, $checkout_url->payment_intent, $secret_token]);
         header("HTTP/1.1 303 See Other");
         header("Location: " . $checkout_url->url);
