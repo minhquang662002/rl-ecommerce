@@ -56,10 +56,10 @@ const QuickViewModal = () => {
         return (
             <div className="QuickViewModal">
                 <QuickViewModalLeft
-                    allImages={allImages}
+                    allImages={allImages?.filter(item=> item!= "")}
                     displayedImage={displayedImage}
                     setDisplayedImage={setDisplayedImage}
-                    imageList={imageList}
+                    imageList={imageList?.filter(item=> item!= "")}
                 />
                 <DetailPageRight 
                     className="qwe"

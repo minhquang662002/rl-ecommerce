@@ -45,7 +45,7 @@
 .CartModal__footer {
     flex-grow: 3;
     padding: 20px;
-    border-top: 1px black solid;
+    border-top: 1px solid #c1c1c1 ;
 }
 
 .CartModal__footer--sale {

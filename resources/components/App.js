@@ -131,7 +131,7 @@ function App() {
                     <Route path="/signup" element={<SignupPage />}></Route>
                     <Route path="*" element={<NotFound404 message="The link may be broken, or the page may have been removed. Check to see if the link you're trying to open is correct." />}></Route>
                     <Route path="/check/payment/success.html" element={<PaymentSuccess id_user={in4User[0]?.id_user} /> } />
-                    <Route path="/shop" element={<Shoppage {...in4User[0]}/>}></Route>
+                    <Route path="/shop/*" element={<Shoppage {...in4User[0]}/>}></Route>
                     <Route path="/order/*" element={<OrderComponent {...in4User[0]} />}></Route>
                     <Route path="/order/?type=1" element={<OrderComponent {...in4User[0]} />}></Route>
                     <Route path="/message/t/:id" element={<MessagePage {...in4User[0]} />} ></Route>                    

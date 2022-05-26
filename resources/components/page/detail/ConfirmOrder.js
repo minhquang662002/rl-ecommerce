@@ -6,6 +6,7 @@ import Dialog from '@mui/material/Dialog'
 import { payment } from '../../../action/payment'
 import CircularProgress from '@mui/material/CircularProgress'
 import { useDispatch } from "react-redux"
+import { useLocation } from 'react-router-dom'
 
 function SimpleDialog(props) {
   const handleClose = () => {
@@ -43,7 +44,9 @@ function SimpleDialog(props) {
         </div>
       </div>
       <div className="ji3" style={{display: "flex", width: "100%", flexDirection: "row-reverse", alignItems: "center", gap: 10, padding: 10}}>
-        <Button disabled={loading=== true ? true : false} onClick={()=> payment(props.author_shop, props.quantity,parseInt(props.price), props.image, props.title, setLoading, dispatch, props.buyer, props.id_product, props.color_)} variant="contained">{loading=== true ? <CircularProgress style={{width: 24, height: 24}} /> : "Checkout"}</Button>
+        <Button disabled={loading=== true ? true : false} onClick={()=> 
+          payment(props.author_shop, props.quantity,parseInt(props.price), props.image, props.title, setLoading, dispatch, props.buyer, props.id_product, props.color_)}
+          variant="contained">{loading=== true ? <CircularProgress style={{width: 24, height: 24}} /> : "Checkout"}</Button>
         <Button onClick={()=> handleClose()} variant="outlined">Cancel</Button>
       </div>
     </Dialog>
@@ -56,6 +59,7 @@ SimpleDialog.propTypes = {
 }
 
 export default function SimpleDialogDemo(props) {
+  const location= useLocation()
   const [open, setOpen] = React.useState(false)
 
   const handleClickOpen = () => {
@@ -68,9 +72,16 @@ export default function SimpleDialogDemo(props) {
 
   return (
     <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        Buy now
-      </Button>
+      {
+        location.state.standout ?
+        <button onClick={handleClickOpen} className="glow-on-hover" type="button">
+          Buy now
+        </button>
+        :
+        <Button variant="outlined" onClick={handleClickOpen}>
+          Buy now
+        </Button>
+      }
       <SimpleDialog
         open={open}
         onClose={handleClose}

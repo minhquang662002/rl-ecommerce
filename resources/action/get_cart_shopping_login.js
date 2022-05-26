@@ -36,7 +36,21 @@ export const getcardshoppinglogin= async (setData, setLoading, id_user)=> {
         responseType: "json",
     })
     const result= await res.data
-    return setData(result)
+    return setData(result?.reduce((accum, val) => {
+        const dupeIndex = accum.findIndex(arrayItem => arrayItem.id_product === val.id_product);
+
+        if (dupeIndex === -1) {
+          // Not found, so initialize.
+          accum.push({
+            qty: 1,
+            ...val
+          });
+        } else {
+          // Found, so increment counter.
+          accum[dupeIndex].qty++;
+        }
+        return accum;
+    }, []))
     } catch (error) {
         console.log (error)
     }

@@ -1,21 +1,34 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import useQuery from '../ListItem/HookQuerySearch'
+import ComponentForAdmin from './ForAdmin/ComponentForAdmin'
 import "./fs.sass"
 
 const ForAdmin = (props) => {
   const query= useQuery()
-  const l= useMemo(()=> ["Your product", "Products selled", "Revenue", "Sell product"])
+  const [s, sets]= useState(()=> 1)
+  const l= useMemo(()=> ["Your product", "Products selled", "Revenue", "Sell product", "Order Request"])
   return (
-    <div style={{width: "100%", display: 'flex', justifyContent: 'center',alignItems: "center"}}>
-        <div className="fa-fs">
-            {
-              l?.map((item, key)=> <Link to={`/shop?id=${query.get("id")}&q=${parseInt(key) +1}`} key={key}><div className="iewsd" style={{width: '100%', display: 'flex', flex: "1 1 0", justifyContent: 'center',alignItems: "center", cursor: "pointer", height: '100%'}}>
+    <>
+      <div style={{width: "100%", display: 'flex', justifyContent: 'center',alignItems: "center"}}>
+          <div className="fa-fs">
+              {
+                l?.map((item, key)=> <Link onClick={()=> {
+                  sets(()=> parseInt(key) +1)
+                  if(parseInt(key) + parseInt(1) == 1) {
+                    props.myRef.current.scrollIntoView({behavior: "smooth",block: 'end', })
+                  }
+                }} to={`/shop?id=${query.get("id")}&q=${parseInt(key) +1}`} key={key}><div className="iewsd" style={{width: '100%', display: 'flex', flex: "1 1 0", justifyContent: 'center',alignItems: "center", cursor: "pointer", height: '100%'}}>
                   {item}
-              </div></Link>)
-            }
-        </div>
-    </div>
+                </div></Link>)
+              }
+          </div>
+      </div>
+      {
+        query.get("q") != 1 &&
+        <ComponentForAdmin s={s} />
+      }
+    </>
   )
 }
 

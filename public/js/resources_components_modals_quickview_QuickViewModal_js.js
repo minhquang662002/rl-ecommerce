@@ -149,10 +149,14 @@ var QuickViewModal = function QuickViewModal() {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
       className: "QuickViewModal",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_QuickViewModalLeft__WEBPACK_IMPORTED_MODULE_3__["default"], {
-        allImages: allImages,
+        allImages: allImages === null || allImages === void 0 ? void 0 : allImages.filter(function (item) {
+          return item != "";
+        }),
         displayedImage: displayedImage,
         setDisplayedImage: setDisplayedImage,
-        imageList: imageList
+        imageList: imageList === null || imageList === void 0 ? void 0 : imageList.filter(function (item) {
+          return item != "";
+        })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_page_detail_DetailPageRight__WEBPACK_IMPORTED_MODULE_5__["default"], {
         className: "qwe",
         title: data === null || data === void 0 ? void 0 : data.title,

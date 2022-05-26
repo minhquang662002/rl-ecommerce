@@ -680,7 +680,7 @@
         </svg>
 
         <h1 class="error-title">
-            Woops! <br>Sorry we we are under maintenance :(
+            Oops! <br>Sorry we are under maintenance :(
         </h1>
         <h2 class="error-subtitle">
             We will finish it as soon as possible

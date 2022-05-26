@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, Fragment, useState } from 'react'
+import React, { useContext, Fragment, useState } from 'react'
 import { ContextForUser } from "./UserPage"
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import FavoriteIcon from '@mui/icons-material/Favorite'
@@ -40,10 +40,15 @@ const AddressUser= (props)=> {
 const OpenCart= (props)=> {
   const [data, setData]= useState(()=> [])
   const [loading, setLoading]= useState(()=> false)
+  const [click, setclick]= useState(()=> false)
   return (
     <Fragment>
       <div className="pl1" style={{width: '100%', height: 'auto', padding: '10px 0', display: "flex", justifyContent: 'space-between', alignItems: "center", padding: '10px',margin: '10px 0', backgroundColor: "#f3f3f5", cursor: "pointer"}}
-        onClick={()=> {props.setOpen(prev=> !prev);getcardshoppinglogin(setData, setLoading, props.id_user)}}
+        onClick={()=> {
+          props.setOpen(prev=> !prev);
+          getcardshoppinglogin(setData, setLoading, props.id_user)
+          setclick((prev)=> !prev)
+        }}
       >
         <div>
           <ShoppingCartIcon />
@@ -64,6 +69,9 @@ const OpenCart= (props)=> {
               <CartModalItem item={item } />
             </div>)
           }
+          {
+            (loading=== false && click== true && data?.length== 0) && <div style={{width: '100%', height: 150, display: 'flex', justifyContent: 'center',alignItems: 'center'}}>You don't have order product </div>
+          }
       </div>
     </Fragment>
   )
@@ -71,10 +79,15 @@ const OpenCart= (props)=> {
 const OpenFavorite= (props)=> {
   const [data, setData]= useState(()=> [])
   const [loading, setLoading]= useState(()=> false)
+  const [click, setclick]= useState(()=> false)
   return (
     <Fragment>
       <div className="pl1" style={{width: '100%', height: 'auto', padding: '10px 0', display: "flex", justifyContent: 'space-between', alignItems: "center", padding: '10px',margin: '10px 0', backgroundColor: "#f3f3f5", cursor: "pointer"}}
-      onClick={()=> {props.setOpen(prev=> !prev);getfavoritelogin(setData, setLoading, props.id_user)}} >
+      onClick={()=> {
+        props.setOpen(prev=> !prev);
+        getfavoritelogin(setData, setLoading, props.id_user)
+        setclick(prev=> !prev)
+      }} >
         <div>
           <FavoriteIcon />
         </div>
@@ -93,6 +106,9 @@ const OpenFavorite= (props)=> {
             (data.length> 0 && props.open === true ) && data.map((item, key)=> <div key={key}>
               <CartModalItem item={item } />
             </div>)
+          }
+          {
+            (loading=== false && click== true && data?.length== 0) && <div style={{width: '100%', height: 150, display: 'flex', justifyContent: 'center',alignItems: 'center'}}>You don't have favorite product </div>
           }
       </div>
     </Fragment>

@@ -53,14 +53,6 @@ const UploadProduct = (props) => {
         })
     }
   }
-  const dl= (k, i)=> {
-    setpim(pim.filter(item=> item.i.toString() !== i.toString()))
-    formdata.delete(parseInt("img-"+k))
-  }
-  const dli= (k, i)=> {
-    setlim(lim.filter(item=> item.i.toString() !== i.toString()))
-    formdata2.delete(parseInt("img-"+k))
-  }
   const [pd, setpd]= useState(()=> false)
   const uploadImageIndex= async ()=> {
       listimage1?.map((item, key)=> formdata.append("img-"+key, item))
@@ -197,7 +189,6 @@ const UploadProduct = (props) => {
             </Button>
             
         </div>
-        
         {
             pd===true &&
             <Previewproduct {...ap} lim={lim} pim={pim} setpd={setpd} formdata={formdata} formdata2={formdata2}

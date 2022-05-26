@@ -127,7 +127,7 @@ function Navbar(props) {
                         {setNavChoices((state) => ({ ...state, cart: true }));getShoppingCart(setDataShoppingCart, listNoLogin, props.id_user)}
                     }
                 >
-                    <div style={{position: "absolute", top: 0, right: 0, width: 14, height: 14, borderRadius: "50%", backgroundColor: "#000", color: "#fff", fontSize: 12,display: "flex", justifyContent: "center", alignItems: "center" }}><span>{quantityOfFavoriteandCart.cart}</span></div>
+                    <div style={{position: "absolute", top: -10, right: -5, width: 20, height: 20, borderRadius: "50%", backgroundColor: "#000", color: "#fff", fontSize: 12,display: "flex", justifyContent: "center", alignItems: "center" }}><span>{quantityOfFavoriteandCart.cart}</span></div>
                     <ShoppingCartOutlinedIcon />
                 </div>
                 <div

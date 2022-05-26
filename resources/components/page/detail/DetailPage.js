@@ -56,7 +56,7 @@ const DetailPage = (props) => {
     const { setNavChoices } = useContext(NavContext)
     const { id_product, title, price, color, size,decription, categories }= useLocation().state
     const { section, product } = useParams()
-    const imageList = tempItem?.full_images?.split(",").map((item) => item).flat()
+    const imageList = tempItem?.full_images?.split(",").map((item) => item)
     const [displayedImage, setDisplayedImage] = useState(0)
     const [transAmount, setTransAmount] = useState(0)
     const [currentColor, setCurrentColor] = useState()
@@ -65,7 +65,7 @@ const DetailPage = (props) => {
         setCurrentColor(findCurrentColor(displayedImage, tempItem, imageList))
     }, [displayedImage])
     
-    if(tempItem?.length <1) {
+    if(tempItem?.length <1) {   
         return (
             <div className="lfg3" style={{top: '50%', left: '50%', transform: 'translate(-50%, -50%)', position: 'absolute'}}> <CircularProgress /></div>
         )

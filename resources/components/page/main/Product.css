@@ -249,3 +249,6 @@
         opacity: 1;
     }
 }
+.DetailPage__image--displayed {
+    min-width: 280px !important;
+}

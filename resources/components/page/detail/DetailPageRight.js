@@ -112,7 +112,7 @@ const DetailPageRight = (props) => {
                             </div>
                             {
                                 props.categories?.split(",").map((item, key)=> (
-                                    <Link to={`/collection/${item.toLowerCase().trim().replaceAll(" ", '-')}`} key={key} >
+                                <Link to={`/collection/${item.toLowerCase().trim().replaceAll(" ", '-')}`} key={key} >
                                     <div className="categories" style={{fontSize: 16, fontWeight: 400, textTransform: 'lowercase'}}>{item},</div>
                                 </Link>
                             ))

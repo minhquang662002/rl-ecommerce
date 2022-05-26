@@ -16,7 +16,7 @@ const DetaiPageLeft = ({
         px: 0,
         py: 0
     }))
-    const [showRoom, setShowRoom]= useState(()=> false)
+    // const [showRoom, setShowRoom]= useState(()=> false)
     const lensRef= useRef()
     const zoomRef= useRef()
     const imgRef= useRef()

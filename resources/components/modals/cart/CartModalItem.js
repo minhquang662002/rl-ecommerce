@@ -4,7 +4,7 @@ import "./CartModalItem.css";
 import { useState } from "react";
 
 const CartModalItem = ({ item, cart }) => {
-    const { title, price, color, size, imageindex } = item;
+    const { title, price, color, size, imageindex, qty } = item;
     const [quanity, setQuanity] = useState(1);
     const handleChange = (e) => {
         const { value } = e.target;
@@ -42,8 +42,9 @@ const CartModalItem = ({ item, cart }) => {
                                 )}
                             </span>
                             <input
+                                style={{backgroundColor: "#fff", color: "#000",}}
                                 type="number"
-                                value={quanity}
+                                value={qty}
                                 onChange={handleChange}
                             />
                             <span

@@ -46,7 +46,7 @@ const Previewproduct = (props) => {
         ...props, size: [...props.size]?.toString(),
         imageIndex: r1[0],
         imageHover: r1[1],
-        full_images:r2.toString(),
+        full_images:","+r2.toString(),
         id_shop: props.id_shop,
         id_user: props.id_user
       }

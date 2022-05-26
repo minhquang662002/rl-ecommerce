@@ -1,4 +1,4 @@
-import React, {  useEffect, useState } from 'react'
+import React, {  useEffect, useRef, useState } from 'react'
 import { useq2 } from '../ListItem/HookQuerySearch'
 import ShopOwn from '../components/page/detail/ShopOwn'
 import FilterAltIcon from "@mui/icons-material/FilterAlt"
@@ -22,6 +22,7 @@ const Shoppage = (props) => {
     const [chunkData, setChunkData]= useState(()=> [])
     const [offset, setOffset]= useState(()=> 1)
     const [author_shop, setAuthorShop]= useState(()=> "")
+    const myRef= useRef()
     const [dataset1, setdataset1]= useState(()=> ({
         color: "rgb(46, 137, 255)",
         title: "Revenue"
@@ -59,7 +60,7 @@ const Shoppage = (props) => {
             const result= await res.data
             setChunkData(()=> result[0]?.slice(0, 8))
             setData(()=> result[0])
-            setAuthorShop(()=> result[1][0]?.author_shop || "-1")
+                setAuthorShop(()=> result[1][0]?.author_shop || "-1")
         })()
 
         return ()=> {
@@ -129,7 +130,7 @@ const Shoppage = (props) => {
                 <br />
                 {   
                     author_shop== props.id_user &&
-                    <ForAdmin />
+                    <ForAdmin myRef={myRef} />
                 }
                 <br />
                 {/* <button onClick={()=> console.log(moment("26-04-2022", "DD-MM-YYYY").valueOf())}>click</button> */}
@@ -138,7 +139,8 @@ const Shoppage = (props) => {
                 <br />
                 <Classify setsl={setsl} />
                 <br />
-                <div className="CollectionPage__mainContent--products" style={{width: "100%", padding: "0 20px"}}>
+                <div className="CollectionPage__mainContent--products" style={{width: "100%", padding: "0 20px", position: "relative"}}>
+                    <div ref={myRef} style={{position: "absolute", bottom: 0, left: 0}}></div>
                     <InfiniteScroll
                         className="dskeq3"
                         style={{display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 30, width: "100%", overflow: "hidden"}}
@@ -153,7 +155,7 @@ const Shoppage = (props) => {
                         }
                     >
                         {
-                            chunkData && chunkData?.map((item, key)=> <Product key={key} item={item} />)
+                            chunkData && chunkData?.map((item, key)=> <Product section={"own"} key={key} item={item} />)
                         }
                     </InfiniteScroll>
                 </div>
@@ -168,27 +170,27 @@ const Classify= (props)=> {
     return (
         <div className="dssajiwe" style={{width: "100%", height: 100}}>
             <div className="CollectionPage__mainContent--utils">
-                    <div className="CollectionPage__filter">
-                        <div
-                            className="CollectionPage__filter--trigger"
-                            onClick={() => setDisplayTable((state) => !state)}
-                        >
-                            <FilterAltIcon />
-                            Filter
-                        </div>
+                <div className="CollectionPage__filter">
+                    <div
+                        className="CollectionPage__filter--trigger"
+                        onClick={() => setDisplayTable((state) => !state)}
+                    >
+                        <FilterAltIcon />
+                        Filter
                     </div>
-                    <form className="CollectionPage__sort">
-                        <select onChange={(e)=> props.setsl(e)}>
-                            <option value={1}>Featured</option>
-                            <option value={2}>Best selling</option>
-                            <option value={3}>Alphabetically, A-Z</option>
-                            <option value={4}>Alphabetically, Z-A</option>
-                            <option value={5}>Price, low to high</option>
-                            <option value={6}>Price, high to low</option>
-                            <option value={7}>Latest</option>
-                            <option value={8}>Oldest</option>
-                        </select>
-                    </form>
+                </div>
+                <form className="CollectionPage__sort">
+                    <select onChange={(e)=> props.setsl(e)}>
+                        <option value={1}>Featured</option>
+                        <option value={2}>Best selling</option>
+                        <option value={3}>Alphabetically, A-Z</option>
+                        <option value={4}>Alphabetically, Z-A</option>
+                        <option value={5}>Price, low to high</option>
+                        <option value={6}>Price, high to low</option>
+                        <option value={7}>Latest</option>
+                        <option value={8}>Oldest</option>
+                    </select>
+                </form>
                 </div>
                 <div
                     className="CollectionPage__filter--table"
