@@ -4,15 +4,13 @@ import { SHOPINFO } from '../../../graphql/query/shopinfo'
 import { useQuery } from "@apollo/client"
 import { Button } from '@mui/material'
 import OnlineComponet from './OnlineComponet'
-import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
-import { v4 } from 'uuid'
 import { goToMessage } from '../../../action/goToMessage'
 
 const ShopOwn = (props) => {
   const { data, error }= useQuery(SHOPINFO, {
       variables: {
-          id_shop: props.id_shop
+        id_shop: props.id_shop_
       }
   })
   return (
@@ -40,7 +38,7 @@ const AvatarShop= memo((props)=> {
         </div>
     )
 })
-const NameShop= memo((props)=> {
+const NameShop= ((props)=> {
     const navigate= useNavigate()
     
     return (
@@ -68,7 +66,7 @@ const NameShop= memo((props)=> {
                             props?.id_user!= props?.author_shop &&
                             <Button variant="contained" onClick={()=> goToMessage(props.id_user, props.author_shop, navigate)}>Message</Button>
                         }
-                        <Button variant="outlined" onClick={()=> navigate(`/shop?id=${props.id_shop}`)}>Visit {props?.id_user == props?.author_shop && "your"} shop</Button>
+                        <Button variant="outlined" onClick={()=> navigate(`/shop?id=${props.id_shop}`)}>Visit {props?.id_user == props?.author_shop && props?.id_user !== undefined  ? "your" : ""} shop</Button>
                     </div>
                 }
             </div>  

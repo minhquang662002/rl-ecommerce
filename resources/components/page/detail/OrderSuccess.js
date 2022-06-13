@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
-import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline'
 import "./OrderSuccess.sass"
+import { Button, IconButton, Snackbar } from '@mui/material'
+import CloseIcon from '@mui/icons-material/Close';
 
 const OrderSuccess = (props) => {
   useEffect(() => {
@@ -8,13 +9,29 @@ const OrderSuccess = (props) => {
           props.setOrderSuccess(()=> false)
       }, 4000)
   }, [props.setOrderSuccess])
-
+  const action = (
+    <React.Fragment>
+      <Button color="secondary" size="small" onClick={()=> props.setOrderSuccess(()=> false)}>
+        UNDO
+      </Button>
+      <IconButton
+        size="small"
+        aria-label="close"
+        color="inherit"
+        onClick={()=> props.setOrderSuccess(()=> false)}
+      >
+        <CloseIcon fontSize="small" />
+      </IconButton>
+    </React.Fragment>
+  );
   return (
-    <div className="os4" style={{padding: 20, display: "flex", justifyContent: 'center',alignItems: 'center',flexDirection: 'column', position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)", zIndex: 999999999999, background: "#62e462"}} >
-        <CheckCircleOutlineIcon style={{width: 36, height: 36, fill: "green"}} />
-        <br />
-        <div style={{fontSize: 24, whiteSpace: "nowrap", color: "#fff", userSelect: "none"}}>Product is ordered to cart successfully.</div>
-    </div>
+    <Snackbar
+        open={props.orderSuccess}
+        autoHideDuration={6000}
+        onClose={()=> props.setOrderSuccess(()=> false)}
+        message="The order has been successfully added to cart"
+        action={action}
+      />
   )
 }
 

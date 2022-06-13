@@ -130,9 +130,11 @@ const DetailPage = (props) => {
                         id_product={tempItem?.id_product}
                         image={imageList?.shift()}
                         buyer={props.buyer}
+                        sale_specific_money={item2?.sale_specific_money}
+                        sale_percent={item2?.sale_percent}
                     />
                 </div>
-                <ShopOwn id_shop={item2?.id_shop} author_shop={item2?.author_shop} {...props?.user_} />
+                <ShopOwn id_shop_={item2?.id_shop} author_shop={item2?.author_shop} {...props?.user_} />
                 <div className="pe2" style={{display: 'flex', width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center', flexDirection: "row"}}>
                     <div className="sn1" style={{display: 'flex', boxSizing: 'border-box', marginTop: 15, width: 1150, justifyContent: 'space-between',  borderRadius: 8, boxShadow: "0 0 3px 0 #dee2e6"}}>
                         <div className="gf3" style={{display: "flex", justifyContent: "center", alignItems: "center", width: "calc(100% - 200px)"}}>

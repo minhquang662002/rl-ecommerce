@@ -13,7 +13,7 @@ class UserShop extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable= ["firstname", "lastname", "email", "password", "id_user", "secret_key", "api_token", "token", "token_key", "avt_user", "id_shop"];
+    protected $fillable= ["firstname", "lastname", "email", "password", "id_user", "secret_key", "api_token", "token", "token_key", "avt_user", "id_shop", "province_id", "district_id", "ward_id", "detail_address", "role_user", "phone_number", "gender", "date_of_birth", "month_of_birth", "year_of_birth", "fullname", "id_shop", "created_at", "status"];
     /**
      * Hidden serialazations
      *
@@ -31,7 +31,7 @@ class UserShop extends Model
      * @var boolean
      */
     public $incrementing = false;
-    protected $hidden= ["password", "api_token", "secret_key"];
+    protected $hidden= ["password", "api_token", "secret_key", "role_user"];
     public function phone() {
         return $this-> hasOne(PhoneNumber::class, "id_user", "user_id");
     }

@@ -3,6 +3,8 @@
 use App\Http\Controllers\AddFavoriteUser;
 use App\Http\Controllers\AddItemToCartController;
 use App\Http\Controllers\AddressController;
+use App\Http\Controllers\AdminDecisionController;
+use App\Http\Controllers\AdminManageController;
 use App\Http\Controllers\BriefProductController;
 use App\Http\Controllers\CartShoppingController;
 use App\Http\Controllers\ChatsController;
@@ -10,6 +12,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\FavoriteItemController;
 use App\Http\Controllers\FcbController;
 use App\Http\Controllers\FilterByCategory;
+use App\Http\Controllers\HelpCenterController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\InfoNotification;
 use App\Http\Controllers\ItemController;
@@ -22,6 +25,7 @@ use App\Http\Controllers\MessageConversation;
 use App\Http\Controllers\MessageImageController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\NotificationsController;
+use App\Http\Controllers\OrderRequestController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductControllers;
 use App\Http\Controllers\QuickviewController;
@@ -105,5 +109,33 @@ Route::get("/t/c/r", [ReviewProductController::class, "boot"]);
 Route::post("/upload/avatar", [ImageController::class, "storeImage"])->middleware("filtermaliciousfile");
 Route::post("/verify/user/auth", [VerifyCodeController::class, "SendMail"]);
 Route::post("/p/m/n/b", [ImageController::class, "batchImage"]);
+Route::post("/api/v1/help", [HelpCenterController::class, "textHelp"]);
+Route::get("/api/v1/request/order/product", [OrderRequestController::class, "orderRequest"]);
+Route::post("/api/v1/order", [OrderRequestController::class, "executeOrder"]);
 Route::get("/", [MainController::class, "index"]);
 Route::fallback([MainController::class, "index"]);
+
+Route::group(["prefix"=> "/api/v1/admin"], function() {
+    Route::post("/user", [AdminManageController::class, 'listUser']);
+    Route::post("/user/detail", [AdminManageController::class, "detailUser"]);
+    Route::post("/edit/name/user", [AdminManageController::class, "editNameUser"]); 
+    Route::post("/status/user", [AdminManageController::class, "statusUser"]);
+    Route::post("/shop", [AdminManageController::class, 'listShop']);
+    Route::post("/shop/detail", [AdminManageController::class, "detailShop"]);
+    Route::post("/edit/name/shop", [AdminManageController::class, "editNameShop"]); 
+    Route::post("/status/shop", [AdminManageController::class, "statusShop"]);
+    Route::post("/help/user", [AdminManageController::class, "helpUser"]);
+});
+
+Route::group(["prefix"=> "/api/v2/admin/decision/account"], function() {
+    Route::post("/lock", [AdminDecisionController::class, "lock_account"]);
+    Route::post("/unlock", [AdminDecisionController::class, "un_lock_account"]);
+    Route::post("/lock/time", [AdminDecisionController::class, "lock_account_time"]);
+    Route::post("/unlock/time", [AdminDecisionController::class, "unlock_account_time"]);
+});
+Route::group(["prefix"=> "/api/v2/admin/decision/shop"], function() {
+    Route::post("/lock", [AdminDecisionController::class, "lock_shop"]);
+    Route::post("/unlock", [AdminDecisionController::class, "un_lock_shop"]);
+    Route::post("/lock/time", [AdminDecisionController::class, "lock_shop_time"]);
+    Route::post("/unlock/time", [AdminDecisionController::class, "unlock_shop_time"]);
+});

@@ -24,6 +24,7 @@ export default function MenuFilter(props) {
                 aria-haspopup="true"
                 aria-expanded={open ? "true" : undefined}
                 onClick={handleClick}
+                
             >
                 Filter
             </Button>
@@ -37,7 +38,7 @@ export default function MenuFilter(props) {
                 }}
             >
                 {
-                    listCategories.map((item, key)=> <MenuItem key={key} onClick={handleClose}><Link to={{pathname: `/category/products/${item}`, search: `current_page=${1}`}}>{item}</Link></MenuItem>)
+                    listCategories.map((item, key)=> <MenuItem key={key} onClick={handleClose}><Link style={{width: "100%", textTransform: "capitalize"}} to={{pathname: `/category/products/${item}`, search: `current_page=${1}`}}>{item}</Link></MenuItem>)
                 }
             </Menu>
         </div>

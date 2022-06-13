@@ -23,6 +23,7 @@ const Shoppage = (props) => {
     const [offset, setOffset]= useState(()=> 1)
     const [author_shop, setAuthorShop]= useState(()=> "")
     const myRef= useRef()
+    const myRef2= useRef()
     const [dataset1, setdataset1]= useState(()=> ({
         color: "rgb(46, 137, 255)",
         title: "Revenue"
@@ -126,16 +127,19 @@ const Shoppage = (props) => {
                 <Helmet>
                     <title>Shop - Unilight</title>
                 </Helmet>
-                <ShopOwn id_shop={query.get("id")} a_s={author_shop} {...props} />
+                <ShopOwn id_shop_={query.get("id")} a_s={author_shop} {...props} />
                 <br />
                 {   
                     author_shop== props.id_user &&
-                    <ForAdmin myRef={myRef} />
+                    <>
+                        <ForAdmin myRef={myRef} myRef2={myRef2} />
+                        <br />
+                        <ContainerStaticstic id_user={props.id_user} id_shop={query.get("id")} dataset1={dataset1} dataset2={dataset2} setdataset1={setdataset1} setdataset2={setdataset2} />
+                        <UploadProduct myRef2={myRef2} {...props} id_shop={query.get("id")} a_s={author_shop} />
+                    </>
                 }
-                <br />
                 {/* <button onClick={()=> console.log(moment("26-04-2022", "DD-MM-YYYY").valueOf())}>click</button> */}
-                <ContainerStaticstic id_user={props.id_user} id_shop={query.get("id")} dataset1={dataset1} dataset2={dataset2} setdataset1={setdataset1} setdataset2={setdataset2} />
-                <UploadProduct {...props} id_shop={query.get("id")} a_s={author_shop} />
+                {}
                 <br />
                 <Classify setsl={setsl} />
                 <br />

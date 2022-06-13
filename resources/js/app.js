@@ -7,6 +7,7 @@ import { BrowserRouter } from "react-router-dom";
 import { ContextContainer } from "../../resources/ContextApp/ContextContainer"
 import { HelmetProvider } from 'react-helmet-async'
 import { QueryClientProvider, QueryClient } from "react-query"
+import './i18n';
 import {
     ApolloClient,
     InMemoryCache,
@@ -15,8 +16,8 @@ import {
   } from "@apollo/client"
 
 const client = new ApolloClient({
-uri: 'http://localhost:8000/graphql',
-cache: new InMemoryCache()
+    uri: 'http://localhost:8000/graphql',
+    cache: new InMemoryCache()
 })
 const queryClient= new QueryClient()
 ReactDom.render(

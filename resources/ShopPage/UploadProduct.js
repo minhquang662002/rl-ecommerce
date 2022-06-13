@@ -84,8 +84,9 @@ const UploadProduct = (props) => {
   const [listfullimage, setlistfullimage]= useState(()=> [])
   
   return (
-    <div style={{width: "100%", display: 'flex', gap: 10, padding: 20, backgroundColor: "#e4e6eb", flexDirection: "column"}}>
-        <div style={{fontSize: 18, fontWeight: 600}}>Upload products</div>
+    <div style={{width: "100%", display: 'flex', gap: 10, padding: 20, backgroundColor: "#e4e6eb", flexDirection: "column", position: "relative"}}>
+        <div ref={props.myRef2} style={{position: "absolute", top: 0, left: 0}}></div>
+        <div style={{fontSize: 18, fontWeight: 600}}>Sell products</div>
         <div style={{width: "100%", height: 'auto'}}> 
             <div>
                 <TextField onChange={(e)=> setap(prev=> ({...prev, title: e.target.value}))} id="outlined-basic-1" label="Enter your title product" variant="outlined" required />

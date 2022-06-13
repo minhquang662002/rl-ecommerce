@@ -2,7 +2,7 @@ import axios from "axios"
 import Cookies from "js-cookie"
 import moment from "moment"
 
-export const payment= async (author_shop, quantity, price, image,title, setLoading, dispatch, buyer, id_product, color)=> {
+export const payment= async (author_shop, quantity, price, image,title, setLoading, dispatch, buyer, id_product, color, size)=> {
     axios.interceptors.request.use(request=> {
         setLoading(()=> true)
         return request
@@ -34,7 +34,7 @@ export const payment= async (author_shop, quantity, price, image,title, setLoadi
         maxRedirects: 10,
         responseType: "json",
         data: {
-            id_user: author_shop, quantity, price, image, title, buyer, timeu: moment(new Date()).valueOf(), id_product, color
+            id_user: author_shop, quantity, price, image, title, buyer, timeu: moment(new Date()).valueOf(), id_product, color, size
         }
 
     })

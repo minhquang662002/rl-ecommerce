@@ -6,6 +6,7 @@ import BannerSection from "./banners/BannerSection"
 import axios from "axios"
 import { useState, useEffect } from "react"
 import { Helmet } from 'react-helmet-async';
+import PageFooter from "../../../footer/PageFooter"
 
 const MainPage = () => {
     const [data, setData]= useState(()=> [])
@@ -31,6 +32,7 @@ const MainPage = () => {
                 <BannerSection />
                 <MainPageSection section={"best seller"} data={data2} />
             </div>
+            <PageFooter />
         </div>
     )
 }

@@ -11,7 +11,7 @@ import { MyContext } from "../../../ContextApp/ContextContainer"
 import { useNavigate } from "react-router-dom"
 
 const Product = ({ item, section }) => {
-    const { title, price, color, size, imageHover, imageindex, id_product, decription, categories} = item;
+    const { title, price, color, size, imageHover, imageindex, id_product, decription, categories, sale_percent, sale_specific_money, sold} = item;
     const [displayedType, setdisplayedType] = useState(0);
     const [loading, setLoading] = useState(true);
     const { setNavChoices } = useContext(NavContext);
@@ -113,7 +113,32 @@ const Product = ({ item, section }) => {
                 >
                     <p className="Product__title">{title}</p>
                 </Link>
-                <p className="Product__price">${price}</p>
+                <div style={{margin: "8px 0"}}>
+                    {
+                        parseInt(sale_percent) < 1 && parseInt(sale_specific_money) <1 &&
+                        <div className="sjaiwajw">
+                            ${price}
+                        </div>
+                    }
+                    {
+                        parseInt(sale_percent) > 0 &&
+                        <div className="sjaiwajw">
+                            <span style={{textDecorationLine: "line-through"}}>${price}</span>
+                            &nbsp;
+                            <span style={{fontSize: 18, color: "red"}}>${(parseInt(price) - parseInt(sale_percent / 100 * parseInt(price)))}</span>
+                        </div>
+                    }
+                    {
+                        parseInt(sale_specific_money) > 0 &&
+                        <div className="sjaiwajw">
+                            <span style={{textDecorationLine: "line-through"}}>${price}</span>
+                            &nbsp;
+                            <span style={{fontSize: 18, color: "red"}}>${(parseInt(price) - parseInt(sale_specific_money))}</span>
+                        </div>
+                    }
+                </div>
+                <div style={{margin: "8px 0"}}>Sold: {sold}</div>
+
                 <div className="Product__colors--holder">
                     {color?.split(",").map((item, index) => {
                         return (
@@ -134,9 +159,30 @@ const Product = ({ item, section }) => {
                                     key={index}
                                     style={{ background: `${Item}` }}
                                 />
-                                <div className="Product__color--tooltip">
-                                    {item}
-                                </div>
+                                <>
+                                    {
+                                        parseInt(sale_percent) < 1 && parseInt(sale_specific_money) <1 &&
+                                        <div className="Product__color--tooltip">
+                                            ${price}
+                                        </div>
+                                    }
+                                    {
+                                        parseInt(sale_percent) > 0 &&
+                                        <div className="Product__color--tooltip">
+                                            <span style={{textDecorationLine: "line-through"}}>${price}</span>
+                                            &nbsp;
+                                            <span style={{fontSize: 18, color: "red"}}>${(parseInt(price) - parseInt(sale_percent / 100 * parseInt(price)))}</span>
+                                        </div>
+                                    }
+                                    {
+                                        parseInt(sale_specific_money) > 0 &&
+                                        <div className="Product__color--tooltip">
+                                            <span style={{textDecorationLine: "line-through"}}>${price}</span>
+                                            &nbsp;
+                                            <span style={{fontSize: 18, color: "red"}}>${(parseInt(price) - parseInt(sale_specific_money))}</span>
+                                        </div>
+                                    }
+                                </>
                             </div>
                         );
                     })}

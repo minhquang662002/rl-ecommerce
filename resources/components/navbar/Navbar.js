@@ -18,12 +18,11 @@ import Messenger from "../../Message/Message"
 import { fetchquantitynotifications } from "../../firebase/fetch_notifications/fetch_notifications"
 
 function Navbar(props) {
-    const [unwatch, setUnWatch]= useState(()=> 0)
+    
     const [listNoLogin, setListNoLogin]= useState(()=> localStorage.getItem("idOrder") || [])
     const navRef = useRef()
     let isSticky = useSticky(navRef)
     const { setNavChoices } = useContext(NavContext)
-    const [data, setData]= useState(()=> [])
     const { shoppingCart, setDataShoppingCart, lengthFavorite, dataShoppingCart }= useContext(MyContext)
     const [openPopup, setOpenPopup]= useState(()=> false)
     const [openMessage, setOpenMessage]= useState(()=> false)
@@ -36,7 +35,7 @@ function Navbar(props) {
     }, [lengthFavorite, dataShoppingCart])  
     useEffect(()=> {
         if(props.id_user) {
-            fetchquantitynotifications(props.id_user, setUnWatch)
+            fetchquantitynotifications(props.id_user, props.setUnWatch)
         }
     }, [props.id_user])
     return (
@@ -58,8 +57,16 @@ function Navbar(props) {
                 <Link to={{pathname: `/category/products/${"all"}`, search: `current_page=${1}`}}>
                     <Button className="navbar__categories">Shop</Button>
                 </Link>
-                <Button className="navbar__categories">Product</Button>
-                <Button className="navbar__categories">Sale</Button>
+                <Link to={{pathname: `/category/products/${"random"}`, search: `current_page=${1}`}}>
+                    <Button className="navbar__categories">Product</Button>
+                </Link>
+                <Link to={{pathname: `/category/products/${"sale"}`, search: `current_page=${1}`}}>
+                    <Button className="navbar__categories" onClick={()=> {
+                        
+                    }}>
+                        Sale
+                    </Button>
+                </Link>
                 <MenuFilter />
             </div>
             <div className="navbar__choices">
@@ -102,42 +109,47 @@ function Navbar(props) {
                                 <NotificationsIcon />
                             </span>
                             {
-                                unwatch > 0 &&
-                            <div style={{position: "absolute", top: -5, right: -5, padding: 5, color: "#fff", backgroundColor: "#cc0000", display: "flex", justifyContent: 'center',alignItems: 'center', borderRadius: "50%", width: 16, height: 16, zIndex: 997, fontSize: 12, cursor: "pointer"}}>{unwatch}</div>
+                                props.unwatch > 0 &&
+                            <div style={{position: "absolute", top: -5, right: -5, padding: 5, color: "#fff", backgroundColor: "#cc0000", display: "flex", justifyContent: 'center',alignItems: 'center', borderRadius: "50%", width: 16, height: 16, zIndex: 997, fontSize: 12, cursor: "pointer"}}>{props.unwatch}</div>
                             }
                             {
                                 openPopup=== true &&
-                            <Notifications setUnWatch={setUnWatch} id_user={props.id_user} setOpenPopup={setOpenPopup}/>
+                            <Notifications setUnWatch={props.setUnWatch} id_user={props.id_user} setOpenPopup={setOpenPopup}/>
                             }
                         </div>
                     </>
                 }
-                <Link to="/favorite">
-                    <div className="navbar__icons" style={{position: "relative"}}>
-                        {
-                            quantityOfFavoriteandCart.favorite >= 0  &&
-                        <div style={{position: "absolute", top: 0, right: 0, width: 14, height: 14, borderRadius: "50%", backgroundColor: "#000", color: "#fff", fontSize: 12,display: "flex", justifyContent: "center", alignItems: "center" }}><span>{quantityOfFavoriteandCart.favorite}</span></div>
-                        }
-                        <FavoriteBorderOutlinedIcon />
-                    </div>
-                </Link>
-                <div
-                    className="navbar__icons"  style={{position: "relative"}}
-                    onClick={() =>
-                        {setNavChoices((state) => ({ ...state, cart: true }));getShoppingCart(setDataShoppingCart, listNoLogin, props.id_user)}
-                    }
-                >
-                    <div style={{position: "absolute", top: -10, right: -5, width: 20, height: 20, borderRadius: "50%", backgroundColor: "#000", color: "#fff", fontSize: 12,display: "flex", justifyContent: "center", alignItems: "center" }}><span>{quantityOfFavoriteandCart.cart}</span></div>
-                    <ShoppingCartOutlinedIcon />
-                </div>
-                <div
-                    className="navbar__icons"  style={{position: "relative"}}
-                    onClick={() =>
-                        setNavChoices((state) => ({ ...state, setting: true }))
-                    }
-                >
-                    <SettingsOutlinedIcon />
-                </div>
+                {
+                    props.userLogin== "true" &&
+                    <>
+                        <Link to="/favorite">
+                            <div className="navbar__icons" style={{position: "relative"}}>
+                                {
+                                    quantityOfFavoriteandCart.favorite >= 0  &&
+                                <div style={{position: "absolute", top: 0, right: 0, width: 14, height: 14, borderRadius: "50%", backgroundColor: "#000", color: "#fff", fontSize: 12,display: "flex", justifyContent: "center", alignItems: "center" }}><span>{quantityOfFavoriteandCart.favorite}</span></div>
+                                }
+                                <FavoriteBorderOutlinedIcon />
+                            </div>
+                        </Link>
+                        <div
+                            className="navbar__icons"  style={{position: "relative"}}
+                            onClick={() =>
+                                {setNavChoices((state) => ({ ...state, cart: true }));getShoppingCart(setDataShoppingCart, listNoLogin, props.id_user)}
+                            }
+                        >
+                            <div style={{position: "absolute", top: -10, right: -5, width: 20, height: 20, borderRadius: "50%", backgroundColor: "#000", color: "#fff", fontSize: 12,display: "flex", justifyContent: "center", alignItems: "center" }}><span>{quantityOfFavoriteandCart.cart}</span></div>
+                            <ShoppingCartOutlinedIcon />
+                        </div>
+                        <div
+                            className="navbar__icons"  style={{position: "relative"}}
+                            onClick={() =>
+                                setNavChoices((state) => ({ ...state, setting: true }))
+                            }
+                        >
+                            <SettingsOutlinedIcon />
+                        </div>
+                    </>
+                }
 
             </div>
         </div>

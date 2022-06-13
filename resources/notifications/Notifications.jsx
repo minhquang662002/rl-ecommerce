@@ -29,23 +29,14 @@ const Notifications = (props) => {
   const [r, setr]= useState(()=> [])
   useEffect(()=> {
     if(data !== undefined && data !== null) { 
-      Object.values(data)?.map(item=> r.push(item.detail))
+      Object?.values(data)?.map(item=> r.push(item.detail))
     }
   }, [data])
   
   return (
-    <div ref={ref} className="nf1" style={{display: "flex", flexDirection: "column", width: 500, height: 600, overflow: "auto", backgroundColor: "#f2f0f5", position: "absolute", top: 30, right: 0, zIndex: 999, boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px"}}>
+    <div ref={ref} className={"nf1 "+props.className || "dsfdgfr"} style={{display: "flex", flexDirection: "column", width: 500, height: 600, overflow: "auto", backgroundColor: "#f2f0f5", position: "absolute", top: 30, right: 0, zIndex: 999, boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px"}}>
         <div className="nft1" style={{fontSize: 24, fontWeight: 600, padding: 10}}>Notifications</div>
         <div style={{padding: 10, width: "100%",}}>
-          {/* data */}
-          {/* {
-            // List notifications
-            data !== undefined && data !== null &&  
-            Object.values(data)?.map((item, key)=> Object.values(item).map(item2=> <Element key={key} {...item2} />))
-          } */}
-          {/* { data !== undefined && data !== null && 
-            Object.values(data)?.map((item, key)=> _.orderBy(Object.values(item), o=> moment(o.time).valueOf(), ["desc"]).map(item2=>console.log(item2)))
-          } */}
           {
             data !== undefined && data !== null &&  
             _.sortBy(r, o=> moment(o.time).valueOf(), ["desc"])?.reverse()?.map((item, key)=>  <Element key={key} {...item} />)

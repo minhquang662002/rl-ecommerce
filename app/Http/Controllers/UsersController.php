@@ -32,7 +32,17 @@ class UsersController extends Controller
             'token_key'=> md5($auth_ac),
             'secret_key'=> Str::uuid()-> toString(),
             'token'=> Str::uuid()-> toString(),
+            'phone_number'=> "",
+            'gender'=> 0,
+            "date_of_birth"=> 0, "month_of_birth"=> 0, "year_of_birth"=> 0,
+            "fullname"=> "",
+            'province_id'=> 0,
+            'district_id'=> 0,
+            'ward_id'=> 0,
+            'detail_address'=> "",
             'avt_user'=> 'none',
+            'role_user'=> 1,
+            "id_shop"=> "",
         ]);
         $user->save();
         return response()->json(['err'=>[0]]);

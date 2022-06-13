@@ -1,0 +1,47 @@
+.PageFooter__top--container {
+    background: #f7f7f7;
+}
+
+.PageFooter__top {
+    max-width: 1150px;
+    margin: 0 auto;
+    height: 350px;
+    display: flex;
+    align-items: baseline;
+    padding-top: 60px;
+    justify-content: space-between;
+}
+
+.Page__footer--information > p {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 10px;
+    gap: 5px;
+}
+
+.Page__footer--cols {
+    text-transform: capitalize;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.Footer__cols--title {
+    font-weight: bolder;
+}
+
+.PageFooter__bottom {
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.Footer__cols--items {
+    transition: 0.2s ease;
+    cursor: pointer;
+    display: inline;
+}
+
+.Footer__cols--items:hover {
+    color: aqua;
+}

@@ -6,7 +6,7 @@ export const STATICSTIC = gql `
       day,
       orders,
       revenue,
-      access_times,
+      access_times, 
     }
   }
 `;

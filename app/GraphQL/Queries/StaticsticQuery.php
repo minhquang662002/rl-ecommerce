@@ -45,7 +45,7 @@ class StaticsticQuery extends Query
         $select = $fields->getSelect();
         $with = $fields->getRelations();
         if(isset($args['id_user'] ) && isset($args["id_shop"])) {
-            return DB::table("staticstic_shop")->orderBy("day", "desc")->where("id_shop", $args['id_shop'])->where("id_user", $args["id_user"])->limit(60)->select("day", "orders", "revenue", "access_times")->get();
+            return DB::table("staticstic_shop")->where("id_shop", $args['id_shop'])->where("id_user", $args["id_user"])->select("day", "orders", "revenue", "access_times")->orderBy("day", "desc")->limit(60)->get();
         }
         return [''];
     }

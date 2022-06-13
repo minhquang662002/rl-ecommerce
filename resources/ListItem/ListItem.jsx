@@ -58,7 +58,7 @@ const ListItem = () => {
             }
         })
         const result= await res.data
-        if(result?.list.length< 1) {
+        if(result?.list?.length< 1) {
             setOutOfData(()=> true)
             setLoading(()=> false)
             return 
@@ -112,7 +112,7 @@ const ListItem = () => {
       return (
         <Fragment>
             <Helmet>
-                <title>{`${location.pathname.split("/")[location.pathname.split("/").length - 1].replace(/\b\w/g , function(m){ return m.toUpperCase(); } )}`} ( Page {`${page}`} ) - Unilight</title>
+                <title>{`${location.pathname.split("/")[location.pathname.split("/")?.length - 1].replace(/\b\w/g , function(m){ return m.toUpperCase(); } )}`} ( Page {`${page}`} ) - Unilight</title>
             </Helmet>
             <div className="container-list-item" style={{width: '100%', height: '100%', display: "flex", justifyContent: 'center',alignItems: 'center', alignContent: "center"}}>
                 <div className="list-item" style={{ display: "grid", flexDirection: "row", flexWrap: "wrap" ,justifyContent: "center", alignItems: "center", gridTemplateColumns: "repeat(4, 1fr)", gap: 30, marginTop: 50, width: 1150}}>

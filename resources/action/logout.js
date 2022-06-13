@@ -2,21 +2,8 @@ import axios from "axios"
 
 const fakesleep= (ms)=> new Promise(rel=> setTimeout(rel, ms))
 const logout= async (setLoading)=> {
-    await fakesleep(1000)
-    axios.interceptors.request.use(request=> {
-        setLoading(()=> true)
-        return request
-    }, error=> {
-        console.log(error)
-        return error
-    })
-    axios.interceptors.response.use(response=> {
-        setLoading(()=> false)
-        return response
-    }, err=> {
-        console.log(err)
-        return err
-    })
+    setLoading(()=> true)
+    await fakesleep(2000)
     const res= await axios({
         url: "http://localhost:8000/logout",
         method: "post",
@@ -35,6 +22,7 @@ const logout= async (setLoading)=> {
         responseType: "json",
 
     })
+    setLoading(()=> false)
     const result= await res.data
     if(result.logout=== "true") {
         localStorage.clear("u_ol")

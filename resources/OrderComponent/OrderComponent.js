@@ -5,8 +5,10 @@ import { Link, Route, Routes, useNavigate } from 'react-router-dom'
 import { GETDATA } from './getdata'
 import { useQuery } from '@apollo/client/react'
 import useQueryParams from '../ListItem/HookQuerySearch'
-import { CircularProgress } from '@mui/material'
+import { Button, CircularProgress } from '@mui/material'
 import { goToMessage } from '../action/goToMessage'
+import moment from 'moment'
+import { execute_order } from '../action/execute_order'
 
 const OrderComponent = (props) => {
   const list = useMemo(()=> ([
@@ -67,13 +69,17 @@ const Component= (props)=> {
         )
     }
 }
-const Product= (props)=> {
+export const Product= (props)=> {
     const navigate= useNavigate()
     return (
-        <div  onClick={()=> navigate(`/collections/products/${props.title.trim().toLowerCase().replaceAll(" ", "-")}`, {state: {id_product: props.id_product}})}  className='ddasww' style={{width: "100%", height: "auto", boxSizing: "border-box", padding: 20, border: "1px solid #d5d5d5", borderRadius: 10, background: "#f2f0f5", cursor: "pointer" }}>
+        <div onClick={()=> navigate(`/collections/products/${props.title.trim().toLowerCase().replaceAll(" ", "-")}`, {state: {id_product: props.id_product}})}  className='ddasww' style={{width: "100%", height: "auto", boxSizing: "border-box", padding: 20, border: "1px solid #d5d5d5", borderRadius: 10, background: "#f2f0f5", cursor: "pointer" }}>
             <C1 {...props} />
             <C2 {...props} />
             <C3 {...props} />
+            {
+                props.oooo=== true &&
+                <C4 {...props} />
+            }
         </div>
     )
 }
@@ -128,6 +134,49 @@ const C3= (props)=> {
                 {
                     props.state== 1 &&
                     <div style={{padding: "6px 12px", border: "1px solid #d5d5d5", borderRadius: 6, color: "#706b6b", background: "#fff", userSelect: "none"}}>Wait for show owner confirm your order.</div>
+                }
+            </div>
+        </div>
+    )
+}
+const C4= (props)=> {
+    return (
+        <div style={{width: "100%", display: "flex", alignItems: "center", justifyContent: 'space-between',padding: "10px", marginTop: 20}}>
+            <div>
+
+            </div>
+            <div style={{display: 'flex', flexDirection: "column", alignItems: "flex-end", gap: 16}}>
+                <div>Order at: <span style={{color: "#2e89ff", fontSize: 20}}>{moment(parseInt(props.timeu)).format("HH:mm DD/MM/YYYY")}</span></div>
+                <div>Order by: <span style={{color: "#2e89ff", fontSize: 20}}>{props.firstname} {props.lastname}</span></div>
+                <br />
+                {
+                    props.state== 1 &&
+                    <div style={{display: "flex", justifyContent: 'center',alignItems: 'center', gap: 10}}>
+                        <Button onClick={async (e)=> {
+                            e.stopPropagation()
+                            await execute_order(props.id_order, -1)
+                            props.setchange(prev=> !prev)
+
+                        }} variant={"contained"} color="error">Deny</Button>
+                        <Button onClick={async (e)=> {
+                            e.stopPropagation()
+                            await execute_order(props.id_order, 0)
+                            props.setchange(prev=> !prev)
+                        }} variant={"contained"}>Accept</Button>
+                    </div>
+                    
+                }
+                {
+                    props.state== -1 &&
+                    <div style={{color: "red"}}>
+                        Denied request order 
+                    </div>
+                }
+                {
+                    props.state== 0 &&
+                    <div style={{color: "blue"}}>
+                        Accepted request order
+                    </div>
                 }
             </div>
         </div>

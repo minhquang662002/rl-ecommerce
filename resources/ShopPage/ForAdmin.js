@@ -18,6 +18,9 @@ const ForAdmin = (props) => {
                   if(parseInt(key) + parseInt(1) == 1) {
                     props.myRef.current.scrollIntoView({behavior: "smooth",block: 'end', })
                   }
+                  if(parseInt(key) + parseInt(1)== 4) {
+                    props.myRef2.current.scrollIntoView({behavior: "smooth",block: 'start', })
+                  }
                 }} to={`/shop?id=${query.get("id")}&q=${parseInt(key) +1}`} key={key}><div className="iewsd" style={{width: '100%', display: 'flex', flex: "1 1 0", justifyContent: 'center',alignItems: "center", cursor: "pointer", height: '100%'}}>
                   {item}
                 </div></Link>)
@@ -25,8 +28,7 @@ const ForAdmin = (props) => {
           </div>
       </div>
       {
-        query.get("q") != 1 &&
-        <ComponentForAdmin s={s} />
+        <ComponentForAdmin {...props} s={s} />
       }
     </>
   )

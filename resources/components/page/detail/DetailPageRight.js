@@ -4,7 +4,7 @@ import { Link } from "react-router-dom"
 import { addfavorite } from "../../../action/add_favorite"
 import { additemtocart } from "../../../action/add_item_to_cart"
 import IconAlerts from "./AddSuccess"
-import SimpleDialogDemo from "./ConfirmOrder"
+import BuyNow from "./ConfirmOrder"
 import OrderSuccess from "./OrderSuccess"
 
 const DetailPageRight = (props) => {
@@ -22,9 +22,34 @@ const DetailPageRight = (props) => {
         <>
             <div className={`DetailPage__product--info ${props.className}`}>
             <h2 className="DetailPage__product--title">{props.title}</h2>
-            <p className="DetailPage__product--price">
-                ${props.price}
-            </p>
+            <div className="DetailPage__product--price">
+                <div style={{margin: "8px 0"}}>
+                    {
+                        parseInt(props.sale_percent) < 1 && parseInt(props.sale_specific_money) <1 &&
+                        <div className="sjaiwajw">
+                            ${props.price}
+                        </div>
+                    }
+                    {
+                        parseInt(props.sale_percent) > 0 &&
+                        <div className="sjaiwajw">
+                            <span style={{textDecorationLine: "line-through"}}>${props.price}</span>
+                            &nbsp;
+                            &nbsp;
+                            <span style={{fontSize: 32, color: "red"}}>${(parseInt(props.price) - parseInt(props.sale_percent / 100 * parseInt(props.price)))}</span>
+                        </div>
+                    }
+                    {
+                        parseInt(props.sale_specific_money) > 0 &&
+                        <div className="sjaiwajw">
+                            <span style={{textDecorationLine: "line-through"}}>${props.price}</span>
+                            &nbsp;
+                            &nbsp;
+                            <span style={{fontSize: 32, color: "red"}}>${(parseInt(props.price) - parseInt(props.sale_specific_money))}</span>
+                        </div>
+                    }
+                </div>
+            </div>
             <p className="DetailPage__product--description">
                 {props.decription}
             </p>
@@ -105,7 +130,7 @@ const DetailPageRight = (props) => {
                         </div>
                         </div>
                         <br />
-                        <SimpleDialogDemo {...infoItem} image={props.image} {...props} />
+                        <BuyNow {...infoItem} image={props.image} {...props} />
                         <div className="ppp" style={{display: 'inline-flex', height: 40, alignItems: 'center'}}>
                             <div className="pa2" style={{display: 'inherit', alignItems: 'center',justifyContent: 'center'}}>
                             <span style={{height: 18}}> Categories:	&nbsp;   </span> 
@@ -124,7 +149,7 @@ const DetailPageRight = (props) => {
             </div>
             {
                 orderSuccess=== true &&
-                <OrderSuccess setOrderSuccess={setOrderSuccess} />
+                <OrderSuccess orderSuccess={orderSuccess} setOrderSuccess={setOrderSuccess} />
             }
             {
                 check=== true && 

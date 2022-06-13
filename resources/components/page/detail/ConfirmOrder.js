@@ -8,13 +8,31 @@ import CircularProgress from '@mui/material/CircularProgress'
 import { useDispatch } from "react-redux"
 import { useLocation } from 'react-router-dom'
 
-function SimpleDialog(props) {
+function PreViewBeforeCheckout(props) {
   const handleClose = () => {
     props.onClose(()=> false)
   }
   const [loading, setLoading]= React.useState(()=> false)
   const dispatch= useDispatch()
+  const [price, setprice]= React.useState(()=> 0)
+  React.useEffect(()=> {
+    if(
+      parseInt(props.sale_percent) < 1 && parseInt(props.sale_specific_money) <1 
+    ) {
+      setprice(()=> props.price)
+    }
+    else if(
+      parseInt(props.sale_percent) > 0
+    ) {
+      setprice(()=> (parseInt(props.price) - parseInt(props.sale_percent / 100 * parseInt(props.price))))
+    }
+    else if(
+      parseInt(props.sale_specific_money)
+    ) {
+      setprice(()=> (parseInt(props.price) - parseInt(props.sale_specific_money)))
+    }
 
+  }, [props])
   return (
     <Dialog onClose={handleClose} open={props.open}>
       <DialogTitle>Detail order</DialogTitle>
@@ -41,11 +59,37 @@ function SimpleDialog(props) {
             <div>
               <strong>{props.quantity && (`Quantity: ${props.quantity}`)} </strong>
             </div>
+            <div>
+              <div style={{margin: "8px 0"}}>
+                {
+                    parseInt(props.sale_percent) < 1 && parseInt(props.sale_specific_money) <1 &&
+                    <div className="sjaiwajw">
+                        ${props.price}
+                    </div>
+                }
+                {
+                    parseInt(props.sale_percent) > 0 &&
+                    <div className="sjaiwajw">
+                        <span style={{textDecorationLine: "line-through"}}>${props.price}</span>
+                        &nbsp;
+                        <span style={{fontSize: 18, color: "red"}}>${(parseInt(props.price) - parseInt(props.sale_percent / 100 * parseInt(props.price)))}</span>
+                    </div>
+                }
+                {
+                    parseInt(props.sale_specific_money) > 0 &&
+                    <div className="sjaiwajw">
+                        <span style={{textDecorationLine: "line-through"}}>${props.price}</span>
+                        &nbsp;
+                        <span style={{fontSize: 18, color: "red"}}>${(parseInt(props.price) - parseInt(props.sale_specific_money))}</span>
+                    </div>
+                }
+              </div>
+            </div>
         </div>
       </div>
       <div className="ji3" style={{display: "flex", width: "100%", flexDirection: "row-reverse", alignItems: "center", gap: 10, padding: 10}}>
         <Button disabled={loading=== true ? true : false} onClick={()=> 
-          payment(props.author_shop, props.quantity,parseInt(props.price), props.image, props.title, setLoading, dispatch, props.buyer, props.id_product, props.color_)}
+          payment(props.author_shop, props.quantity,parseInt(price), props.image, props.title, setLoading, dispatch, props.buyer, props.id_product, props.color_, props.size_)}
           variant="contained">{loading=== true ? <CircularProgress style={{width: 24, height: 24}} /> : "Checkout"}</Button>
         <Button onClick={()=> handleClose()} variant="outlined">Cancel</Button>
       </div>
@@ -53,12 +97,12 @@ function SimpleDialog(props) {
   )
 }
 
-SimpleDialog.propTypes = {
+PreViewBeforeCheckout.propTypes = {
   onClose: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
 }
 
-export default function SimpleDialogDemo(props) {
+export default function BuyNow(props) {
   const location= useLocation()
   const [open, setOpen] = React.useState(false)
 
@@ -82,7 +126,7 @@ export default function SimpleDialogDemo(props) {
           Buy now
         </Button>
       }
-      <SimpleDialog
+      <PreViewBeforeCheckout
         open={open}
         onClose={handleClose}
         {...props}

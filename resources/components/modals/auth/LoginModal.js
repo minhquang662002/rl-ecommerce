@@ -66,12 +66,7 @@ const LoginModal = ({ navChoices, setNavChoices }) => {
                             Create your account
                         </span>
                     </p>
-                    <p>
-                        Lost password?{" "}
-                        <span style={{ color: "black", cursor: "pointer" }}>
-                            Recover password
-                        </span>
-                    </p>
+
                 </div>
             </div>
         </div>

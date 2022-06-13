@@ -152,7 +152,7 @@ const DetaiPageLeft = ({
                     </div>
                 </div>
                 <div>
-                    <div style={{position: 'relative'}}>
+                    <div className="fjesfidjsdkf" style={{position: 'relative', height: "100%"}}>
                         
                         <div onMouseMove={(e)=> moveLens(e)} ref={lensRef} className="img-zoom-lens" style={{position: 'absolute', border: '1px solid #fff', width: 150, height: 150}}>
                         </div>
@@ -162,6 +162,7 @@ const DetaiPageLeft = ({
                             className="DetailPage__image--displayed image"
                             src={imageList[displayedImage]}
                             onMouseMove={(e)=> moveLens(e)}
+                            style={{height: "100%", minWidth: 300}}
                         />
                     </div>
                     

@@ -24,5 +24,15 @@ class FilterByCategory extends Controller
         if($request-> categories== "trending") {
             return response()-> json(["total"=> Products::where("classify", "trending")->get()-> count(), "list"=> Products::where("classify", "trending")->limit(8)-> offset(($request-> current_page - 1) * 8)-> get()]);
         }
+        if($request-> categories== "sale") {
+            return response()-> json(["total"=> Products::where("sale_specific_money" ,">", 0)-> orWhere("sale_percent", ">", 0)-> get()-> count(), "list"=> Products::where("sale_specific_money" ,">", 0)-> orWhere("sale_percent", ">", 0)->limit(8)-> offset(($request-> current_page - 1) * 8)-> get()]);
+        }
+        if($request-> categories== "latest") {
+            return response()-> json(["total"=> Products:: get()-> count(), "list"=> Products::orderBy("timeup", "desc")->limit(8)-> offset(($request-> current_page - 1) * 8)-> get()]);
+        }
+        if($request-> categories== "random") {
+            
+        }
     }
+    
 }

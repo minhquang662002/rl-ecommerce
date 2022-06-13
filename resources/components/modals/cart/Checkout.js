@@ -10,14 +10,14 @@ const Checkout = (props) => {
                 <LocalOfferIcon />
                 <span style={{ fontWeight: "bolder" }}>
                     5% OFF(-${((parseFloat(props.price)) * 0.05 * parseInt(props.qty)).toFixed(2)})
-                    {parseFloat(props.price)}
+                    
                 </span>
             </div>
         </div>
         <div className="CartModal__footer--calculation">
             <p style={{ fontWeight: "bolder" }}>Subtotal:</p>
             <div style={{ textAlign: "right" }}>
-                <p>${parseFloat(props.price) * parseInt(props.qty)} - ${((parseFloat(props.price)) * 0.05 * parseFloat(props.qty))}</p>
+                <p>${parseFloat(props.price) * parseInt(props.qty)} - ${((parseFloat(props.price)) * 0.05 * parseFloat(props.qty)).toFixed(2)}</p>
                 <p style={{ fontWeight: "bolder" }}>${((parseFloat(props.price)) * parseInt(props.qty) - ((parseFloat(props.price)) * 0.05 * parseInt(props.qty))).toFixed(2)}</p>
             </div>
         </div>

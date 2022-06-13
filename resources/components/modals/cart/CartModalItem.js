@@ -11,7 +11,7 @@ const CartModalItem = ({ item, cart }) => {
         setQuanity(value);
     };
     return (
-        <div className="CartModal__items">
+        <div className="CartModal__items" style={{padding: 10}}>
             <img className="CartModal__item--images" src={imageindex} />
             <div>
                 <div className="CartModal__item--info">
@@ -42,10 +42,11 @@ const CartModalItem = ({ item, cart }) => {
                                 )}
                             </span>
                             <input
-                                style={{backgroundColor: "#fff", color: "#000",}}
+                                style={{backgroundColor: "#f2f0f5", color: "#000",}}
                                 type="number"
                                 value={qty}
                                 onChange={handleChange}
+
                             />
                             <span
                                 className="CartModal__quanity--increase"

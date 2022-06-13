@@ -50,6 +50,7 @@ class PaymentController extends Controller
         Redis::set("seque", $secret_token.','.$x, "EX", 180);
         FacadesSession::flash("success", "Payment successfully made.");
         DB::table("order_product")-> insert([
+            'id_order'=> Str::uuid(),   
             'id_product'=> $request-> id_product,
             'quantity'=> $request-> quantity,
             'cost'=> $request-> price,
@@ -58,6 +59,7 @@ class PaymentController extends Controller
             'state'=> 1,
             'id_seller'=> $request-> id_user,
             'timeu'=> $request-> timeu,
+            "size"=> $request-> size
         ]);
         return response()-> json([$checkout_url->url, $checkout_url->payment_intent, $secret_token]);
         header("HTTP/1.1 303 See Other");
