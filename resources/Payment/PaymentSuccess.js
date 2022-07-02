@@ -34,7 +34,7 @@ const PaymentSuccess = () => {
       })
       const result= await res.data
       if(query.get("query")== Cookies.get("se_pa")) {
-        await p_notifications(query.get("i"), `${result[0].firstname} ${result[0].lastname}`, result[0].avt_user, " just purchased your item via online payment method")
+        await p_notifications(query.get("i"), `${result[0].firstname} ${result[0].lastname}`, result[0].avt_user, " just purchased your item via online payment method", "", "")
         navigate("/order", {replace: true})
       }
     })()
@@ -42,7 +42,7 @@ const PaymentSuccess = () => {
   return (
     <>
       {
-        (query.get("query")== Cookies.get("se_pa")) && 
+        (query.get("query")== Cookies.get("se_pa")) &&
         <div>PaymentSuccess</div>
       }
       {

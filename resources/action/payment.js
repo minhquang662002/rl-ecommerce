@@ -34,7 +34,7 @@ export const payment= async (author_shop, quantity, price, image,title, setLoadi
         maxRedirects: 10,
         responseType: "json",
         data: {
-            id_user: author_shop, quantity, price, image, title, buyer, timeu: moment(new Date()).valueOf(), id_product, color, size
+            id_user: buyer, quantity, price, image, title,buyer: author_shop , timeu: moment(new Date()).valueOf(), id_product, color, size
         }
 
     })

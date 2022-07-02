@@ -12,6 +12,6 @@ export const p_notifications= async (id_user, username, avatar_user, content, id
         user_name: username,
         id_product: id_product || "none",
         see: {state: false},
-        link: link
+        link: link || "none"
     })
 }

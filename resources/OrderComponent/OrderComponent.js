@@ -9,6 +9,7 @@ import { Button, CircularProgress } from '@mui/material'
 import { goToMessage } from '../action/goToMessage'
 import moment from 'moment'
 import { execute_order } from '../action/execute_order'
+import axios from 'axios'
 
 const OrderComponent = (props) => {
   const list = useMemo(()=> ([
@@ -17,7 +18,7 @@ const OrderComponent = (props) => {
       {type: 3, title: "Delivery"},
       {type: 4, title: "Delivered"},
   ]))
-  
+
   if(props.email && props.id_user) {
       return (
           <>
@@ -58,12 +59,15 @@ const Component= (props)=> {
     else {
         return (
             <div style={{width: "100%", position: "relative", padding: 20}}>
-                
+
                 {
                     data  && data?.purchase?.map((item, key)=> <Fragment key={key}>
                         <Product {...item} {...props} />
                         <div style={{marginBottom: 20, width: "100%"}}></div>
                     </Fragment>)
+                }
+                {
+                    data?.purchase.length <=0 && <div>Nothing to render</div>
                 }
             </div>
         )
@@ -97,9 +101,20 @@ const C1= (props)=> {
                     e.stopPropagation()
                     navigate(`/shop?id=${props.id_shop}`)
                 }} style={{padding: "6px 12px", border: "1px solid #2e89ff", fontWeight: 600, borderRadius: 6, color: "#2e89ff", cursor: "pointer"}}>Visit shop</div>
-            </div> 
+            </div>
             <div style={{color: "orange"}}>
-                Wait for confirm
+                {
+                    props.state== 1 && "Wait for confirm"
+                }
+                {
+                    props.state==2 && "Confirm success"
+                }
+                {
+                    props.state==3 && "Delivery"
+                }
+                {
+                    props.state==4 && "Delivered"
+                }
             </div>
         </div>
     )
@@ -124,6 +139,25 @@ const C2= (props)=> {
     )
 }
 const C3= (props)=> {
+    const cancelOrder= async ()=> {
+        const res= await axios({
+            url: "http://localhost:8000/cancel_order",
+            method: "get",
+            timeout: 10000,
+            timeoutErrorMessage: "Time out login",
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute("content")
+            },
+            xsrfCookieName: document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
+            xsrfHeaderName: 'X-CSRF-TOKEN',
+            withCredentials: false,
+            params: {
+                id_product: props?.id_product,
+                
+            }
+
+        })
+    }
     return (
         <div style={{width: "100%", display: "flex", alignItems: "center", justifyContent: 'space-between',padding: "10px", marginTop: 20}}>
             <div>
@@ -135,6 +169,9 @@ const C3= (props)=> {
                     props.state== 1 &&
                     <div style={{padding: "6px 12px", border: "1px solid #d5d5d5", borderRadius: 6, color: "#706b6b", background: "#fff", userSelect: "none"}}>Wait for show owner confirm your order.</div>
                 }
+                {
+                    <div style={{padding: 20}} onClick={(e)=> e.stopPropagation()}>Cancel order </div>
+                }
             </div>
         </div>
     )
@@ -143,7 +180,6 @@ const C4= (props)=> {
     return (
         <div style={{width: "100%", display: "flex", alignItems: "center", justifyContent: 'space-between',padding: "10px", marginTop: 20}}>
             <div>
-
             </div>
             <div style={{display: 'flex', flexDirection: "column", alignItems: "flex-end", gap: 16}}>
                 <div>Order at: <span style={{color: "#2e89ff", fontSize: 20}}>{moment(parseInt(props.timeu)).format("HH:mm DD/MM/YYYY")}</span></div>
@@ -154,22 +190,22 @@ const C4= (props)=> {
                     <div style={{display: "flex", justifyContent: 'center',alignItems: 'center', gap: 10}}>
                         <Button onClick={async (e)=> {
                             e.stopPropagation()
-                            await execute_order(props.id_order, -1)
+                            await execute_order(props.id_order, 0)
                             props.setchange(prev=> !prev)
 
                         }} variant={"contained"} color="error">Deny</Button>
                         <Button onClick={async (e)=> {
                             e.stopPropagation()
-                            await execute_order(props.id_order, 0)
+                            await execute_order(props.id_order, 2)
                             props.setchange(prev=> !prev)
                         }} variant={"contained"}>Accept</Button>
                     </div>
-                    
+
                 }
                 {
                     props.state== -1 &&
                     <div style={{color: "red"}}>
-                        Denied request order 
+                        Denied request order
                     </div>
                 }
                 {

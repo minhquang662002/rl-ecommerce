@@ -13,9 +13,6 @@ const Navbar = (props) => {
         <Link to="/admin/manage/help" style={{textDecoration: "none"}}>
             <div style={{fontSize: 18, fontWeight: 600}}>Support </div>
         </Link>
-        <Link to="/admin/manage/feedback" style={{textDecoration: "none"}}>
-            <div style={{fontSize: 18, fontWeight: 600}}>Feedback </div>
-        </Link>
     </div>
   )
 }
